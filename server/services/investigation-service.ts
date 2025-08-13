@@ -337,6 +337,42 @@ export class InvestigationService {
   async getAllAvailableTools(): Promise<Record<string, any[]>> {
     return mcpManager.getAllAvailableTools();
   }
+
+  async performBlockchainTracing(address: string): Promise<any> {
+    console.log(`🔍 Performing detailed blockchain tracing for: ${address}`);
+
+    try {
+      const result = await blockchainTracerAgent.traceAddress(address);
+      return result;
+    } catch (error) {
+      console.error('Blockchain tracing failed:', error);
+      throw error;
+    }
+  }
+
+  async generateFlowVisualization(address: string, transactionData: any[], connectedEntities: any[]): Promise<any> {
+    console.log(`📊 Generating flow visualization for: ${address}`);
+
+    try {
+      const visualization = await flowVisualizerAgent.generateVisualization(
+        address,
+        transactionData,
+        connectedEntities,
+        2 // depth
+      );
+
+      // Also generate the D3.js code
+      const d3Code = flowVisualizerAgent.generateD3Code(visualization);
+
+      return {
+        ...visualization,
+        d3Code
+      };
+    } catch (error) {
+      console.error('Flow visualization generation failed:', error);
+      throw error;
+    }
+  }
 }
 
 export const investigationService = new InvestigationService();
