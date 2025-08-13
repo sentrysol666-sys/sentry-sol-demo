@@ -299,34 +299,37 @@ export default function Navigation() {
                   ref={searchInputRef}
                   placeholder="Search pages, features, and tools..."
                   value={searchQuery}
-                  onValueChange={setSearchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="border-0"
                 />
                 <CommandList className="max-h-80">
-                  <CommandEmpty className="py-6 text-center text-sm text-muted-foreground">
-                    <SearchOff className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                    No results found.
-                  </CommandEmpty>
-                  <CommandGroup heading="Navigation">
-                    {filteredItems.map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <CommandItem
-                          key={item.name}
-                          onSelect={() => handleSearch(item.href)}
-                          className="flex items-center space-x-3 py-3"
-                        >
-                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50">
-                            <Icon className="h-4 w-4" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="font-medium">{item.name}</div>
-                            <div className="text-xs text-muted-foreground">{item.description}</div>
-                          </div>
-                        </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>
+                  {filteredItems.length === 0 ? (
+                    <CommandEmpty className="py-6 text-center text-sm text-muted-foreground">
+                      <SearchOff className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      No results found.
+                    </CommandEmpty>
+                  ) : (
+                    <CommandGroup heading="Navigation">
+                      {filteredItems.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <CommandItem
+                            key={item.name}
+                            onSelect={() => handleSearch(item.href)}
+                            className="flex items-center space-x-3 py-3 cursor-pointer"
+                          >
+                            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50">
+                              <Icon className="h-4 w-4" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-medium">{item.name}</div>
+                              <div className="text-xs text-muted-foreground">{item.description}</div>
+                            </div>
+                          </CommandItem>
+                        );
+                      })}
+                    </CommandGroup>
+                  )}
                 </CommandList>
               </Command>
             </PopoverContent>
