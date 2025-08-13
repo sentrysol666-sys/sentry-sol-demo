@@ -109,15 +109,41 @@ export function getUserFriendlyErrorMessage(error: WalletError): string {
  */
 export function logWalletError(context: string, error: any, additionalInfo?: Record<string, any>) {
   const walletError = extractErrorMessage(error);
-  
-  console.error(`[${context}] Wallet Error:`, {
+
+  // Safely serialize the original error
+  let serializedError: any = null;
+  try {
+    if (error instanceof Error) {
+      serializedError = {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+        ...(error as any) // Include any additional properties
+      };
+    } else if (typeof error === 'object' && error !== null) {
+      serializedError = JSON.parse(JSON.stringify(error, (key, value) => {
+        // Handle circular references and non-serializable values
+        if (typeof value === 'function') return '[Function]';
+        if (typeof value === 'undefined') return '[Undefined]';
+        if (value === null) return null;
+        return value;
+      }));
+    } else {
+      serializedError = String(error);
+    }
+  } catch (serializationError) {
+    serializedError = `[Serialization Error: ${String(error)}]`;
+  }
+
+  console.error(`[${context}] Wallet Error:`, walletError.message);
+  console.error(`[${context}] Error Details:`, {
     message: walletError.message,
     code: walletError.code,
     type: walletError.type,
-    originalError: error,
+    originalError: serializedError,
     ...additionalInfo
   });
-  
+
   return walletError;
 }
 
