@@ -44,5 +44,8 @@ export function createServer() {
   // Wallet Analysis API endpoints
   app.use("/api/wallet", walletAnalysisRoutes);
 
+  // Comprehensive AML Investigation endpoints
+  app.use("/api/aml", comprehensiveAMLRoutes);
+
   return app;
 }
