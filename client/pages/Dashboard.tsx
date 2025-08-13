@@ -5,11 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { 
-  AlertTriangle, Shield, Brain, Network, Search, BarChart3, 
-  TrendingUp, TrendingDown, Activity, Clock, CheckCircle, 
-  XCircle, Eye, Users, FileText, Settings, Zap, 
-  AlertCircle, Info, RefreshCw 
+import MCPServicesStatus from "@/components/MCPServicesStatus";
+import {
+  AlertTriangle, Shield, Brain, Network, Search, BarChart3,
+  TrendingUp, TrendingDown, Activity, Clock, CheckCircle,
+  XCircle, Eye, Users, FileText, Settings, Zap,
+  AlertCircle, Info, RefreshCw
 } from "lucide-react";
 
 export default function Dashboard() {
