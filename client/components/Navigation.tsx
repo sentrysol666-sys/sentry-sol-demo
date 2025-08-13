@@ -39,12 +39,12 @@ export default function Navigation() {
   const location = useLocation();
 
   const navigationItems = [
-    { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
-    { name: "Wallet Screening", href: "/wallet-screening", icon: Search },
-    { name: "Case Management", href: "/cases", icon: FileText },
-    { name: "Analytics", href: "/analytics", icon: BarChart3 },
-    { name: "Compliance", href: "/compliance", icon: Shield },
-    { name: "Settings", href: "/settings", icon: Settings },
+    { name: "Dashboard", href: "/dashboard", icon: BarChartIcon },
+    { name: "Wallet Screening", href: "/wallet-screening", icon: SearchIcon },
+    { name: "Case Management", href: "/cases", icon: DocumentIcon },
+    { name: "Analytics", href: "/analytics", icon: BarChartIcon },
+    { name: "Compliance", href: "/compliance", icon: ShieldIcon },
+    { name: "Settings", href: "/settings", icon: SettingsIcon },
   ];
 
   const isActive = (href: string) => location.pathname === href;
