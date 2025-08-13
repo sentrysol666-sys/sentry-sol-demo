@@ -21,8 +21,15 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@langchain/community": "^0.3.50",
+    "@langchain/core": "^0.3.70",
+    "@langchain/mistralai": "^0.2.1",
+    "@types/d3": "^7.4.3",
+    "d3": "^7.9.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "langchain": "^0.3.30",
+    "langsmith": "^0.3.58",
     "zod": "^3.25.76"
   },
   "devDependencies": {
