@@ -680,20 +680,63 @@ export class SupervisorAgent {
 
   private generateSanctionsFindings(result: any): any[] {
     const findings = [];
+
     if (result.sanctionsMatch) {
       findings.push({
         type: "sanctions_match",
         severity: "critical",
-        description: "Address matches sanctions list"
+        description: `Address matches sanctions list: ${result.sanctionsSource}`,
+        evidence: result.sanctionsDetails
       });
     }
-    if (result.pepMatch) {
+
+    if (result.blacklistMatch) {
       findings.push({
-        type: "pep_match", 
+        type: "blacklist_match",
         severity: "high",
-        description: "Address linked to politically exposed person"
+        description: "Address found on blacklist databases"
       });
     }
+
+    if (result.mixerServices && result.mixerServices.length > 0) {
+      findings.push({
+        type: "mixer_usage",
+        severity: "high",
+        description: `Connected to mixing services: ${result.mixerServices.join(', ')}`
+      });
+    }
+
+    if (result.illicitServices && result.illicitServices.length > 0) {
+      findings.push({
+        type: "illicit_services",
+        severity: "critical",
+        description: `Connected to illicit services: ${result.illicitServices.join(', ')}`
+      });
+    }
+
+    if (result.riskLevel === 'high' || result.riskLevel === 'critical') {
+      findings.push({
+        type: "high_risk_rating",
+        severity: result.riskLevel === 'critical' ? 'critical' : 'high',
+        description: `MetaSleuth risk assessment: ${result.riskLevel}`
+      });
+    }
+
+    // Check for concerning labels
+    if (result.labels && result.labels.length > 0) {
+      const concerningLabels = result.labels.filter((label: any) =>
+        label.type === 'sanctions' || label.type === 'scam' || label.type === 'hack'
+      );
+
+      if (concerningLabels.length > 0) {
+        findings.push({
+          type: "concerning_labels",
+          severity: "high",
+          description: `Concerning labels found: ${concerningLabels.map((l: any) => l.label).join(', ')}`
+        });
+      }
+    }
+
     return findings;
   }
 
