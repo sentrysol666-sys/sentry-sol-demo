@@ -31,7 +31,6 @@ export const SolanaWalletContext: React.FC<SolanaWalletContextProps> = ({
     () => [
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
-      new BackpackWalletAdapter(),
       new GlowWalletAdapter(),
       new SolletWalletAdapter(),
       new LedgerWalletAdapter(),
