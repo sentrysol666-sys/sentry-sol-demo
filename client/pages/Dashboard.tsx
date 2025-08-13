@@ -148,10 +148,10 @@ export default function Dashboard() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "active": return <CheckCircle className="h-4 w-4 text-success-green" />;
-      case "processing": return <Clock className="h-4 w-4 text-warning-amber" />;
-      case "error": return <XCircle className="h-4 w-4 text-risk-red" />;
-      default: return <AlertCircle className="h-4 w-4 text-muted-foreground" />;
+      case "active": return <CheckCircleIcon className="h-4 w-4 text-success-green" />;
+      case "processing": return <ClockIcon className="h-4 w-4 text-warning-amber" />;
+      case "error": return <ErrorIcon className="h-4 w-4 text-risk-red" />;
+      default: return <InfoIcon className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
