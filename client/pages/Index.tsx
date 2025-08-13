@@ -613,7 +613,7 @@ export default function Index() {
                 <p className="text-black text-sm font-poppins">© 2025 SentrySol inc.</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Logo and Bottom */}
           <motion.div variants={itemVariants} className="text-center mb-8">
