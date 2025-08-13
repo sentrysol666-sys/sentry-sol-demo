@@ -97,45 +97,82 @@ export default function Navigation() {
           : "relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px]"
         }>
           {/* Logo */}
-          <Link to="/" className="flex items-center z-10">
+          <Link to={isInternalPage ? "/dashboard" : "/"} className="flex items-center space-x-3">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
-              alt="Logo"
-              className="w-[375px] h-[65px] object-contain"
+              src={isInternalPage
+                ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+                : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
+              }
+              alt="Sentrysol Logo"
+              className={isInternalPage ? "h-8 w-auto" : "w-[375px] h-[65px] object-contain"}
             />
+            {isInternalPage && (
+              <>
+                <span className="font-bold text-xl font-poppins bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
+                  Sentrysol
+                </span>
+                <Badge
+                  variant="secondary"
+                  className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20"
+                >
+                  Beta
+                </Badge>
+              </>
+            )}
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-12">
-            {navigationItems.map((item) => (
+          <div className={isInternalPage ? "hidden lg:flex items-center space-x-1" : "hidden lg:flex items-center space-x-12"}>
+            {navigationItems.map((item) => {
+              const Icon = 'icon' in item ? item.icon : null;
+              return (
+                <motion.div
+                  key={item.name}
+                  whileHover={{ scale: isInternalPage ? 1.02 : 1.05 }}
+                  whileTap={{ scale: isInternalPage ? 0.98 : 0.95 }}
+                >
+                  <Link to={item.href}>
+                    {isInternalPage ? (
+                      <Button
+                        variant={isActive(item.href) ? "secondary" : "ghost"}
+                        size="sm"
+                        className={`flex items-center space-x-2 transition-all duration-200 ${
+                          isActive(item.href)
+                            ? "bg-brand-light/10 text-brand-light shadow-sm border border-brand-light/20"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        }`}
+                      >
+                        {Icon && <Icon className="h-4 w-4" />}
+                        <span className="font-medium">{item.name}</span>
+                      </Button>
+                    ) : (
+                      <span
+                        className={`text-white font-poppins text-2xl font-medium transition-all duration-300 hover:text-white/80 ${
+                          isActive(item.href) ? "text-white" : "text-white/90"
+                        }`}
+                      >
+                        {item.name}
+                      </span>
+                    )}
+                  </Link>
+                </motion.div>
+              );
+            })}
+
+            {/* Connect Button (only for external pages) */}
+            {!isInternalPage && (
               <motion.div
-                key={item.name}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Link
-                  to={item.href}
-                  className={`text-white font-poppins text-2xl font-medium transition-all duration-300 hover:text-white/80 ${
-                    isActive(item.href) ? "text-white" : "text-white/90"
-                  }`}
+                <Button
+                  onClick={handleConnectWallet}
+                  className="bg-white text-black font-poppins text-2xl font-medium px-8 py-3 rounded-[30px] hover:bg-white/90 transition-all duration-300 h-[44px] min-w-[124px]"
                 >
-                  {item.name}
-                </Link>
+                  Connect
+                </Button>
               </motion.div>
-            ))}
-            
-            {/* Connect Button */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
-                onClick={handleConnectWallet}
-                className="bg-white text-black font-poppins text-2xl font-medium px-8 py-3 rounded-[30px] hover:bg-white/90 transition-all duration-300 h-[44px] min-w-[124px]"
-              >
-                Connect
-              </Button>
-            </motion.div>
+            )}
           </div>
 
           {/* Search Box */}
