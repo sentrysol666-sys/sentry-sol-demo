@@ -18,6 +18,11 @@ import {
 export default function WalletScreening() {
   const [address, setAddress] = useState('');
   const [isValidAddress, setIsValidAddress] = useState(false);
+  const [investigationType, setInvestigationType] = useState<'full' | 'sanctions' | 'tracing' | 'media' | 'visualization'>('full');
+  const [tracingData, setTracingData] = useState<any>(null);
+  const [visualizationData, setVisualizationData] = useState<any>(null);
+  const [isTracingLoading, setIsTracingLoading] = useState(false);
+  const [isVisualizationLoading, setIsVisualizationLoading] = useState(false);
   const { investigation, runInvestigation, isReady } = useMCPInvestigation();
 
   const validateAddress = (addr: string) => {
