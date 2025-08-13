@@ -33,6 +33,9 @@ import {
   User,
   LogOut,
   HelpCircle,
+  Wallet,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 
 export default function Navigation() {
