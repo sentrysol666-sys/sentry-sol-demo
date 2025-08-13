@@ -131,6 +131,46 @@ export default function WalletScreening() {
           )}
         </div>
 
+        {/* Wallet Connection Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div>
+            <WalletConnector className="w-full" />
+          </div>
+          <div className="space-y-4">
+            <Card className="h-fit">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Zap className="h-5 w-5 text-yellow-500" />
+                  <span>Quick Connect</span>
+                </CardTitle>
+                <CardDescription>
+                  Connect your wallet to auto-populate the address and start analysis
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-success-green" />
+                    <span>Automatic address detection</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-success-green" />
+                    <span>Multi-chain support</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-success-green" />
+                    <span>Real-time balance monitoring</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm">
+                    <Shield className="h-4 w-4 text-brand-light" />
+                    <span>Secure, non-custodial connection</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         {/* Search Section */}
         <Card>
           <CardHeader>
