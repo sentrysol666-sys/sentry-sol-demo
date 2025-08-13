@@ -186,7 +186,10 @@ export const MetaMaskWalletProvider: React.FC<EthereumWalletProviderProps> = ({
       name: "Sentrysol AML Platform",
       url: window.location.host,
     },
-    infuraAPIKey: import.meta.env.VITE_INFURA_API_KEY,
+    // Remove infuraAPIKey to avoid network errors when not configured
+    ...(import.meta.env.VITE_INFURA_API_KEY && {
+      infuraAPIKey: import.meta.env.VITE_INFURA_API_KEY,
+    }),
   };
 
   return (
