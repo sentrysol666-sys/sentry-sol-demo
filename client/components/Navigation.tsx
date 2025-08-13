@@ -109,7 +109,7 @@ export default function Navigation() {
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
                 <span className="hidden md:block text-sm">AML Investigator</span>
-                <ChevronDown className="h-3 w-3 opacity-50" />
+                <ChevronDownIcon className="h-3 w-3 opacity-50" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
