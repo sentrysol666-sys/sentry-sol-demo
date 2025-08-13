@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "0.0.0.0", // Allow external connections
     port: 5173,
     strictPort: false, // Allow fallback to next available port
-    open: true, // Open browser automatically
+    open: false, // Don't open browser automatically in container
     cors: true, // Enable CORS for development
     fs: {
       allow: ["./client", "./shared", "./node_modules"],
