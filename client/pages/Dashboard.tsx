@@ -188,9 +188,9 @@ export default function Dashboard() {
                   </div>
                   <div className={`flex items-center space-x-1 ${stat.color}`}>
                     {stat.trend === "up" ? (
-                      <TrendingUp className="h-4 w-4" />
+                      <TrendingUpIcon className="h-4 w-4" />
                     ) : (
-                      <TrendingDown className="h-4 w-4" />
+                      <TrendingDownIcon className="h-4 w-4" />
                     )}
                     <span className="text-sm font-medium">{stat.change}</span>
                   </div>
