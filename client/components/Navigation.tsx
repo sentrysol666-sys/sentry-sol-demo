@@ -23,7 +23,6 @@ import {
   Settings,
   Analytics,
   Verified,
-  Chat,
 } from "@mui/icons-material";
 
 export default function Navigation() {
