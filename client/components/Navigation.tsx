@@ -20,19 +20,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Menu,
-  Shield,
-  BarChart3,
-  Search,
-  FileText,
-  Settings,
-  Users,
-  Bell,
-  ChevronDown,
-  User,
-  LogOut,
-  HelpCircle,
-} from "lucide-react";
+  MenuIcon,
+  ShieldIcon,
+  BarChartIcon,
+  SearchIcon,
+  DocumentIcon,
+  SettingsIcon,
+  GroupIcon,
+  NotificationsIcon,
+  ChevronDownIcon,
+  PersonIcon,
+  ExitIcon,
+  InfoIcon,
+} from "@/components/ui/icons";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
