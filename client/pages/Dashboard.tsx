@@ -38,7 +38,7 @@ export default function Dashboard() {
       id: "sanctions_screen",
       name: "Sanctions Screening Agent",
       status: "active",
-      icon: Shield,
+      icon: ShieldIcon,
       color: "text-risk-red",
       bgColor: "bg-risk-red/10",
       description: "Screening against global sanctions lists",
