@@ -82,14 +82,20 @@ export default function Navigation() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-[min(90vw,1500px)]"
+      className={isInternalPage
+        ? "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        : "fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-[min(90vw,1500px)]"
+      }
     >
-      <div className="relative">
-        {/* Glassmorphism background */}
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-lg border border-white/20 rounded-[100px] shadow-2xl" />
-        
+      <div className={isInternalPage ? "container flex h-16 items-center justify-between px-4" : "relative"}>
+        {/* External page glassmorphism background */}
+        {!isInternalPage && <div className="absolute inset-0 bg-white/10 backdrop-blur-lg border border-white/20 rounded-[100px] shadow-2xl" />}
+
         {/* Navigation content */}
-        <div className="relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px]">
+        <div className={isInternalPage
+          ? "flex items-center space-x-4"
+          : "relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px]"
+        }>
           {/* Logo */}
           <Link to="/" className="flex items-center z-10">
             <img
