@@ -53,13 +53,62 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/signin" element={<SignIn />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/wallet-screening" element={<WalletScreening />} />
-              <Route path="/aml-dashboard" element={<AMLDashboard />} />
-              <Route path="/cases" element={<Cases />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/compliance" element={<Compliance />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/wallet-screening"
+                element={
+                  <ProtectedRoute requireWallet={false}>
+                    <WalletScreening />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/aml-dashboard"
+                element={
+                  <ProtectedRoute>
+                    <AMLDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cases"
+                element={
+                  <ProtectedRoute>
+                    <Cases />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/analytics"
+                element={
+                  <ProtectedRoute>
+                    <Analytics />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/compliance"
+                element={
+                  <ProtectedRoute>
+                    <Compliance />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
