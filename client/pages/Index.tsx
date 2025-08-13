@@ -271,15 +271,17 @@ export default function Index() {
             Join leading financial institutions using Sentrysol for blockchain AML compliance
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/dashboard">
+            <Link to="/wallet-screening">
               <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90">
-                Start Free Trial
+                Connect Wallet & Begin
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10">
-              Schedule Demo
-            </Button>
+            <Link to="/aml-dashboard">
+              <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10">
+                View AML Dashboard
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
