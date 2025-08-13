@@ -31,7 +31,7 @@ export default function Index() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/dashboard">
-                <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-aml-blue hover:bg-aml-blue/90">
+                <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90">
                   Launch AML Dashboard
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
