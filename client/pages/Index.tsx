@@ -185,9 +185,9 @@ export default function Index() {
               <p className="text-muted-foreground text-sm">Comprehensive investigation workflow and documentation</p>
             </div>
 
-            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-compliance-green/30 transition-colors">
-              <div className="mx-auto w-12 h-12 bg-compliance-green/10 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="h-6 w-6 text-compliance-green" />
+            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-success-green/30 transition-colors">
+              <div className="mx-auto w-12 h-12 bg-success-green/10 rounded-lg flex items-center justify-center mb-4">
+                <FileText className="h-6 w-6 text-success-green" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Automated Reports</h3>
               <p className="text-muted-foreground text-sm">SAR, CTR, and regulatory filing automation</p>
@@ -232,11 +232,11 @@ export default function Index() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-aml-blue">99.7%</div>
+              <div className="text-3xl font-bold text-brand-light">99.7%</div>
               <div className="text-sm text-muted-foreground">Detection Accuracy</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-compliance-green">500M+</div>
+              <div className="text-3xl font-bold text-success-green">500M+</div>
               <div className="text-sm text-muted-foreground">Transactions Analyzed</div>
             </div>
             <div className="space-y-2">
