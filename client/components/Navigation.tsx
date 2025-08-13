@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useWalletIntegration } from "@/hooks/useWalletIntegration";
