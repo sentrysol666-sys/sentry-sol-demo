@@ -1,4 +1,4 @@
-import { mcpManager } from './mcp-services.js';
+import { mcpManager } from './mcp-services';
 
 export interface InvestigationResult {
   address: string;
