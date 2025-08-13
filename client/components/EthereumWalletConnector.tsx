@@ -41,9 +41,27 @@ export const EthereumWalletConnector: React.FC = () => {
         description: "Successfully connected to MetaMask",
       });
     } catch (error: any) {
+      let errorMessage = "Failed to connect wallet";
+
+      if (error && typeof error === 'object') {
+        if (error.code === 4001) {
+          errorMessage = "Connection cancelled by user";
+        } else if (error.code === -32002) {
+          errorMessage = "Connection request already pending";
+        } else if (error.message) {
+          errorMessage = error.message;
+        } else if (error.reason) {
+          errorMessage = error.reason;
+        }
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+
+      console.error("Wallet connection error:", error);
+
       toast({
         title: "Connection Failed",
-        description: error.message || "Failed to connect wallet",
+        description: errorMessage,
         variant: "destructive",
       });
     }
