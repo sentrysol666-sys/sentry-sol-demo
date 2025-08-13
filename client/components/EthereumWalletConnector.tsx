@@ -163,7 +163,7 @@ export const EthereumWalletConnector: React.FC = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <img
-              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iI0Y2ODUxQiIvPgo8cGF0aCBkPSJNMTYuMjYyIDIuOTM2OUwxNS44MzE4IDQuMjE2NjRWMjEuNjY4M0wxNi4yNjIgMjIuMDkxOEwyMy45MzA2IDE3LjM3MzVMMTYuMjYyIDIuOTM2OVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIuOTM2OUw4LjU5Mzc1IDE3LjM3MzVMMTYuMjYyNCAyMi4wOTE4VjEyLjcxNzdWMi45MzY5WiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC42Ii8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIzLjcyNThMMTYuMDQ1OCAyMy45ODI3VjI5LjA0MkwxNi4yNjI0IDI5LjYzMjZMMjMuOTM0NSAxOS4wMDVMMTYuMjYyNCAyMy43MjU4WiIgZmlsbD0id2hpdGUiLz4KPHA="
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fed7437292971473ea3d69203802c3382?format=webp&width=800"
               alt="MetaMask"
               className="w-6 h-6"
             />
