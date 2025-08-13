@@ -22,7 +22,7 @@ export default function Dashboard() {
       id: "blockchain_trace",
       name: "Blockchain Tracing Agent",
       status: "active",
-      icon: Network,
+      icon: NetworkIcon,
       color: "text-brand-light",
       bgColor: "bg-brand-light/10",
       description: "Analyzing transaction flows and mapping fund movements",
