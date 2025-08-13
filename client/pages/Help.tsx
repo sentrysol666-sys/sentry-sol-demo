@@ -141,7 +141,7 @@ export default function Help() {
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center mb-16">
-            <Badge className="mb-6 px-4 py-2 bg-primary/10 text-primary border-primary/20">
+            <Badge className="mb-6 px-4 py-2 bg-sentry-mint/10 text-sentry-mint border-sentry-mint/30">
               Getting Started Guide
             </Badge>
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
