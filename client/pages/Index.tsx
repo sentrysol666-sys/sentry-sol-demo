@@ -145,11 +145,11 @@ export default function Index() {
             </Card>
 
             {/* Real-time Processing */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-aml-navy/30">
+            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-brand-dark/30">
               <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-aml-navy/10 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-aml-navy" />
+                  <div className="p-2 bg-brand-dark/10 rounded-lg">
+                    <AlertTriangle className="h-6 w-6 text-brand-dark" />
                   </div>
                   <CardTitle className="text-xl">Real-time Monitoring</CardTitle>
                 </div>
@@ -177,9 +177,9 @@ export default function Index() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-aml-blue/30 transition-colors">
-              <div className="mx-auto w-12 h-12 bg-aml-blue/10 rounded-lg flex items-center justify-center mb-4">
-                <Database className="h-6 w-6 text-aml-blue" />
+            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-brand-light/30 transition-colors">
+              <div className="mx-auto w-12 h-12 bg-brand-light/10 rounded-lg flex items-center justify-center mb-4">
+                <Database className="h-6 w-6 text-brand-light" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Case Management</h3>
               <p className="text-muted-foreground text-sm">Comprehensive investigation workflow and documentation</p>
