@@ -14,27 +14,27 @@ import { Input } from "@/components/ui/input";
 import MCPServicesStatus from "@/components/MCPServicesStatus";
 import WalletConnectionBanner from "@/components/WalletConnectionBanner";
 import {
-  AlertTriangle,
-  Shield,
-  Brain,
-  Network,
+  Warning as AlertTriangle,
+  Security as Shield,
+  Psychology as Brain,
+  Hub as Network,
   Search,
-  BarChart3,
+  BarChart as BarChart3,
   TrendingUp,
   TrendingDown,
-  Activity,
-  Clock,
+  Timeline as Activity,
+  Schedule as Clock,
   CheckCircle,
-  XCircle,
-  Eye,
-  Users,
-  FileText,
+  Cancel as XCircle,
+  Visibility as Eye,
+  Groups as Users,
+  Description as FileText,
   Settings,
-  Zap,
-  AlertCircle,
+  Bolt as Zap,
+  ErrorOutline as AlertCircle,
   Info,
-  RefreshCw,
-} from "lucide-react";
+  Refresh as RefreshCw,
+} from "@mui/icons-material";
 
 export default function Dashboard() {
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
