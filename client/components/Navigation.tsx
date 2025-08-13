@@ -99,6 +99,29 @@ export default function Navigation() {
 
         {/* Right Side */}
         <div className="flex items-center space-x-4">
+          {/* Wallet Status */}
+          <div className="hidden md:flex items-center space-x-2">
+            {isConnected ? (
+              <div className="flex items-center space-x-1">
+                <CheckCircle className="h-4 w-4 text-success-green" />
+                <span className="text-xs text-success-green">
+                  {activeWallet === 'solana' ? 'Solana' : 'Ethereum'} Connected
+                </span>
+                {connectedWallets.solana && (
+                  <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                )}
+                {connectedWallets.ethereum && (
+                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center space-x-1">
+                <XCircle className="h-4 w-4 text-muted-foreground" />
+                <span className="text-xs text-muted-foreground">No Wallet</span>
+              </div>
+            )}
+          </div>
+
           {/* Notifications */}
           <Button variant="ghost" size="sm" className="relative">
             <Bell className="h-4 w-4" />
