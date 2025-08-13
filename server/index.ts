@@ -12,6 +12,7 @@ import {
   getMCPTools,
   callMCPTool
 } from "./routes/mcp";
+import walletAnalysisRoutes from "./routes/wallet-analysis";
 
 export function createServer() {
   const app = express();
