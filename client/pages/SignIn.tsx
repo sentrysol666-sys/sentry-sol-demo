@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useWalletIntegration } from "@/hooks/useWalletIntegration";
+import WalletSelector from "@/components/WalletSelector";
 import {
   AccountBalanceWallet as Wallet,
   Security as Shield,
