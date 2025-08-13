@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { MetaMaskProvider } from "@metamask/sdk-react";
 import { ethers, BrowserProvider, JsonRpcSigner } from "ethers";
+import { logWalletError, shouldShowErrorToUser } from "@/utils/errorUtils";
 
 interface EthereumWalletState {
   isConnected: boolean;
