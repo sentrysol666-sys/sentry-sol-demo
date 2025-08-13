@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -41,7 +42,13 @@
 
     --radius: 0.75rem;
 
-    /* Eye-friendly Brand Colors */
+    /* SentrySol Brand Colors */
+    --sentry-dark: 0 0% 0%; /* Pure black */
+    --sentry-teal: 190 30% 35%; /* #395B64 */
+    --sentry-light-teal: 180 25% 75%; /* #A5C9CA */
+    --sentry-mint: 152 25% 85%; /* #E7F6F2 */
+    --sentry-ice: 180 15% 90%; /* #CFE0E3 */
+    --sentry-steel: 180 20% 65%; /* #92BAC1 */
     --brand-dark: 220 35% 35%; /* Softer dark blue */
     --brand-medium: 220 30% 45%; /* Medium blue */
     --brand-light: 220 40% 55%; /* Light blue */
@@ -101,7 +108,13 @@
     --input: 224 8% 32%;
     --ring: 220 40% 60%;
 
-    /* Eye-friendly Brand Colors - Dark Mode */
+    /* SentrySol Brand Colors - Dark Mode */
+    --sentry-dark: 0 0% 0%; /* Pure black */
+    --sentry-teal: 190 30% 35%; /* #395B64 */
+    --sentry-light-teal: 180 25% 75%; /* #A5C9CA */
+    --sentry-mint: 152 25% 85%; /* #E7F6F2 */
+    --sentry-ice: 180 15% 90%; /* #CFE0E3 */
+    --sentry-steel: 180 20% 65%; /* #92BAC1 */
     --brand-dark: 224 15% 18%;
     --brand-medium: 224 12% 25%;
     --brand-light: 220 35% 55%;
@@ -141,5 +154,33 @@
   body {
     @apply bg-background text-foreground;
     font-family: "Poppins", sans-serif;
+  }
+
+  /* SentrySol specific utilities */
+  .font-poppins {
+    font-family: "Poppins", sans-serif;
+  }
+
+  .font-mono {
+    font-family: "Roboto Mono", monospace;
+  }
+
+  .text-sentry-ice {
+    color: hsl(var(--sentry-ice));
+  }
+
+  .bg-sentry-gradient {
+    background: linear-gradient(180deg, #000 0%, #395B64 50%, #395B64 75%, #000 100%);
+  }
+
+  .bg-sentry-teal {
+    background-color: #395B64;
+  }
+
+  .text-gradient-mint {
+    background: linear-gradient(90deg, #A5C9CA 0%, #E7F6F2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
