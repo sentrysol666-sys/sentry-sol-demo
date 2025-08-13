@@ -35,6 +35,7 @@ import {
   ErrorOutline as AlertCircle,
   Info,
   Refresh as RefreshCw,
+  Chat,
 } from "@mui/icons-material";
 
 export default function Dashboard() {
