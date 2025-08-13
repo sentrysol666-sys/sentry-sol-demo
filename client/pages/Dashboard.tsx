@@ -54,7 +54,7 @@ export default function Dashboard() {
       id: "adverse_media",
       name: "Adverse Media Agent",
       status: "processing",
-      icon: SearchIcon,
+      icon: Search,
       color: "text-warning-amber",
       bgColor: "bg-warning-amber/10",
       description: "Analyzing news and media for negative associations",
