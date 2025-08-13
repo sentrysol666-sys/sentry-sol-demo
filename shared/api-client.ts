@@ -76,6 +76,60 @@ class MCPApiClient {
     return result.data!;
   }
 
+  async investigateAddressWithAgents(address: string, investigationType: 'full' | 'sanctions' | 'tracing' | 'media' | 'visualization' = 'full'): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/investigate-agents`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address, investigationType }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Multi-agent investigation failed');
+    }
+
+    return result.data!;
+  }
+
+  async performBlockchainTracing(address: string): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/trace`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Blockchain tracing failed');
+    }
+
+    return result.data!;
+  }
+
+  async generateFlowVisualization(address: string, transactionData: any[] = [], connectedEntities: any[] = []): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/visualize`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address, transactionData, connectedEntities }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Flow visualization failed');
+    }
+
+    return result.data!;
+  }
+
   async investigateAddress(address: string): Promise<InvestigationResult> {
     const response = await fetch(`${this.baseUrl}/investigate`, {
       method: 'POST',
