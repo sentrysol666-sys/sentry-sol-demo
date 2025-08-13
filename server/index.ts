@@ -5,6 +5,9 @@ import { handleDemo } from "./routes/demo";
 import {
   getMCPStatus,
   investigateAddress,
+  investigateAddressWithAgents,
+  performBlockchainTracing,
+  generateFlowVisualization,
   retryMCPConnection,
   getMCPTools,
   callMCPTool
