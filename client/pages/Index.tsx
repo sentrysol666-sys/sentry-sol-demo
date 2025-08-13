@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowRightIcon, ShieldIcon, BrainIcon, NetworkIcon, WarningIcon,
-  EyeIcon, DatabaseIcon, TrendingUpIcon, GroupIcon, LockIcon,
-  DocumentIcon, CheckCircleIcon, SearchIcon, BarChartIcon
-} from "@/components/ui/icons";
+  ArrowRight, Shield, Brain, Network, AlertTriangle,
+  Eye, Database, TrendingUp, Users, Lock,
+  FileText, CheckCircle, Search, BarChart3
+} from "lucide-react";
 
 export default function Index() {
   return (
