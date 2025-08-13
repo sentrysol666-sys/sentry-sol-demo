@@ -17,12 +17,15 @@ interface ProtectedRouteProps {
   requireWallet?: boolean;
 }
 
-export default function ProtectedRoute({ 
-  children, 
-  requireWallet = true 
+export default function ProtectedRoute({
+  children,
+  requireWallet = true
 }: ProtectedRouteProps) {
   const { isConnected, isLoading } = useWalletIntegration();
   const location = useLocation();
+
+  // Check if user has completed onboarding
+  const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
 
   // Show loading state while checking wallet connection
   if (isLoading) {
