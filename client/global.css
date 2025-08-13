@@ -73,47 +73,47 @@
   }
 
   .dark {
-    --background: 224 20% 25%;
-    --foreground: 0 0% 98%;
+    --background: 224 15% 18%;
+    --foreground: 210 15% 88%;
 
-    --card: 224 19% 29%;
-    --card-foreground: 0 0% 98%;
+    --card: 224 12% 22%;
+    --card-foreground: 210 15% 88%;
 
-    --popover: 224 19% 29%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 224 12% 22%;
+    --popover-foreground: 210 15% 88%;
 
-    --primary: 224 15% 56%;
-    --primary-foreground: 224 20% 25%;
+    --primary: 220 40% 60%;
+    --primary-foreground: 224 15% 18%;
 
-    --secondary: 225 23% 34%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 224 10% 25%;
+    --secondary-foreground: 210 15% 88%;
 
-    --muted: 225 23% 34%;
-    --muted-foreground: 224 15% 65%;
+    --muted: 224 8% 28%;
+    --muted-foreground: 210 8% 65%;
 
-    --accent: 225 23% 34%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 224 8% 30%;
+    --accent-foreground: 210 15% 88%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 60% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 225 23% 34%;
-    --input: 225 23% 34%;
-    --ring: 224 15% 56%;
+    --border: 224 8% 32%;
+    --input: 224 8% 32%;
+    --ring: 220 40% 60%;
 
-    /* Custom Brand Colors - Dark Mode */
-    --brand-dark: 224 20% 25%;
-    --brand-medium: 224 19% 29%;
-    --brand-light: 225 23% 34%;
-    --brand-accent: 224 15% 56%;
-    --risk-red: 0 84% 60%;
-    --warning-amber: 38 92% 50%;
-    --success-green: 142 71% 45%;
-    --chart-1: 224 15% 56%;
-    --chart-2: 225 23% 34%;
-    --chart-3: 38 92% 50%;
-    --chart-4: 0 84% 60%;
-    --chart-5: 142 71% 45%;
+    /* Eye-friendly Brand Colors - Dark Mode */
+    --brand-dark: 224 15% 18%;
+    --brand-medium: 224 12% 25%;
+    --brand-light: 220 35% 55%;
+    --brand-accent: 220 25% 70%;
+    --risk-red: 0 55% 60%;
+    --warning-amber: 35 65% 60%;
+    --success-green: 142 45% 55%;
+    --chart-1: 220 35% 55%;
+    --chart-2: 224 12% 25%;
+    --chart-3: 35 65% 60%;
+    --chart-4: 0 55% 60%;
+    --chart-5: 142 45% 55%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
