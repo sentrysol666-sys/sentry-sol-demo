@@ -24,6 +24,7 @@
     "@langchain/community": "^0.3.50",
     "@langchain/core": "^0.3.70",
     "@langchain/mistralai": "^0.2.1",
+    "@supabase/supabase-js": "^2.55.0",
     "@types/d3": "^7.4.3",
     "d3": "^7.9.0",
     "dotenv": "^17.2.1",
