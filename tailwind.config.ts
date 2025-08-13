@@ -57,12 +57,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        aml: {
-          blue: "hsl(var(--aml-blue))",
-          navy: "hsl(var(--aml-navy))",
-        },
-        compliance: {
-          green: "hsl(var(--compliance-green))",
+        brand: {
+          dark: "hsl(var(--brand-dark))",
+          medium: "hsl(var(--brand-medium))",
+          light: "hsl(var(--brand-light))",
+          accent: "hsl(var(--brand-accent))",
         },
         risk: {
           red: "hsl(var(--risk-red))",
@@ -70,8 +69,8 @@ export default {
         warning: {
           amber: "hsl(var(--warning-amber))",
         },
-        neutral: {
-          gray: "hsl(var(--neutral-gray))",
+        success: {
+          green: "hsl(var(--success-green))",
         },
         chart: {
           "1": "hsl(var(--chart-1))",
