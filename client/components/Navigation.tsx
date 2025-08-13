@@ -199,58 +199,78 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-                <MenuIcon className="h-6 w-6" />
+              <Button variant="ghost" size="sm" className={isInternalPage ? "hover:bg-muted/50" : "text-white hover:bg-white/10"}>
+                <MenuIcon className={`h-6 w-6 ${isInternalPage ? "text-foreground" : "text-white"}`} />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-black/95 backdrop-blur-lg border-white/20">
+            <SheetContent side="right" className={isInternalPage ? "" : "bg-black/95 backdrop-blur-lg border-white/20"}>
               <SheetHeader>
-                <SheetTitle className="flex items-center space-x-2 text-white">
+                <SheetTitle className={`flex items-center space-x-2 ${isInternalPage ? "text-foreground" : "text-white"}`}>
                   <img
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
+                    src={isInternalPage
+                      ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+                      : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
+                    }
                     alt="Logo"
                     className="h-8 w-auto"
                   />
+                  {isInternalPage && <span className="font-poppins">Sentrysol</span>}
                 </SheetTitle>
-                <SheetDescription className="text-white/70">
-                  Navigation Menu
+                <SheetDescription className={isInternalPage ? "text-muted-foreground" : "text-white/70"}>
+                  {isInternalPage ? "AI-Powered AML/Compliance Platform" : "Navigation Menu"}
                 </SheetDescription>
               </SheetHeader>
-              
-              <div className="mt-8 space-y-4">
-                {/* Mobile Search */}
-                <div className="relative mb-6">
-                  <Input
-                    placeholder="I'am looking for..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-white/10 border-white/30 text-white placeholder:text-white/60 rounded-full pl-4 pr-10"
-                  />
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
-                </div>
-                
+
+              <div className="mt-6 space-y-2">
+                {/* Mobile Search (only for external) */}
+                {!isInternalPage && (
+                  <div className="relative mb-6">
+                    <Input
+                      placeholder="I'am looking for..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="bg-white/10 border-white/30 text-white placeholder:text-white/60 rounded-full pl-4 pr-10"
+                    />
+                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
+                  </div>
+                )}
+
                 {/* Mobile Navigation Items */}
-                {navigationItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block text-white font-poppins text-xl py-3 px-4 rounded-lg hover:bg-white/10 transition-colors"
+                {navigationItems.map((item) => {
+                  const Icon = 'icon' in item ? item.icon : null;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Button
+                        variant={isActive(item.href) ? "secondary" : "ghost"}
+                        className={`w-full justify-start ${
+                          isActive(item.href)
+                            ? isInternalPage ? "bg-brand-light/10 text-brand-light" : "bg-white/20 text-white"
+                            : isInternalPage ? "text-muted-foreground" : "text-white"
+                        }`}
+                      >
+                        {Icon && <Icon className="mr-2 h-4 w-4" />}
+                        {item.name}
+                      </Button>
+                    </Link>
+                  );
+                })}
+
+                {/* Mobile Connect Button (only for external) */}
+                {!isInternalPage && (
+                  <Button
+                    onClick={() => {
+                      handleConnectWallet();
+                      setIsOpen(false);
+                    }}
+                    className="w-full bg-white text-black font-poppins text-xl font-medium py-3 rounded-full hover:bg-white/90 transition-colors mt-6"
                   >
-                    {item.name}
-                  </Link>
-                ))}
-                
-                {/* Mobile Connect Button */}
-                <Button
-                  onClick={() => {
-                    handleConnectWallet();
-                    setIsOpen(false);
-                  }}
-                  className="w-full bg-white text-black font-poppins text-xl font-medium py-3 rounded-full hover:bg-white/90 transition-colors mt-6"
-                >
-                  Connect
-                </Button>
+                    Connect
+                  </Button>
+                )}
               </div>
             </SheetContent>
           </Sheet>
