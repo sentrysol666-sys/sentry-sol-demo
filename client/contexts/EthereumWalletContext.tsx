@@ -41,8 +41,16 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
     const checkConnection = async () => {
       if (typeof window.ethereum !== "undefined") {
         try {
+          // Add timeout to prevent hanging requests
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Connection timeout")), 5000)
+          );
+
           const provider = new BrowserProvider(window.ethereum);
-          const accounts = await provider.listAccounts();
+          const accounts = await Promise.race([
+            provider.listAccounts(),
+            timeoutPromise
+          ]) as any;
           if (accounts.length > 0) {
             const signer = await provider.getSigner();
             const network = await provider.getNetwork();
