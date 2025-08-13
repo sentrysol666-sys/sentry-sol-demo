@@ -132,7 +132,7 @@ export default function Help() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-accent/10">
+    <div className="min-h-screen bg-gradient-to-b from-black via-sentry-teal/50 to-black text-white">
       <div className="max-w-6xl mx-auto px-4 py-12">
         <motion.div
           variants={containerVariants}
