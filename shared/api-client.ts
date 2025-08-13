@@ -285,6 +285,97 @@ class MCPApiClient {
 
     return result.data!;
   }
+
+  // Comprehensive AML Investigation Methods
+  async comprehensiveInvestigation(address: string, investigationType: string = 'full', userQuery?: string): Promise<any> {
+    const response = await fetch(`${this.amlBaseUrl}/investigate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address, investigationType, userQuery }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Comprehensive investigation failed');
+    }
+
+    return result.data!;
+  }
+
+  async screenWalletComprehensive(address: string, chain: string = 'ethereum'): Promise<any> {
+    const response = await fetch(`${this.amlBaseUrl}/screen-wallet`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address, chain }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Wallet screening failed');
+    }
+
+    return result.data!;
+  }
+
+  async analyzeTransactionsDetailed(address: string, chain: string = 'ethereum', limit: number = 100): Promise<any> {
+    const response = await fetch(`${this.amlBaseUrl}/analyze-transactions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address, chain, limit }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Transaction analysis failed');
+    }
+
+    return result.data!;
+  }
+
+  async checkPEPStatus(name: string, dateOfBirth?: string, nationality?: string): Promise<any> {
+    const response = await fetch(`${this.amlBaseUrl}/check-pep`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, dateOfBirth, nationality }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'PEP check failed');
+    }
+
+    return result.data!;
+  }
+
+  async bulkScreenAddresses(addresses: string[], chain: string = 'ethereum'): Promise<any> {
+    const response = await fetch(`${this.amlBaseUrl}/bulk-screen`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ addresses, chain }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Bulk screening failed');
+    }
+
+    return result.data!;
+  }
 }
 
 export const mcpApiClient = new MCPApiClient();
