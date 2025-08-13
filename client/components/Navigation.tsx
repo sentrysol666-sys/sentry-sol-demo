@@ -21,22 +21,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Menu,
-  Shield,
-  BarChart3,
+  Menu as MenuIcon,
+  Security as Shield,
+  BarChart as BarChart3,
   Search,
-  FileText,
+  Description as FileText,
   Settings,
-  Users,
-  Bell,
-  ChevronDown,
-  User,
-  LogOut,
-  HelpCircle,
-  Wallet,
+  Groups as Users,
+  Notifications as Bell,
+  KeyboardArrowDown as ChevronDown,
+  Person as User,
+  Logout as LogOut,
+  HelpOutline as HelpCircle,
+  AccountBalanceWallet as Wallet,
   CheckCircle,
-  XCircle,
-} from "lucide-react";
+  Cancel as XCircle,
+} from "@mui/icons-material";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -176,7 +176,7 @@ export default function Navigation() {
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
               <Button variant="ghost" size="sm">
-                <Menu className="h-4 w-4" />
+                <MenuIcon className="h-4 w-4" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
