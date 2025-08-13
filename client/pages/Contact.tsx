@@ -50,13 +50,13 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="outline" className="mb-6 border-brand-light/30 text-brand-light">
+            <Badge variant="outline" className="mb-6 border-sentry-mint/30 text-sentry-mint bg-sentry-mint/10">
               Get in Touch
             </Badge>
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-foreground via-brand-light to-brand-accent bg-clip-text text-transparent">
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-sentry-mint to-sentry-ice bg-clip-text text-transparent font-poppins leading-tight">
               Contact Our Team
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto font-poppins">
               Have questions about our platform? Need technical support? Want to discuss enterprise solutions? 
               We're here to help you succeed.
             </p>
