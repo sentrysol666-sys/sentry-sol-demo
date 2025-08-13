@@ -51,6 +51,7 @@ const App = () => (
           <AppLayout>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/signin" element={<SignIn />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/wallet-screening" element={<WalletScreening />} />
               <Route path="/aml-dashboard" element={<AMLDashboard />} />
