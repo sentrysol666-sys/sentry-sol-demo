@@ -160,7 +160,7 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">AML Intelligence Dashboard</h1>
+            <h1 className="text-3xl font-bold font-poppins text-foreground">AML Intelligence Dashboard</h1>
             <p className="text-muted-foreground">Multi-agent AI monitoring and compliance analysis</p>
           </div>
           <div className="flex items-center space-x-3">
