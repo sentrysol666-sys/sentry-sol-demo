@@ -41,12 +41,16 @@
     "@splinetool/react-spline": "^4.1.0",
     "@supabase/supabase-js": "^2.55.0",
     "@types/d3": "^7.4.3",
+    "@types/node-fetch": "^2.6.13",
+    "@types/ws": "^8.18.1",
     "d3": "^7.9.0",
     "dotenv": "^17.2.1",
     "ethers": "^6.15.0",
     "express": "^5.1.0",
     "langchain": "^0.3.30",
     "langsmith": "^0.3.58",
+    "node-fetch": "^3.3.2",
+    "ws": "^8.18.3",
     "zod": "^3.25.76"
   },
   "devDependencies": {
