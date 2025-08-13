@@ -56,6 +56,11 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
             setIsConnected(true);
           }
         } catch (error) {
+          // Silently handle network errors to avoid console spam
+          if (error instanceof Error && error.message.includes("Failed to fetch")) {
+            // This is likely a network connectivity issue, ignore it
+            return;
+          }
           console.error("Error checking wallet connection:", error);
         }
       }
