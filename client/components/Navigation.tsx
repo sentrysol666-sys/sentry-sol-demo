@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { useWalletIntegration } from "@/hooks/useWalletIntegration";
 import {
   Sheet,
   SheetContent,
@@ -15,6 +17,13 @@ import {
   Menu as MenuIcon,
   Search,
   Close as XIcon,
+  Security as Shield,
+  BarChart as BarChart3,
+  Description as FileText,
+  Settings,
+  Analytics,
+  Verified,
+  Chat,
 } from "@mui/icons-material";
 
 export default function Navigation() {
