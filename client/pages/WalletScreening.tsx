@@ -10,6 +10,7 @@ import { useMCPInvestigation } from '@/hooks/useMCPServices';
 import { mcpApiClient } from '@shared/api-client';
 import FlowVisualization from '@/components/FlowVisualization';
 import WalletConnector from '@/components/WalletConnector';
+import WalletGuard from '@/components/WalletGuard';
 import { useWalletIntegration } from '@/hooks/useWalletIntegration';
 import {
   Search, Shield, AlertTriangle, CheckCircle, XCircle,
