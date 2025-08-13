@@ -252,9 +252,9 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-aml-blue/10 via-aml-blue/5 to-compliance-green/10">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-brand-light/10 via-brand-light/5 to-success-green/10">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold font-poppins text-foreground mb-4">
             Ready for Enterprise Compliance?
           </h2>
           <p className="text-lg text-muted-foreground mb-8">
@@ -262,12 +262,12 @@ export default function Index() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/dashboard">
-              <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-aml-blue hover:bg-aml-blue/90">
+              <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90">
                 Start Free Trial
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-aml-blue text-aml-blue hover:bg-aml-blue/10">
+            <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10">
               Schedule Demo
             </Button>
           </div>
