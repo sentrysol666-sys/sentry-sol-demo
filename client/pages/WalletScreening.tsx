@@ -26,6 +26,12 @@ export default function WalletScreening() {
   const [isTracingLoading, setIsTracingLoading] = useState(false);
   const [isVisualizationLoading, setIsVisualizationLoading] = useState(false);
   const { investigation, runInvestigation, isReady } = useMCPInvestigation();
+  const {
+    isConnected: walletConnected,
+    connectedWallets,
+    fillAddressFromConnectedWallet,
+    autoAnalyzeWallet
+  } = useWalletIntegration();
 
   const validateAddress = (addr: string) => {
     // Basic validation for Solana/Ethereum addresses
