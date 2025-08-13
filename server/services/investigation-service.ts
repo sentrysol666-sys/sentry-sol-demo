@@ -1,4 +1,7 @@
 import { mcpManager } from './mcp-services';
+import { supervisorAgent } from '../agents/supervisor-agent';
+import { blockchainTracerAgent } from '../agents/blockchain-tracer';
+import { flowVisualizerAgent } from '../agents/flow-visualizer';
 
 export interface InvestigationResult {
   address: string;
