@@ -147,7 +147,7 @@ export default function Help() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-poppins mb-6 bg-gradient-to-r from-white via-sentry-mint to-sentry-ice bg-clip-text text-transparent">
               Set Up Your Crypto Wallet
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-white/80 max-w-2xl mx-auto font-poppins">
               New to crypto wallets? No problem! Follow our step-by-step guide to 
               get started with secure wallet setup and connection.
             </p>
