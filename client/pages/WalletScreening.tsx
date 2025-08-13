@@ -305,9 +305,11 @@ export default function WalletScreening() {
 
             {/* Detailed Analysis */}
             <Tabs defaultValue="findings" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-6">
                 <TabsTrigger value="findings">Findings</TabsTrigger>
                 <TabsTrigger value="compliance">Compliance</TabsTrigger>
+                <TabsTrigger value="tracing">Tracing</TabsTrigger>
+                <TabsTrigger value="visualization">Visualization</TabsTrigger>
                 <TabsTrigger value="network">Network</TabsTrigger>
                 <TabsTrigger value="metadata">Metadata</TabsTrigger>
               </TabsList>
