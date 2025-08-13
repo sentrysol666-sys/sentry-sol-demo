@@ -87,7 +87,7 @@ export default function Navigation() {
         {/* Navigation content */}
         <div className={isInternalPage
           ? "flex items-center space-x-4"
-          : "relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px]"
+          : "relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px] w-full"
         }>
           {/* Logo */}
           <Link to={isInternalPage ? "/dashboard" : "/"} className="flex items-center space-x-3">
