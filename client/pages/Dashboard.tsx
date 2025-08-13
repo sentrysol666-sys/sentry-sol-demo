@@ -39,6 +39,7 @@ import {
 } from "@mui/icons-material";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
 
   // Mock data for demonstration
