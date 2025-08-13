@@ -60,7 +60,6 @@ export default function Navigation() {
     { name: "Wallet Screening", href: "/wallet-screening", icon: Search },
     { name: "Case Management", href: "/cases", icon: FileText },
     { name: "Analytics", href: "/analytics", icon: Analytics },
-    { name: "Chat Sentry", href: "/chat-sentry", icon: Chat },
   ];
 
   const navigationItems = isInternalPage ? internalNavigationItems : externalNavigationItems;
