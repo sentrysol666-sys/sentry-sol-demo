@@ -11,7 +11,7 @@
     ]
   },
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite",
     "dev:setup": "node scripts/setup-dev.js",
     "dev:start": "npm run dev:setup && npm run dev",
     "build": "npm run build:client && npm run build:server",
