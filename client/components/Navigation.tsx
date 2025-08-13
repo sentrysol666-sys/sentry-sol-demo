@@ -275,6 +275,10 @@ export default function Navigation() {
             </SheetContent>
           </Sheet>
         </div>
+        {/* Close the internal page flex container */}
+        {isInternalPage && <div className="flex items-center space-x-3">
+          {/* Placeholder for right-side content like notifications, user menu etc. */}
+        </div>}
       </div>
     </motion.nav>
   );
