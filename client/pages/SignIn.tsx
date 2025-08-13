@@ -124,8 +124,13 @@ export default function SignIn() {
       // Simulate connection process
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Navigate to dashboard after successful connection
-      navigate("/dashboard");
+      // Navigate to onboarding or dashboard after successful connection
+      const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+      if (hasCompletedOnboarding) {
+        navigate("/dashboard");
+      } else {
+        navigate("/onboarding");
+      }
     } catch (error) {
       console.error("Wallet connection failed:", error);
     } finally {
