@@ -212,17 +212,38 @@ export class SupervisorAgent {
 
   private async sanctionsScreenerNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
     console.log("🛡️ Sanctions Screener Agent activated");
-    
+
     const address = this.extractAddress(state);
-    
+    const chain = this.detectChain(address);
+
     try {
-      // Simulate sanctions screening
+      // Use multiple real sanctions screening APIs
+      const [chainabuseResult, metasleuthResult] = await Promise.all([
+        chainabuseService.checkSanctionedAddress(address),
+        metaSleuthService.screenWallet(address, chain)
+      ]);
+
+      // Get address labels for additional context
+      const addressLabels = await metaSleuthService.getAddressLabels(address);
+
       const screeningResult = {
         address,
-        sanctionsMatch: Math.random() > 0.9, // 10% chance of match
-        lists: ["OFAC", "EU", "UN"],
-        pepMatch: Math.random() > 0.95, // 5% chance of PEP match
-        confidence: 0.98
+        chain,
+        // Chainabuse results
+        sanctionsMatch: chainabuseResult.data.sanctioned,
+        sanctionsDetails: chainabuseResult.data.details,
+        sanctionsSource: chainabuseResult.data.source,
+        // MetaSleuth results
+        riskLevel: metasleuthResult.data.riskLevel,
+        blacklistMatch: metasleuthResult.data.blacklistMatch,
+        mixerServices: metasleuthResult.data.mixerServices,
+        exchanges: metasleuthResult.data.exchanges,
+        illicitServices: metasleuthResult.data.illicitServices,
+        // Address labels
+        labels: addressLabels.data.labels,
+        // Combined confidence
+        confidence: Math.max(chainabuseResult.data.confidence, metasleuthResult.data.confidence),
+        timestamp: Date.now()
       };
 
       return {
@@ -230,7 +251,7 @@ export class SupervisorAgent {
           sanctions_screener: {
             agent: "sanctions_screener",
             result: screeningResult,
-            confidence: 98,
+            confidence: Math.round(screeningResult.confidence * 100),
             findings: this.generateSanctionsFindings(screeningResult),
             timestamp: Date.now()
           }
@@ -242,8 +263,8 @@ export class SupervisorAgent {
       return {
         agent_outputs: {
           sanctions_screener: {
-            agent: "sanctions_screener", 
-            result: { error: "Sanctions screening failed" },
+            agent: "sanctions_screener",
+            result: { error: "Sanctions screening failed", address, details: error },
             confidence: 0,
             findings: [],
             timestamp: Date.now()
