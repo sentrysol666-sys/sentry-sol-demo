@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { useWalletIntegration } from "@/hooks/useWalletIntegration";
 import {
   Sheet,
@@ -20,6 +21,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Menu as MenuIcon,
@@ -37,23 +51,148 @@ import {
   AccountBalanceWallet as Wallet,
   CheckCircle,
   Cancel as XCircle,
+  SearchOff,
+  Keyboard,
+  TrendingUp,
+  Warning,
+  Info,
+  NotificationsActive,
+  DarkMode,
+  LightMode,
+  Language,
 } from "@mui/icons-material";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      type: "warning",
+      title: "High Risk Transaction Detected",
+      message: "Wallet 0x742d...8a9b flagged for suspicious activity",
+      timestamp: "2 min ago",
+      unread: true,
+    },
+    {
+      id: 2,
+      type: "info",
+      title: "AML Report Generated",
+      message: "Weekly compliance report is ready for review",
+      timestamp: "1 hour ago",
+      unread: true,
+    },
+    {
+      id: 3,
+      type: "success",
+      title: "System Update Complete",
+      message: "Risk scoring algorithms updated successfully",
+      timestamp: "3 hours ago",
+      unread: false,
+    },
+  ]);
   const location = useLocation();
+  const navigate = useNavigate();
   const { isConnected, connectedWallets, activeWallet } =
     useWalletIntegration();
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const navigationItems = [
-    { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
-    { name: "AML Investigation", href: "/aml-dashboard", icon: Shield },
-    { name: "Wallet Screening", href: "/wallet-screening", icon: Search },
-    { name: "Case Management", href: "/cases", icon: FileText },
-    { name: "Analytics", href: "/analytics", icon: BarChart3 },
-    { name: "Compliance", href: "/compliance", icon: Shield },
-    { name: "Settings", href: "/settings", icon: Settings },
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: BarChart3,
+      description: "Overview and key metrics"
+    },
+    {
+      name: "AML Investigation",
+      href: "/aml-dashboard",
+      icon: Shield,
+      description: "Anti-money laundering tools"
+    },
+    {
+      name: "Wallet Screening",
+      href: "/wallet-screening",
+      icon: Search,
+      description: "Analyze wallet addresses"
+    },
+    {
+      name: "Case Management",
+      href: "/cases",
+      icon: FileText,
+      description: "Manage investigation cases"
+    },
+    {
+      name: "Analytics",
+      href: "/analytics",
+      icon: BarChart3,
+      description: "Risk analytics and reporting"
+    },
+    {
+      name: "Compliance",
+      href: "/compliance",
+      icon: Shield,
+      description: "Regulatory compliance tools"
+    },
+    {
+      name: "Settings",
+      href: "/settings",
+      icon: Settings,
+      description: "Platform configuration"
+    },
   ];
+
+  const searchableItems = [
+    ...navigationItems,
+    { name: "New Case", href: "/cases/new", icon: FileText, description: "Create investigation case" },
+    { name: "Risk Reports", href: "/reports", icon: TrendingUp, description: "View risk assessment reports" },
+    { name: "User Management", href: "/users", icon: Users, description: "Manage team members" },
+    { name: "API Documentation", href: "/docs", icon: FileText, description: "Integration guides" },
+  ];
+
+  const filteredItems = searchableItems.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const unreadNotifications = notifications.filter(n => n.unread).length;
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+        event.preventDefault();
+        setIsSearchOpen(true);
+      }
+      if (event.key === 'Escape') {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  const handleSearch = (href: string) => {
+    navigate(href);
+    setIsSearchOpen(false);
+    setSearchQuery("");
+  };
+
+  const markNotificationAsRead = (id: number) => {
+    setNotifications(prev =>
+      prev.map(notif =>
+        notif.id === id ? { ...notif, unread: false } : notif
+      )
+    );
+  };
 
   const isActive = (href: string) => location.pathname === href;
 
@@ -87,29 +226,111 @@ export default function Navigation() {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-1">
-          {navigationItems.map((item) => {
+          {navigationItems.slice(0, 5).map((item) => {
             const Icon = item.icon;
             return (
-              <Link key={item.name} to={item.href}>
-                <Button
-                  variant={isActive(item.href) ? "secondary" : "ghost"}
-                  size="sm"
-                  className={`flex items-center space-x-2 ${
-                    isActive(item.href)
-                      ? "bg-brand-light/10 text-brand-light"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </Button>
-              </Link>
+              <motion.div
+                key={item.name}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link to={item.href}>
+                  <Button
+                    variant={isActive(item.href) ? "secondary" : "ghost"}
+                    size="sm"
+                    className={`flex items-center space-x-2 transition-all duration-200 ${
+                      isActive(item.href)
+                        ? "bg-brand-light/10 text-brand-light shadow-sm border border-brand-light/20"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span className="font-medium">{item.name}</span>
+                  </Button>
+                </Link>
+              </motion.div>
             );
           })}
+
+          {/* More Menu for additional items */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="flex items-center space-x-1">
+                <span>More</span>
+                <ChevronDown className="h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="center" className="w-56">
+              {navigationItems.slice(5).map((item) => {
+                const Icon = item.icon;
+                return (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link to={item.href} className="flex items-center space-x-2">
+                      <Icon className="h-4 w-4" />
+                      <div>
+                        <div className="font-medium">{item.name}</div>
+                        <div className="text-xs text-muted-foreground">{item.description}</div>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
+          {/* Global Search */}
+          <Popover open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="outline" size="sm" className="flex items-center space-x-2 w-64 justify-start text-muted-foreground">
+                <Search className="h-4 w-4" />
+                <span className="flex-1 text-left">Search...</span>
+                <div className="flex items-center space-x-1 text-xs bg-muted px-1.5 py-0.5 rounded">
+                  <Keyboard className="h-3 w-3" />
+                  <span>⌘K</span>
+                </div>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-96 p-0" align="end">
+              <Command>
+                <CommandInput
+                  ref={searchInputRef}
+                  placeholder="Search pages, features, and tools..."
+                  value={searchQuery}
+                  onValueChange={setSearchQuery}
+                  className="border-0"
+                />
+                <CommandList className="max-h-80">
+                  <CommandEmpty className="py-6 text-center text-sm text-muted-foreground">
+                    <SearchOff className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                    No results found.
+                  </CommandEmpty>
+                  <CommandGroup heading="Navigation">
+                    {filteredItems.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <CommandItem
+                          key={item.name}
+                          onSelect={() => handleSearch(item.href)}
+                          className="flex items-center space-x-3 py-3"
+                        >
+                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50">
+                            <Icon className="h-4 w-4" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-medium">{item.name}</div>
+                            <div className="text-xs text-muted-foreground">{item.description}</div>
+                          </div>
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
           {/* Wallet Status */}
           <div className="hidden md:flex items-center space-x-2">
             {isConnected ? (
@@ -136,10 +357,79 @@ export default function Navigation() {
           </div>
 
           {/* Notifications */}
-          <Button variant="ghost" size="sm" className="relative">
-            <Bell className="h-4 w-4" />
-            <span className="absolute -top-1 -right-1 h-2 w-2 bg-risk-red rounded-full"></span>
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="relative">
+                {unreadNotifications > 0 ? (
+                  <NotificationsActive className="h-4 w-4 text-warning-amber" />
+                ) : (
+                  <Bell className="h-4 w-4" />
+                )}
+                {unreadNotifications > 0 && (
+                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-risk-red text-white text-xs rounded-full flex items-center justify-center font-medium">
+                    {unreadNotifications}
+                  </span>
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-80">
+              <DropdownMenuLabel className="flex items-center justify-between">
+                <span>Notifications</span>
+                {unreadNotifications > 0 && (
+                  <Badge variant="secondary" className="text-xs">
+                    {unreadNotifications} new
+                  </Badge>
+                )}
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <div className="max-h-64 overflow-y-auto">
+                {notifications.map((notification) => {
+                  const getIcon = () => {
+                    switch (notification.type) {
+                      case 'warning': return <Warning className="h-4 w-4 text-warning-amber" />;
+                      case 'success': return <CheckCircle className="h-4 w-4 text-success-green" />;
+                      default: return <Info className="h-4 w-4 text-blue-500" />;
+                    }
+                  };
+
+                  return (
+                    <DropdownMenuItem
+                      key={notification.id}
+                      className={`flex flex-col items-start space-y-1 p-3 cursor-pointer ${
+                        notification.unread ? 'bg-muted/30' : ''
+                      }`}
+                      onClick={() => markNotificationAsRead(notification.id)}
+                    >
+                      <div className="flex items-start space-x-2 w-full">
+                        {getIcon()}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <p className="font-medium text-sm truncate">
+                              {notification.title}
+                            </p>
+                            {notification.unread && (
+                              <div className="w-2 h-2 bg-blue-500 rounded-full ml-2" />
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            {notification.message}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {notification.timestamp}
+                          </p>
+                        </div>
+                      </div>
+                    </DropdownMenuItem>
+                  );
+                })}
+              </div>
+              {notifications.length === 0 && (
+                <div className="p-4 text-center text-sm text-muted-foreground">
+                  No notifications
+                </div>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* User Menu */}
           <DropdownMenu>
