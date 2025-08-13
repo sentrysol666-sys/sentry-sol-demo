@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { mcpManager, MCP_SERVERS } from '@shared/mcp-services';
-import { investigationService } from '@shared/investigation-service';
+import { mcpApiClient, MCPStatus, InvestigationResult } from '@shared/api-client';
 
 export interface MCPServiceStatus {
   isInitialized: boolean;
@@ -10,6 +9,29 @@ export interface MCPServiceStatus {
   isLoading: boolean;
   error: string | null;
 }
+
+const MCP_SERVERS = {
+  github: {
+    name: "GitHub MCP Server",
+    description: "Access GitHub repositories, issues, and code analysis",
+    capabilities: ["repo_search", "code_analysis", "issue_tracking", "commit_history"]
+  },
+  helius: {
+    name: "Helius MCP Server", 
+    description: "Solana blockchain data and transaction analysis",
+    capabilities: ["transaction_parsing", "account_info", "token_metadata", "nft_data"]
+  },
+  sherlock: {
+    name: "Sherlock MCP Server",
+    description: "Advanced blockchain investigation and forensics",
+    capabilities: ["address_clustering", "transaction_tracing", "risk_analysis", "pattern_detection"]
+  },
+  etherscan: {
+    name: "Etherscan MCP Server",
+    description: "Ethereum blockchain data and analytics",
+    capabilities: ["eth_transactions", "contract_verification", "token_transfers", "gas_analytics"]
+  }
+};
 
 export function useMCPServices() {
   const [status, setStatus] = useState<MCPServiceStatus>({
@@ -21,44 +43,37 @@ export function useMCPServices() {
     error: null
   });
 
-  const initializeServices = useCallback(async () => {
+  const fetchStatus = useCallback(async () => {
     try {
       setStatus(prev => ({ ...prev, isLoading: true, error: null }));
       
-      console.log('🚀 Initializing MCP services...');
+      console.log('🚀 Fetching MCP status from server...');
       
-      // Initialize all MCP servers
-      await mcpManager.initializeAllServers();
+      const mcpStatus: MCPStatus = await mcpApiClient.getMCPStatus();
       
-      // Get server status
-      const serverStatus = mcpManager.getServerStatus();
-      const connectedServers = Object.entries(serverStatus)
+      const connectedServers = Object.entries(mcpStatus.serverStatus)
         .filter(([_, connected]) => connected)
         .map(([server, _]) => server);
       
-      const failedServers = Object.entries(serverStatus)
+      const failedServers = Object.entries(mcpStatus.serverStatus)
         .filter(([_, connected]) => !connected)
         .map(([server, _]) => server);
 
-      // Get available tools
-      const availableTools = await mcpManager.getAllAvailableTools();
-
-      console.log('✅ MCP Services initialized');
+      console.log('✅ MCP Status received');
       console.log('Connected servers:', connectedServers);
       console.log('Failed servers:', failedServers);
-      console.log('Available tools:', Object.keys(availableTools));
 
       setStatus({
         isInitialized: true,
         connectedServers,
         failedServers,
-        availableTools,
+        availableTools: mcpStatus.availableTools,
         isLoading: false,
         error: null
       });
 
     } catch (error) {
-      console.error('❌ Failed to initialize MCP services:', error);
+      console.error('❌ Failed to fetch MCP status:', error);
       setStatus(prev => ({
         ...prev,
         isLoading: false,
@@ -81,7 +96,7 @@ export function useMCPServices() {
       throw new Error('MCP services not initialized');
     }
     
-    return investigationService.investigateAddress(address);
+    return mcpApiClient.investigateAddress(address);
   }, [status.isInitialized]);
 
   const retryConnection = useCallback(async (serverKey: string) => {
@@ -92,52 +107,39 @@ export function useMCPServices() {
         failedServers: prev.failedServers.filter(s => s !== serverKey)
       }));
 
-      await mcpManager.initializeServer(serverKey as keyof typeof MCP_SERVERS);
+      await mcpApiClient.retryConnection(serverKey);
       
-      // Update status
-      const serverStatus = mcpManager.getServerStatus();
-      const connectedServers = Object.entries(serverStatus)
-        .filter(([_, connected]) => connected)
-        .map(([server, _]) => server);
-      
-      const failedServers = Object.entries(serverStatus)
-        .filter(([_, connected]) => !connected)
-        .map(([server, _]) => server);
-
-      setStatus(prev => ({
-        ...prev,
-        connectedServers,
-        failedServers,
-        isLoading: false
-      }));
+      // Refresh status after retry
+      await fetchStatus();
 
     } catch (error) {
       console.error(`Failed to retry connection to ${serverKey}:`, error);
       setStatus(prev => ({ 
         ...prev, 
         isLoading: false,
-        failedServers: [...prev.failedServers, serverKey]
+        failedServers: [...new Set([...prev.failedServers, serverKey])]
       }));
     }
-  }, []);
+  }, [fetchStatus]);
 
   // Initialize on mount
   useEffect(() => {
-    initializeServices();
+    fetchStatus();
     
-    // Cleanup on unmount
+    // Set up periodic status refresh
+    const interval = setInterval(fetchStatus, 30000); // Refresh every 30 seconds
+    
     return () => {
-      mcpManager.disconnect().catch(console.error);
+      clearInterval(interval);
     };
-  }, [initializeServices]);
+  }, [fetchStatus]);
 
   return {
     status,
-    initializeServices,
+    fetchStatus,
     getServerInfo,
     investigateAddress,
-    retryConnection,
-    mcpManager
+    retryConnection
   };
 }
 
@@ -146,7 +148,7 @@ export function useMCPInvestigation() {
   const { status, investigateAddress } = useMCPServices();
   const [investigation, setInvestigation] = useState<{
     isLoading: boolean;
-    result: any | null;
+    result: InvestigationResult | null;
     error: string | null;
   }>({
     isLoading: false,
