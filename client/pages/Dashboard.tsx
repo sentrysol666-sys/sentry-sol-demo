@@ -432,6 +432,17 @@ export default function Dashboard() {
                   >
                     Screen Address
                   </Button>
+
+                  {/* Chat Sentry Feature */}
+                  <Button
+                    onClick={() => navigate('/chat-sentry')}
+                    size="sm"
+                    className="w-full mt-3 bg-gradient-to-r from-sentry-mint to-sentry-ice hover:from-sentry-mint/80 hover:to-sentry-ice/80 text-white font-semibold"
+                  >
+                    <Chat className="mr-2 h-4 w-4" />
+                    Chat Sentry
+                  </Button>
+
                   <div className="grid grid-cols-2 gap-2 mt-4">
                     <Button variant="outline" size="sm">
                       <FileText className="mr-1 h-3 w-3" />
