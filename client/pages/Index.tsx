@@ -81,7 +81,7 @@ export default function Index() {
               <CardHeader>
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-risk-red/10 rounded-lg">
-                    <Shield className="h-6 w-6 text-risk-red" />
+                    <ShieldIcon className="h-6 w-6 text-risk-red" />
                   </div>
                   <CardTitle className="text-xl">Sanctions Screening</CardTitle>
                 </div>
