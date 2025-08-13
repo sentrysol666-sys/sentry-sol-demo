@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
     open: true, // Open browser automatically
     cors: true, // Enable CORS for development
     fs: {
-      allow: ["./client", "./shared"],
+      allow: ["./client", "./shared", "./node_modules"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
     hmr: {
