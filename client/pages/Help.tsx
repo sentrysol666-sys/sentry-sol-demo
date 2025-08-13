@@ -325,13 +325,29 @@ export default function Help() {
             </Card>
           </motion.div>
 
+          {/* Wallet Debugger */}
+          <motion.div variants={itemVariants} className="mb-16">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2 font-poppins flex items-center justify-center">
+                <BugReport className="mr-2 h-6 w-6" />
+                Troubleshooting
+              </h2>
+              <p className="text-white/80 font-poppins">
+                Having issues connecting your wallet? Use our debug tool to identify problems.
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <WalletDebugger />
+            </div>
+          </motion.div>
+
           {/* Call to Action */}
           <motion.div variants={itemVariants} className="text-center">
             <Card className="max-w-2xl mx-auto">
               <CardContent className="p-8">
                 <h3 className="text-xl font-bold mb-4">Ready to Get Started?</h3>
                 <p className="text-muted-foreground mb-6">
-                  Once you've set up your wallet, return to connect it and access 
+                  Once you've set up your wallet, return to connect it and access
                   our powerful AML compliance tools.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
