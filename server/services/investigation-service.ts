@@ -54,7 +54,25 @@ export interface AddressMetadata {
 }
 
 export class InvestigationService {
-  
+
+  async investigateAddressWithAgents(address: string, investigationType: 'full' | 'sanctions' | 'tracing' | 'media' | 'visualization' = 'full'): Promise<any> {
+    console.log(`🧠 Starting Supervisor Multi-Agent investigation for: ${address}`);
+
+    try {
+      // Use the Supervisor Multi-Agent Architecture
+      const result = await supervisorAgent.runInvestigation({
+        address,
+        investigationType,
+        userQuery: `Comprehensive AML investigation for address ${address}`
+      });
+
+      return result;
+    } catch (error) {
+      console.error('Multi-agent investigation failed:', error);
+      throw error;
+    }
+  }
+
   async investigateAddress(address: string): Promise<InvestigationResult> {
     console.log(`🔍 Starting investigation for address: ${address}`);
     
