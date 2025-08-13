@@ -26,5 +26,12 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // MCP API endpoints
+  app.get("/api/mcp/status", getMCPStatus);
+  app.post("/api/mcp/investigate", investigateAddress);
+  app.post("/api/mcp/retry/:serverKey", retryMCPConnection);
+  app.get("/api/mcp/tools/:serverKey", getMCPTools);
+  app.post("/api/mcp/call/:serverKey/:toolName", callMCPTool);
+
   return app;
 }
