@@ -25,7 +25,6 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
-import ChatSentry from "./pages/ChatSentry";
 
 const queryClient = new QueryClient();
 
