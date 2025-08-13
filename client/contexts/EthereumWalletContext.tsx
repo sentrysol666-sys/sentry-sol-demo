@@ -193,7 +193,18 @@ export const MetaMaskWalletProvider: React.FC<EthereumWalletProviderProps> = ({
   };
 
   return (
-    <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
+    <MetaMaskProvider
+      debug={false}
+      sdkOptions={{
+        ...sdkOptions,
+        // Disable analytics to avoid FullStory network errors
+        enableAnalytics: false,
+        // Add network timeout and retry configuration
+        communicationServerUrl: undefined,
+        // Reduce network calls
+        checkInstallationImmediately: false,
+      }}
+    >
       <EthereumWalletProvider>{children}</EthereumWalletProvider>
     </MetaMaskProvider>
   );
