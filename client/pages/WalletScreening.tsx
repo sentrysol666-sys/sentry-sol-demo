@@ -7,6 +7,8 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useMCPInvestigation } from '@/hooks/useMCPServices';
+import { mcpApiClient } from '@shared/api-client';
+import FlowVisualization from '@/components/FlowVisualization';
 import { 
   Search, Shield, AlertTriangle, CheckCircle, XCircle, 
   Eye, Clock, TrendingUp, Activity, Network, FileText,
