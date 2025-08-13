@@ -40,15 +40,15 @@ export default function Index() {
               Multi-agent architecture for sanctions screening, transaction monitoring, and risk assessment.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/dashboard">
+              <Link to="/wallet-screening">
                 <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90 shadow-lg">
-                  Launch AML Dashboard
+                  Connect Wallet & Start
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/wallet-screening">
+              <Link to="/dashboard">
                 <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10 backdrop-blur-sm shadow-lg">
-                  Screen Wallet
+                  View Dashboard
                 </Button>
               </Link>
             </div>
