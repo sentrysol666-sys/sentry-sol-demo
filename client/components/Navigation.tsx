@@ -80,7 +80,7 @@ export default function Navigation() {
                   size="sm"
                   className={`flex items-center space-x-2 ${
                     isActive(item.href)
-                      ? "bg-aml-blue/10 text-aml-blue"
+                      ? "bg-brand-light/10 text-brand-light"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -145,10 +145,12 @@ export default function Navigation() {
             <SheetContent side="right">
               <SheetHeader>
                 <SheetTitle className="flex items-center space-x-2">
-                  <div className="h-6 w-6 bg-gradient-to-br from-aml-blue to-compliance-green rounded flex items-center justify-center">
-                    <Shield className="h-4 w-4 text-white" />
-                  </div>
-                  <span>Sentrysol</span>
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+                    alt="Sentrysol Logo"
+                    className="h-6 w-auto"
+                  />
+                  <span className="font-poppins">Sentrysol</span>
                 </SheetTitle>
                 <SheetDescription>
                   AI-Powered AML/Compliance Platform
@@ -167,7 +169,7 @@ export default function Navigation() {
                         variant={isActive(item.href) ? "secondary" : "ghost"}
                         className={`w-full justify-start ${
                           isActive(item.href)
-                            ? "bg-aml-blue/10 text-aml-blue"
+                            ? "bg-brand-light/10 text-brand-light"
                             : "text-muted-foreground"
                         }`}
                       >
