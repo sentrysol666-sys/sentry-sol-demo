@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,8 @@ import {
   ArrowForward as ArrowRight,
   Security as Shield,
   Psychology as Brain,
-  Hub as Network,
+  Visibility as Eye,
+  BugReport as Bug,
   Search,
   BarChart as BarChart3,
   CheckCircle,
@@ -26,6 +27,10 @@ import {
   TrendingUp,
   Speed,
   Timeline,
+  Lock as LockIcon,
+  PhoneAndroid as MobileIcon,
+  LinkedIn as LinkedInIcon,
+  Twitter as TwitterIcon,
 } from "@mui/icons-material";
 
 // Animation variants
@@ -107,46 +112,25 @@ export default function Index() {
 
   const features = [
     {
-      icon: Brain,
-      title: "AI-Powered Analysis",
-      description: "Advanced machine learning models analyze transaction patterns with 99.7% accuracy",
+      icon: LockIcon,
+      title: "Your Data Private",
+      description: "Your behavioral data never leaves your device. Security remains active, even when you're offline.",
       gradient: "from-blue-500 to-cyan-500",
       delay: 0.1,
     },
     {
-      icon: Shield,
-      title: "Real-time Screening",
-      description: "Instant sanctions and PEP screening against global watchlists",
+      icon: Search,
+      title: "Spots Suspicious",
+      description: "Guards against phishing, malicious smart contracts, and wallet draining.",
       gradient: "from-purple-500 to-pink-500",
       delay: 0.2,
     },
     {
-      icon: Network,
-      title: "Transaction Tracing",
-      description: "Follow fund flows across multiple blockchains with advanced graph analysis",
+      icon: Bug,
+      title: "Stop Threats",
+      description: "Instant threat detection without network delays. Our system continuously adapts to new threats.",
       gradient: "from-green-500 to-emerald-500",
       delay: 0.3,
-    },
-    {
-      icon: Search,
-      title: "Investigation Tools",
-      description: "Comprehensive case management with automated report generation",
-      gradient: "from-orange-500 to-red-500",
-      delay: 0.4,
-    },
-    {
-      icon: BarChart3,
-      title: "Analytics Dashboard",
-      description: "Real-time insights with customizable dashboards for compliance teams",
-      gradient: "from-indigo-500 to-purple-500",
-      delay: 0.5,
-    },
-    {
-      icon: Globe,
-      title: "Multi-chain Support",
-      description: "Monitor transactions across Bitcoin, Ethereum, Solana and other networks",
-      gradient: "from-pink-500 to-rose-500",
-      delay: 0.6,
     },
   ];
 
@@ -158,10 +142,28 @@ export default function Index() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-accent/10 overflow-hidden">
+    <div className="min-h-screen overflow-hidden relative">
+      {/* SentrySol Gradient Background */}
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          background: "linear-gradient(180deg, #000 0%, #395B64 50%, #395B64 75%, #000 100%)"
+        }}
+      />
+      
+      {/* Line Pattern Background */}
+      <div className="fixed inset-0 z-1 opacity-30">
+        <img 
+          src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F4bb3a901209b402298887c7be38d6a6d"
+          alt=""
+          className="w-full h-auto object-cover"
+          style={{ minHeight: "100vh" }}
+        />
+      </div>
+
       {/* Mouse Follower */}
       <motion.div
-        className="fixed top-0 left-0 w-6 h-6 bg-primary/20 rounded-full pointer-events-none z-50 mix-blend-multiply"
+        className="fixed top-0 left-0 w-6 h-6 bg-[#CFE0E3]/20 rounded-full pointer-events-none z-50 mix-blend-multiply"
         animate={{
           x: mousePosition.x - 12,
           y: mousePosition.y - 12,
@@ -170,150 +172,128 @@ export default function Index() {
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
       />
 
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-20 left-20 w-48 h-48 bg-primary/5 rounded-full blur-3xl"
-          variants={floatingVariants}
-          animate="animate"
-        />
-        <motion.div
-          className="absolute top-60 right-32 w-64 h-64 bg-brand-light/5 rounded-full blur-3xl"
-          variants={floatingVariants}
-          animate="animate"
-          transition={{ delay: 2 }}
-        />
-        <motion.div
-          className="absolute bottom-40 left-1/4 w-32 h-32 bg-success-green/5 rounded-full blur-3xl"
-          variants={floatingVariants}
-          animate="animate"
-          transition={{ delay: 4 }}
-        />
-      </div>
+      {/* Navigation */}
+      <motion.nav 
+        className="fixed top-12 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-6xl px-4"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-[100px] px-5 py-7 shadow-xl">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-4">
+              <img 
+                src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fa8a60ebfb99d4f8a95d229f18cfe5b5f"
+                alt="SentrySol Logo"
+                className="w-16 h-16"
+              />
+              <span className="text-white text-2xl font-bold font-poppins">SENTRYSOL</span>
+            </div>
+
+            {/* Navigation Items */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#products" className="text-white/90 hover:text-white transition-colors text-lg font-medium">Products</a>
+              <a href="#about" className="text-white/90 hover:text-white transition-colors text-lg font-medium">About</a>
+              <a href="#docs" className="text-white/90 hover:text-white transition-colors text-lg font-medium">Docs</a>
+              <a href="#pricing" className="text-white/90 hover:text-white transition-colors text-lg font-medium">Pricing</a>
+            </div>
+
+            {/* Search and Connect */}
+            <div className="flex items-center gap-4">
+              <div className="hidden lg:flex items-center bg-white/5 border border-white/20 rounded-full px-4 py-2">
+                <input 
+                  type="text" 
+                  placeholder="I'm looking for..."
+                  className="bg-transparent text-white/70 placeholder-white/50 text-sm outline-none w-40"
+                />
+                <Search className="text-white/50 w-4 h-4 ml-2" />
+              </div>
+              <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6 py-2 font-medium">
+                Connect
+              </Button>
+            </div>
+          </div>
+        </div>
+      </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+      <section className="relative pt-48 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center z-10">
         <motion.div 
-          className="max-w-6xl mx-auto w-full text-center"
+          className="max-w-7xl mx-auto w-full"
           style={{ y: y1, opacity }}
         >
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            className="text-center"
           >
-            {/* Badge */}
-            <motion.div variants={itemVariants}>
-              <Badge 
-                className="mb-8 px-6 py-2 text-sm font-medium bg-primary/10 text-primary border-primary/20 backdrop-blur-sm hover:bg-primary/15 transition-colors cursor-pointer"
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-              >
-                🚀 Next-gen AML Intelligence Platform
-              </Badge>
-            </motion.div>
-
-            {/* Main Title */}
+            {/* Main Title - SentrySol Style */}
             <motion.h1 
               variants={heroTextVariants}
-              className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-foreground mb-6"
+              className="text-[275px] font-bold leading-none tracking-wider text-transparent bg-gradient-to-r from-transparent via-white/50 to-transparent bg-clip-text mb-8"
+              style={{
+                fontFamily: "Poppins",
+                textTransform: "uppercase",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
             >
-              <span className="bg-gradient-to-r from-primary via-brand-light to-success-green bg-clip-text text-transparent">
-                Sentrysol
-              </span>
+              SENTRYSOL
             </motion.h1>
 
+            {/* Logo Glow Effect */}
             <motion.div 
+              className="relative flex justify-center mb-16"
               variants={itemVariants}
-              className="w-32 h-1 bg-gradient-to-r from-primary to-brand-light mx-auto mb-8 rounded-full"
-            />
-
-            {/* Subtitle */}
-            <motion.h2 
-              variants={itemVariants}
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 max-w-4xl mx-auto leading-tight"
             >
-              AI-powered compliance platform for{" "}
-              <span className="text-primary">blockchain intelligence</span>
-            </motion.h2>
-
-            <motion.p 
-              variants={itemVariants}
-              className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
-            >
-              Advanced machine learning and graph neural networks for comprehensive 
-              sanctions screening, transaction monitoring, and risk assessment.
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
-            >
-              <Link to={isConnected ? "/dashboard" : "/signin"}>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
-                >
-                  <Button
-                    size="lg"
-                    className="px-10 py-4 text-lg font-semibold bg-gradient-to-r from-primary to-brand-light hover:from-primary/90 hover:to-brand-light/90 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300"
-                  >
-                    {isConnected ? "Open Dashboard" : "Get Started"}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </motion.div>
-              </Link>
-              
-              <Link to="/wallet-screening">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
-                >
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="px-10 py-4 text-lg font-semibold border-2 border-muted-foreground/30 text-foreground hover:border-primary/50 hover:bg-primary/5 rounded-full transition-all duration-300"
-                  >
-                    Try Demo
-                  </Button>
-                </motion.div>
-              </Link>
+              <div className="relative">
+                <img 
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F23c2c31fc9304ab89820e5a3b12f9e8a"
+                  alt="SentrySol Logo with Glow"
+                  className="w-[760px] h-[663px] object-contain"
+                />
+              </div>
             </motion.div>
 
-            {/* Trust Indicators */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-wrap justify-center items-center gap-8 text-sm text-muted-foreground"
-            >
-              {[
-                { icon: CheckCircle, text: "Enterprise Grade", color: "text-green-500" },
-                { icon: Shield, text: "SOC 2 Compliant", color: "text-blue-500" },
-                { icon: Zap, text: "Real-time Processing", color: "text-yellow-500" },
-                { icon: Users, text: "Trusted by 500+ Teams", color: "text-purple-500" },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="flex items-center gap-2 group cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
+            {/* Tagline and Description */}
+            <div className="flex justify-between items-start max-w-7xl mx-auto mb-20">
+              {/* Left Side - Tagline */}
+              <motion.div 
+                variants={itemVariants}
+                className="text-left"
+              >
+                <h2 className="text-white text-4xl font-light leading-tight font-poppins mb-4">
+                  Secure.<br />
+                  Smart.<br />
+                  Private.
+                </h2>
+              </motion.div>
+
+              {/* Right Side - Description and CTA */}
+              <motion.div 
+                variants={itemVariants}
+                className="text-right max-w-md"
+              >
+                <p className="text-white text-lg leading-relaxed font-poppins mb-8">
+                  SentrySol is an AI-native, on-device behavioral security framework built specifically for Web3 mobile environments, initially focusing on Solana Mobile Seeker.
+                </p>
+                <Button 
+                  className="bg-[#CFE0E3] text-black hover:bg-[#CFE0E3]/90 rounded-lg px-8 py-4 text-lg font-bold font-poppins"
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
                 >
-                  <item.icon className={`h-4 w-4 ${item.color} group-hover:scale-110 transition-transform`} />
-                  <span className="group-hover:text-foreground transition-colors">{item.text}</span>
-                </motion.div>
-              ))}
-            </motion.div>
+                  Get Started
+                </Button>
+              </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 z-10 relative">
         <motion.div 
           className="max-w-7xl mx-auto"
           style={{ y: y2 }}
@@ -323,24 +303,31 @@ export default function Index() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
             <motion.h2 
               variants={itemVariants}
-              className="text-3xl sm:text-4xl font-bold text-foreground mb-4"
+              className="text-8xl font-light text-center leading-tight mb-8"
+              style={{
+                background: "linear-gradient(90deg, #A5C9CA 0%, #E7F6F2 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontFamily: "Poppins",
+                letterSpacing: "6.4px"
+              }}
             >
-              Built for compliance professionals
+              Intelligent Protection<br />
+              Right On Your Phone
             </motion.h2>
             <motion.p 
               variants={itemVariants}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+              className="text-white text-2xl font-light max-w-4xl mx-auto font-poppins leading-relaxed"
             >
-              Everything you need to stay compliant with regulatory requirements
-              and detect suspicious activities.
+              We introduce an AI-native, on-device behavioral security framework specifically engineered to protect your Web3 mobile experience.
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -354,24 +341,22 @@ export default function Index() {
                 onMouseLeave={() => setIsHovering(false)}
               >
                 <motion.div variants={cardHoverVariants}>
-                  <Card className="h-full border-0 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                    
-                    <CardHeader className="pb-4 relative">
+                  <Card className="h-[450px] border-white/30 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 overflow-hidden group rounded-3xl">
+                    <CardHeader className="pb-4 relative text-center pt-12">
                       <motion.div 
-                        className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                        className="w-20 h-20 bg-gradient-to-br from-[#CFE0E3] to-[#92BAC1] rounded-2xl flex items-center justify-center mb-8 mx-auto group-hover:scale-110 transition-transform duration-300"
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.6 }}
                       >
-                        <feature.icon className="h-7 w-7 text-white" />
+                        <feature.icon className="h-10 w-10 text-black" />
                       </motion.div>
-                      <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                      <CardTitle className="text-3xl font-light text-white group-hover:text-[#CFE0E3] transition-colors duration-300 font-poppins mb-6">
                         {feature.title}
                       </CardTitle>
                     </CardHeader>
                     
-                    <CardContent className="relative">
-                      <CardDescription className="text-muted-foreground text-base leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
+                    <CardContent className="relative text-center px-8">
+                      <CardDescription className="text-white/70 text-xl leading-relaxed group-hover:text-white/90 transition-colors duration-300 font-poppins">
                         {feature.description}
                       </CardDescription>
                     </CardContent>
@@ -380,134 +365,399 @@ export default function Index() {
               </motion.div>
             ))}
           </div>
+
+          {/* Technology Illustration */}
+          <motion.div 
+            className="text-center mb-20"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <motion.h2 
+              variants={itemVariants}
+              className="text-6xl font-light text-white text-center leading-tight mb-8 font-poppins"
+            >
+              Revolutionizing Web3<br />Mobile Security
+            </motion.h2>
+            <motion.p 
+              variants={itemVariants}
+              className="text-white text-xl font-light max-w-2xl mx-auto font-poppins leading-relaxed mb-16"
+            >
+              SentrySol is strategically focused on the Solana Mobile ecosystem, providing native, enhanced dApp security directly integrated with devices like the Solana Seeker.
+            </motion.p>
+            
+            {/* Tech Features with Illustration */}
+            <motion.div 
+              variants={itemVariants}
+              className="relative"
+            >
+              <img 
+                src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F9a309f6fee534d2ebd72fc389778022f"
+                alt="Technology Illustration"
+                className="mx-auto max-w-4xl w-full h-auto"
+              />
+              
+              {/* Feature Labels */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
+                  {[
+                    { text: "Phishing Interceptor", position: "top-left" },
+                    { text: "Anomaly Detection Engine", position: "top-right" },
+                    { text: "Privacy-Preserving", position: "bottom-left" },
+                    { text: "On-Device Processing", position: "bottom-right" },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={index}
+                      className={`bg-black/20 backdrop-blur-md rounded-2xl px-6 py-3 ${
+                        item.position.includes("top") ? "self-start" : "self-end"
+                      } ${
+                        item.position.includes("left") ? "justify-self-start" : "justify-self-end"
+                      }`}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.2 }}
+                    >
+                      <span className="text-white text-lg font-bold font-mono">
+                        {item.text}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Vision and Mission Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 z-10 relative">
         <motion.div 
-          className="max-w-6xl mx-auto"
+          className="max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Trusted by compliance teams worldwide
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Join hundreds of financial institutions using Sentrysol for blockchain compliance.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                transition={{ delay: index * 0.1 }}
-                className="text-center group cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-              >
-                <motion.div
-                  className="w-16 h-16 bg-gradient-to-br from-primary/10 to-brand-light/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-primary/20 group-hover:to-brand-light/20 transition-all duration-300"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <stat.icon className="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
-                </motion.div>
-                <div className="text-3xl sm:text-4xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
-                  {stat.label}
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left side - Vision and Mission */}
+            <div>
+              <motion.div variants={itemVariants} className="mb-16">
+                <h2 className="text-8xl font-light text-white mb-8 font-poppins">Vision</h2>
+                <p className="text-white text-xl font-light leading-relaxed font-poppins">
+                  We envision a Web3 future where users interact with decentralized applications confidently and securely. SentrySol is building the essential, intelligent, and privacy-preserving security layer needed to unlock the full potential of Web3 on mobile devices.
+                </p>
               </motion.div>
-            ))}
+              
+              <motion.div variants={itemVariants}>
+                <h2 className="text-8xl font-light text-white mb-8 font-poppins">Mission</h2>
+                <p className="text-white text-xl font-light leading-relaxed font-poppins">
+                  Empowering Users, Fostering trust and confidence in every Web3 interaction.<br/><br/>
+                  Securing the Ecosystem, Protecting against evolving threats like blind signing and wallet draining.<br/><br/>
+                  Driving Adoption, Making Web3 accessible and safe for everyone.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Right side - Abstract Illustration */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex justify-center"
+            >
+              <img 
+                src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F2625c3df85902ee8a3128918e90c80b207a5a44b"
+                alt="Abstract data visualization"
+                className="rounded-[132px] border border-[#CFE0E3] max-w-lg w-full h-auto"
+              />
+            </motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* Data Sources */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/30">
+      {/* Seamless Integration Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 z-10 relative">
         <motion.div 
-          className="max-w-6xl mx-auto text-center"
+          className="max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.h3 
-            variants={itemVariants}
-            className="text-lg font-semibold text-muted-foreground mb-8"
-          >
-            INTEGRATED DATA SOURCES
-          </motion.h3>
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-wrap justify-center items-center gap-12"
-          >
-            {["Helius", "MetaSleuth", "Chainabuse", "Etherscan", "CoinStats", "OFAC"].map((source, index) => (
-              <motion.div
-                key={source}
-                className="text-lg font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                whileHover={{ scale: 1.1 }}
-                transition={{ delay: index * 0.1 }}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left side - Device Image */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex justify-center"
+            >
+              <img 
+                src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F61802e12c703b764d8e1cbb87fc01b7c1dc6b4bc"
+                alt="Solana Mobile Seeker"
+                className="max-w-2xl w-full h-auto"
+              />
+            </motion.div>
+
+            {/* Right side - Content */}
+            <motion.div variants={itemVariants}>
+              <h2 
+                className="text-8xl font-light leading-tight mb-8"
+                style={{
+                  background: "linear-gradient(90deg, #A5C9CA 0%, #E7F6F2 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  fontFamily: "Poppins",
+                  letterSpacing: "6.4px"
+                }}
+              >
+                Seamless Integration for Enhanced Security.
+              </h2>
+              <p className="text-white text-xl font-light leading-relaxed font-poppins mb-12">
+                SentrySol is strategically focused on the Solana Mobile ecosystem, providing native, enhanced dApp security directly integrated with devices like the Solana Seeker.
+              </p>
+              <Button 
+                className="bg-[#09B0B6]/20 text-white border border-white/20 hover:bg-[#09B0B6]/30 rounded-[33px] px-12 py-4 text-xl font-light font-poppins"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               >
-                {source}
-              </motion.div>
-            ))}
+                Read More
+              </Button>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Soon On Seeker Section */}
+      <section className="py-32 px-4 sm:px-6 lg:px-8 z-10 relative">
+        <motion.div 
+          className="max-w-7xl mx-auto text-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          {/* Animated Grid Background */}
+          <motion.div 
+            variants={itemVariants}
+            className="mb-16"
+          >
+            <div className="relative h-32 overflow-hidden mb-8">
+              <div className="absolute inset-0 opacity-30">
+                <div className="grid grid-cols-24 gap-0 h-full">
+                  {Array.from({ length: 240 }).map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="bg-gradient-to-b from-[#CFE0E3]/20 to-transparent"
+                      initial={{ height: 0 }}
+                      animate={{ height: Math.random() * 100 + "%" }}
+                      transition={{ 
+                        duration: 2, 
+                        delay: (i % 24) * 0.1,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.p 
+            variants={itemVariants}
+            className="text-white text-4xl font-light leading-relaxed font-poppins mb-16 max-w-6xl mx-auto"
+          >
+            We're building the future of Web3 mobile security,<br />
+            a future <span className="font-medium">where you're always protected.</span>
+          </motion.p>
+
+          <motion.div variants={itemVariants} className="mb-16">
+            <Button 
+              className="bg-[#09B0B6]/20 text-white border border-white/20 hover:bg-[#09B0B6]/30 rounded-[33px] px-12 py-4 text-xl font-medium font-poppins"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
+              Start Now
+            </Button>
+          </motion.div>
+
+          <motion.h2 
+            variants={itemVariants}
+            className="text-8xl font-light text-white mb-12 font-poppins"
+            style={{ letterSpacing: "6.4px" }}
+          >
+            Soon On
+          </motion.h2>
+
+          <motion.div variants={itemVariants} className="mb-16">
+            <img 
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F11b8b410852647fca9bf0138d063768d"
+              alt="Solana Mobile Seeker"
+              className="mx-auto max-w-4xl w-full h-auto"
+            />
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <img 
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fdba94d29ba0d4b8ebb7d6af3fd6508f7"
+              alt="Solana dApp Store Badge"
+              className="mx-auto w-96 h-auto"
+            />
+          </motion.div>
+
+          {/* Bottom Grid Animation */}
+          <motion.div 
+            variants={itemVariants}
+            className="mt-16"
+          >
+            <div className="relative h-32 overflow-hidden">
+              <div className="absolute inset-0 opacity-30 rotate-180">
+                <div className="grid grid-cols-24 gap-0 h-full">
+                  {Array.from({ length: 240 }).map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="bg-gradient-to-b from-[#CFE0E3]/20 to-transparent"
+                      initial={{ height: 0 }}
+                      animate={{ height: Math.random() * 100 + "%" }}
+                      transition={{ 
+                        duration: 2, 
+                        delay: (i % 24) * 0.1,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-foreground via-primary to-brand-light">
+      {/* Footer */}
+      <footer className="bg-[#2C3333] py-20 px-4 sm:px-6 lg:px-8 z-10 relative">
         <motion.div 
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.h2 
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl font-bold text-white mb-6"
-          >
-            Ready to strengthen your compliance?
-          </motion.h2>
-          <motion.p 
-            variants={itemVariants}
-            className="text-lg text-white/90 mb-10"
-          >
-            Join the future of blockchain AML with enterprise-grade tools and AI-powered insights.
-          </motion.p>
-          
-          <motion.div variants={itemVariants}>
-            <Link to={isConnected ? "/dashboard" : "/signin"}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-              >
-                <Button
-                  size="lg"
-                  className="px-10 py-4 text-lg font-semibold bg-white text-foreground hover:bg-white/90 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300"
-                >
-                  {isConnected ? "Open Dashboard" : "Get started now"}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </motion.div>
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            {/* Newsletter Section */}
+            <motion.div variants={itemVariants} className="col-span-1 md:col-span-2">
+              <div className="bg-[#202020] rounded-2xl p-8 mb-8">
+                <h3 className="text-white text-lg font-semibold mb-4 font-poppins">
+                  Subscribe to our newsletter.
+                </h3>
+                <p className="text-white/60 text-sm mb-6 font-poppins">
+                  You can unsubscribe at any time. Our <span className="underline">Privacy Policy is available here.</span>
+                </p>
+                
+                <div className="flex gap-4">
+                  <div className="flex-1 bg-[#363636] rounded-[32px] px-8 py-6">
+                    <input 
+                      type="email"
+                      placeholder="Mail"
+                      className="w-full bg-transparent text-white text-3xl font-light placeholder-[#4F4F4F] outline-none font-poppins"
+                    />
+                  </div>
+                  <Button className="bg-[#0988F0] rounded-[32px] w-24 h-24 p-0 hover:bg-[#0988F0]/90">
+                    <ArrowRight className="text-black w-8 h-8" />
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Product Cards */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-[#FF573B] rounded-2xl h-64 flex items-center justify-center">
+                  <span className="text-white text-xl font-bold">AppKit</span>
+                </div>
+                <div className="bg-[#FFB800] rounded-2xl h-64 flex items-center justify-center">
+                  <span className="text-white text-xl font-bold">WalletKit</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Explore Section */}
+            <motion.div variants={itemVariants} className="bg-[#E9E9E9] rounded-2xl p-8">
+              <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Explore</h3>
+              <div className="space-y-4">
+                {["Press & Media", "Community", "Contact"].map((item) => (
+                  <a key={item} href="#" className="block text-[#9A9A9A] text-sm hover:text-black transition-colors font-poppins">
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Resources Section */}
+            <motion.div variants={itemVariants} className="bg-[#E9E9E9] rounded-2xl p-8">
+              <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Resources</h3>
+              <div className="space-y-4">
+                {["Whitepaper", "Documentation", "Integration", "Blog"].map((item) => (
+                  <a key={item} href="#" className="block text-[#9A9A9A] text-sm hover:text-black transition-colors font-poppins">
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Connect Section */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            <div className="bg-[#E9E9E9] rounded-2xl p-8">
+              <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Connect</h3>
+              <div className="space-y-4">
+                {["X (Twitter)", "LinkedIn", "YouTube", "Discord", "Farcaster"].map((item) => (
+                  <a key={item} href="#" className="block text-[#9A9A9A] text-sm hover:text-black transition-colors font-poppins">
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-[#E9E9E9] rounded-2xl p-8 md:col-span-2">
+              <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Company</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {["About Us", "Enterprise", "Blog", "Newsroom", "Careers", "Media Kit", "Contact"].map((item) => (
+                  <a key={item} href="#" className="block text-[#9A9A9A] text-sm hover:text-black transition-colors font-poppins">
+                    {item}
+                  </a>
+                ))}
+              </div>
+              <div className="mt-12 pt-12 border-t border-[#9A9A9A]/20">
+                <p className="text-black text-sm font-poppins">© 2025 SentrySol inc.</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Logo and Bottom */}
+          <motion.div variants={itemVariants} className="text-center mb-8">
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <img 
+                src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fa8a60ebfb99d4f8a95d229f18cfe5b5f"
+                alt="SentrySol Logo"
+                className="w-10 h-10"
+              />
+              <span className="text-white text-xl font-semibold font-poppins">SENTRYSOL</span>
+            </div>
+            
+            <p className="text-white/60 text-sm max-w-md mx-auto mb-8 font-poppins">
+              SentrySol is an AI-native, on-device behavioral security framework built specifically for Web3 mobile environments, initially focusing on Solana Mobile Seeker.
+            </p>
+          </motion.div>
+
+          {/* Bottom Links */}
+          <motion.div variants={itemVariants} className="border-t border-white/15 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="flex items-center gap-8 mb-4 md:mb-0">
+                <a href="#" className="text-white text-sm font-medium font-poppins">LinkedIn</a>
+                <TwitterIcon className="text-white w-5 h-5" />
+              </div>
+              <p className="text-white/60 text-sm font-poppins">SentrySol, 2025</p>
+            </div>
           </motion.div>
         </motion.div>
-      </section>
+      </footer>
     </div>
   );
 }
