@@ -22,8 +22,8 @@ export default function Dashboard() {
       name: "Blockchain Tracing Agent",
       status: "active",
       icon: Network,
-      color: "text-aml-blue",
-      bgColor: "bg-aml-blue/10",
+      color: "text-brand-light",
+      bgColor: "bg-brand-light/10",
       description: "Analyzing transaction flows and mapping fund movements",
       lastAction: "Traced 847 transactions in the last hour",
       confidence: 94,
@@ -70,8 +70,8 @@ export default function Dashboard() {
       name: "Graph Analysis Agent",
       status: "active",
       icon: BarChart3,
-      color: "text-compliance-green",
-      bgColor: "bg-compliance-green/10",
+      color: "text-success-green",
+      bgColor: "bg-success-green/10",
       description: "Using GCN for network pattern recognition",
       lastAction: "Analyzed network topology for 2,341 addresses",
       confidence: 91,
@@ -131,8 +131,8 @@ export default function Dashboard() {
 
   const stats = [
     { label: "Active Alerts", value: "47", change: "+12%", trend: "up", color: "text-risk-red" },
-    { label: "Addresses Monitored", value: "12.4K", change: "+8%", trend: "up", color: "text-aml-blue" },
-    { label: "Risk Score Avg", value: "23.7", change: "-5%", trend: "down", color: "text-compliance-green" },
+    { label: "Addresses Monitored", value: "12.4K", change: "+8%", trend: "up", color: "text-brand-light" },
+    { label: "Risk Score Avg", value: "23.7", change: "-5%", trend: "down", color: "text-success-green" },
     { label: "Cases Active", value: "156", change: "+3%", trend: "up", color: "text-warning-amber" }
   ];
 
@@ -140,14 +140,14 @@ export default function Dashboard() {
     switch (severity) {
       case "critical": return "text-risk-red bg-risk-red/10 border-risk-red/20";
       case "high": return "text-warning-amber bg-warning-amber/10 border-warning-amber/20";
-      case "medium": return "text-aml-blue bg-aml-blue/10 border-aml-blue/20";
+      case "medium": return "text-brand-light bg-brand-light/10 border-brand-light/20";
       default: return "text-muted-foreground bg-muted/10 border-border";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "active": return <CheckCircle className="h-4 w-4 text-compliance-green" />;
+      case "active": return <CheckCircle className="h-4 w-4 text-success-green" />;
       case "processing": return <Clock className="h-4 w-4 text-warning-amber" />;
       case "error": return <XCircle className="h-4 w-4 text-risk-red" />;
       default: return <AlertCircle className="h-4 w-4 text-muted-foreground" />;
@@ -155,7 +155,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-aml-blue/5 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-brand-light/5 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
@@ -168,7 +168,7 @@ export default function Dashboard() {
               <RefreshCw className="mr-2 h-4 w-4" />
               Refresh
             </Button>
-            <Button size="sm" className="bg-aml-blue hover:bg-aml-blue/90">
+            <Button size="sm" className="bg-brand-light hover:bg-brand-light/90">
               <Search className="mr-2 h-4 w-4" />
               Screen Address
             </Button>
@@ -222,7 +222,7 @@ export default function Dashboard() {
                         key={agent.id}
                         className={`p-4 rounded-lg border cursor-pointer transition-all ${
                           selectedAgent === agent.id
-                            ? "border-aml-blue/30 bg-aml-blue/5"
+                            ? "border-brand-light/30 bg-brand-light/5"
                             : "border-border hover:border-border/60"
                         }`}
                         onClick={() => setSelectedAgent(selectedAgent === agent.id ? null : agent.id)}
@@ -258,7 +258,7 @@ export default function Dashboard() {
                             <ul className="space-y-1">
                               {agent.activities.map((activity, index) => (
                                 <li key={index} className="text-xs text-muted-foreground flex items-start">
-                                  <div className="w-1 h-1 bg-aml-blue rounded-full mt-2 mr-2 flex-shrink-0"></div>
+                                  <div className="w-1 h-1 bg-brand-light rounded-full mt-2 mr-2 flex-shrink-0"></div>
                                   {activity}
                                 </li>
                               ))}
@@ -320,7 +320,7 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-2">
                   <Input placeholder="Enter wallet address to screen..." className="text-sm" />
-                  <Button size="sm" className="w-full bg-aml-blue hover:bg-aml-blue/90">
+                  <Button size="sm" className="w-full bg-brand-light hover:bg-brand-light/90">
                     Screen Address
                   </Button>
                   <div className="grid grid-cols-2 gap-2 mt-4">
@@ -365,7 +365,7 @@ export default function Dashboard() {
                     "Graph analysis identified potential mixing service usage"
                   ].map((activity, index) => (
                     <div key={index} className="flex items-center space-x-3 text-sm">
-                      <div className="w-2 h-2 bg-aml-blue rounded-full"></div>
+                      <div className="w-2 h-2 bg-brand-light rounded-full"></div>
                       <span className="text-muted-foreground">{activity}</span>
                       <span className="text-xs text-muted-foreground ml-auto">
                         {Math.floor(Math.random() * 60) + 1} min ago
