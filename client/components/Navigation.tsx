@@ -103,7 +103,7 @@ export default function Navigation() {
                 : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
               }
               alt="Sentrysol Logo"
-              className={isInternalPage ? "h-8 w-auto" : "w-[375px] h-[65px] object-contain"}
+              className={isInternalPage ? "h-8 w-auto" : "h-[65px] w-auto object-contain"}
             />
             {isInternalPage && (
               <>
