@@ -139,7 +139,7 @@ export default function Navigation() {
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
               <Button variant="ghost" size="sm">
-                <Menu className="h-4 w-4" />
+                <MenuIcon className="h-4 w-4" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
