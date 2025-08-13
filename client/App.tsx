@@ -52,6 +52,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/wallet-screening" element={<WalletScreening />} />
+              <Route path="/aml-dashboard" element={<AMLDashboard />} />
               <Route path="/cases" element={<Cases />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/compliance" element={<Compliance />} />
