@@ -70,75 +70,8 @@ const pulseVariants = {
 };
 
 export default function SignIn() {
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
-  const { 
-    isConnected, 
-    connectedWallets, 
-    connectSolana, 
-    connectEthereum,
-    disconnectAll 
-  } = useWalletIntegration();
+  const { isConnected } = useWalletIntegration();
   const navigate = useNavigate();
-
-  const walletOptions = [
-    {
-      id: "phantom",
-      name: "Phantom",
-      description: "The trusted crypto wallet for Solana",
-      icon: "🟣",
-      gradient: "from-purple-500 to-purple-700",
-      type: "solana",
-      url: "https://phantom.app",
-    },
-    {
-      id: "solflare",
-      name: "Solflare",
-      description: "Powerful wallet for Solana ecosystem",
-      icon: "🌞",
-      gradient: "from-orange-500 to-yellow-600",
-      type: "solana",
-      url: "https://solflare.com",
-    },
-    {
-      id: "metamask",
-      name: "MetaMask",
-      description: "Gateway to blockchain apps",
-      icon: "🦊",
-      gradient: "from-orange-600 to-red-500",
-      type: "ethereum",
-      url: "https://metamask.io",
-    },
-  ];
-
-  const handleWalletConnect = async (walletType: string, walletId: string) => {
-    setIsConnecting(true);
-    setSelectedWallet(walletId);
-
-    try {
-      if (walletType === "solana") {
-        await connectSolana();
-      } else if (walletType === "ethereum") {
-        await connectEthereum();
-      }
-      
-      // Simulate connection process
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Navigate to onboarding or dashboard after successful connection
-      const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
-      if (hasCompletedOnboarding) {
-        navigate("/dashboard");
-      } else {
-        navigate("/onboarding");
-      }
-    } catch (error) {
-      console.error("Wallet connection failed:", error);
-    } finally {
-      setIsConnecting(false);
-      setSelectedWallet(null);
-    }
-  };
 
   useEffect(() => {
     if (isConnected) {
