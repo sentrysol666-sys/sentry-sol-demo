@@ -175,24 +175,26 @@ export default function Navigation() {
             )}
           </div>
 
-          {/* Search Box */}
-          <div className="hidden lg:flex relative">
-            <div className="relative w-[256px] h-[43px]">
-              <div className="absolute inset-0 border border-white/47 rounded-[100px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]" />
-              <Input
-                ref={searchInputRef}
-                placeholder="I'am looking for..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                className="absolute inset-0 bg-transparent border-0 text-white placeholder:text-white/57 font-poppins text-sm italic px-6 pr-12 rounded-[100px] focus:outline-none focus:ring-0"
-              />
-              <div className="absolute right-[9px] top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center">
-                <Search className="w-[18px] h-[18px] text-white/35" />
+          {/* Search Box (only for external pages) */}
+          {!isInternalPage && (
+            <div className="hidden lg:flex relative">
+              <div className="relative w-[256px] h-[43px]">
+                <div className="absolute inset-0 border border-white/47 rounded-[100px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]" />
+                <Input
+                  ref={searchInputRef}
+                  placeholder="I'am looking for..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onBlur={() => setIsSearchFocused(false)}
+                  className="absolute inset-0 bg-transparent border-0 text-white placeholder:text-white/57 font-poppins text-sm italic px-6 pr-12 rounded-[100px] focus:outline-none focus:ring-0"
+                />
+                <div className="absolute right-[9px] top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center">
+                  <Search className="w-[18px] h-[18px] text-white/35" />
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
