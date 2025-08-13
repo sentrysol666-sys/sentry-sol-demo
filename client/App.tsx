@@ -24,6 +24,12 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
+  // Force dark mode
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+    document.body.classList.add('dark');
+  }, []);
+
   return (
     <div className="min-h-screen bg-background dark">
       {!isHomePage && <Navigation />}
