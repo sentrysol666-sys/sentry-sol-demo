@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { MultiChainWalletProvider } from "./contexts/MultiChainWalletContext";
 import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
+import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import WalletScreening from "./pages/WalletScreening";
 import AMLDashboard from "./pages/AMLDashboard";
