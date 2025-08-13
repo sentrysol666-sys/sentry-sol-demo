@@ -11,49 +11,49 @@
    * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 20% 25%;
+    --background: 210 20% 98%;
+    --foreground: 224 12% 32%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 20% 25%;
+    --card-foreground: 224 12% 32%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 20% 25%;
+    --popover-foreground: 224 12% 32%;
 
-    --primary: 225 23% 34%;
+    --primary: 220 50% 50%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 224 20% 25%;
+    --secondary: 210 30% 96%;
+    --secondary-foreground: 224 12% 32%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 224 15% 56%;
+    --muted: 210 25% 94%;
+    --muted-foreground: 224 10% 52%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 224 20% 25%;
+    --accent: 210 25% 92%;
+    --accent-foreground: 224 12% 32%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 225 23% 34%;
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 220 50% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Custom Brand Colors */
-    --brand-dark: 224 20% 25%; /* #404258 */
-    --brand-medium: 224 19% 29%; /* #474E68 */
-    --brand-light: 225 23% 34%; /* #50577A */
-    --brand-accent: 224 15% 56%; /* #6B728E */
-    --risk-red: 0 84% 60%;
-    --warning-amber: 38 92% 50%;
-    --success-green: 142 71% 45%;
-    --chart-1: 225 23% 34%;
-    --chart-2: 224 19% 29%;
-    --chart-3: 38 92% 50%;
-    --chart-4: 0 84% 60%;
-    --chart-5: 142 71% 45%;
+    /* Eye-friendly Brand Colors */
+    --brand-dark: 220 35% 35%; /* Softer dark blue */
+    --brand-medium: 220 30% 45%; /* Medium blue */
+    --brand-light: 220 40% 55%; /* Light blue */
+    --brand-accent: 220 25% 65%; /* Very light accent */
+    --risk-red: 0 60% 50%; /* Softer red */
+    --warning-amber: 35 70% 50%; /* Softer amber */
+    --success-green: 142 50% 45%; /* Softer green */
+    --chart-1: 220 40% 55%;
+    --chart-2: 220 30% 45%;
+    --chart-3: 35 70% 50%;
+    --chart-4: 0 60% 50%;
+    --chart-5: 142 50% 45%;
 
     --sidebar-background: 0 0% 98%;
 
