@@ -14,7 +14,7 @@ import { useWalletIntegration } from '@/hooks/useWalletIntegration';
 import {
   Search, Shield, AlertTriangle, CheckCircle, XCircle,
   Eye, Clock, TrendingUp, Activity, Network, FileText,
-  RefreshCw, Zap, Info, BarChart3
+  RefreshCw, Zap, Info, BarChart3, Wallet
 } from 'lucide-react';
 
 export default function WalletScreening() {
