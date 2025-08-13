@@ -24,12 +24,12 @@ export function extractErrorMessage(error: any): WalletError {
   // Handle error objects
   if (typeof error === 'object') {
     let message = "Unknown error occurred";
-    let code = error.code;
+    let code = error.code || error.errorCode || error.status;
     let type: WalletError['type'] = 'unknown';
 
     // MetaMask/Ethereum wallet specific error codes
-    if (error.code) {
-      switch (error.code) {
+    if (code) {
+      switch (Number(code)) {
         case 4001:
           message = "User rejected the connection request";
           type = 'user_rejection';
@@ -63,12 +63,12 @@ export function extractErrorMessage(error: any): WalletError {
           type = 'network_error';
           break;
         default:
-          message = error.message || error.reason || `Wallet error (code: ${error.code})`;
+          message = error.message || error.reason || error.data?.message || `Wallet error (code: ${code})`;
           type = 'wallet_error';
       }
     } else if (error.message) {
-      message = error.message;
-      
+      message = String(error.message);
+
       // Detect error types based on message content
       if (message.includes("User rejected") || message.includes("User denied")) {
         type = 'user_rejection';
@@ -78,7 +78,20 @@ export function extractErrorMessage(error: any): WalletError {
         type = 'wallet_error';
       }
     } else if (error.reason) {
-      message = error.reason;
+      message = String(error.reason);
+      type = 'wallet_error';
+    } else if (error.data && error.data.message) {
+      message = String(error.data.message);
+      type = 'wallet_error';
+    } else if (error.error && error.error.message) {
+      message = String(error.error.message);
+      type = 'wallet_error';
+    } else {
+      // Try to extract any meaningful text from the error object
+      const errorString = JSON.stringify(error);
+      if (errorString && errorString !== '{}') {
+        message = `Error object: ${errorString.substring(0, 200)}${errorString.length > 200 ? '...' : ''}`;
+      }
       type = 'wallet_error';
     }
 
