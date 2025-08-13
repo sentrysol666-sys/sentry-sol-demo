@@ -60,11 +60,11 @@ export default function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Blockchain Tracing Agent */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-aml-blue/30">
+            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-brand-light/30">
               <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-aml-blue/10 rounded-lg">
-                    <Network className="h-6 w-6 text-aml-blue" />
+                  <div className="p-2 bg-brand-light/10 rounded-lg">
+                    <Network className="h-6 w-6 text-brand-light" />
                   </div>
                   <CardTitle className="text-xl">Blockchain Tracing Agent</CardTitle>
                 </div>
@@ -111,11 +111,11 @@ export default function Index() {
             </Card>
 
             {/* Fund Flow Visualization */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-compliance-green/30">
+            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-success-green/30">
               <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-compliance-green/10 rounded-lg">
-                    <BarChart3 className="h-6 w-6 text-compliance-green" />
+                  <div className="p-2 bg-success-green/10 rounded-lg">
+                    <BarChart3 className="h-6 w-6 text-success-green" />
                   </div>
                   <CardTitle className="text-xl">Fund Flow Visualization</CardTitle>
                 </div>
