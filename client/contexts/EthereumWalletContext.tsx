@@ -64,13 +64,16 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
             setBalance(ethers.formatEther(balance));
             setIsConnected(true);
           }
-        } catch (error) {
-          // Silently handle network errors to avoid console spam
-          if (error instanceof Error && error.message.includes("Failed to fetch")) {
-            // This is likely a network connectivity issue, ignore it
+        } catch (error: any) {
+          const walletError = logWalletError("EthereumWallet.checkConnection", error, {
+            hasEthereum: typeof window.ethereum !== "undefined",
+            isMetaMask: window.ethereum?.isMetaMask
+          });
+
+          // Silently handle network errors and user rejections to avoid console spam
+          if (walletError.type === 'network_error' || walletError.type === 'user_rejection') {
             return;
           }
-          console.error("Error checking wallet connection:", error);
         }
       }
     };
