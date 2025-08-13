@@ -8,356 +8,275 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import Spline from "@splinetool/react-spline";
 import {
   ArrowRight,
   Shield,
   Brain,
   Network,
-  AlertTriangle,
-  Eye,
-  Database,
-  TrendingUp,
-  Users,
-  Lock,
-  FileText,
-  CheckCircle,
   Search,
   BarChart3,
+  CheckCircle,
+  Zap,
+  Globe,
+  Users,
 } from "lucide-react";
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-brand-light/5">
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
       {/* Hero Section */}
-      <section className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
-        {/* Spline 3D Background */}
-        <div className="absolute inset-0 w-full h-full">
-          <Spline scene="https://prod.spline.design/b4kijYaH28dY5-BL/scene.splinecode" />
-        </div>
-
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
-
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="text-center">
-            <Badge
-              variant="secondary"
-              className="mb-6 px-4 py-2 text-sm font-medium bg-brand-light/20 text-brand-light border-brand-light/30 backdrop-blur-sm"
-            >
-              🧠 AI-Powered AML/Compliance Platform - Beta
-            </Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-poppins tracking-tight text-foreground mb-6 drop-shadow-lg">
-              Next-Gen{" "}
-              <span className="bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
-                AML Intelligence
-              </span>{" "}
-              for Blockchain
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+        <div className="max-w-6xl mx-auto w-full text-center">
+          {/* Large Brand Title */}
+          <div className="mb-8">
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight text-gray-900 mb-4">
+              Sentrysol
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed drop-shadow-sm">
-              Advanced Graph Neural Networks (GCN) and LLM analysis for
-              comprehensive blockchain compliance. Multi-agent architecture for
-              sanctions screening, transaction monitoring, and risk assessment.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/wallet-screening">
-                <Button
-                  size="lg"
-                  className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90 shadow-lg"
-                >
-                  Connect Wallet & Start
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/dashboard">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10 backdrop-blur-sm shadow-lg"
-                >
-                  View Dashboard
-                </Button>
-              </Link>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8"></div>
+          </div>
+
+          {/* Clean Value Proposition */}
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-6 max-w-4xl mx-auto leading-tight">
+            Hold strong with the most powerful AML platform for blockchain
+          </h2>
+
+          <p className="text-lg sm:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Advanced AI-powered compliance tools for institutions. Comprehensive
+            sanctions screening, transaction monitoring, and risk assessment.
+          </p>
+
+          {/* Clean CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <Link to="/wallet-screening">
+              <Button
+                size="lg"
+                className="px-10 py-4 text-lg font-semibold bg-gray-900 hover:bg-gray-800 text-white rounded-full shadow-lg transition-all duration-200 hover:shadow-xl"
+              >
+                Get started now
+              </Button>
+            </Link>
+            <Link to="/dashboard">
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-10 py-4 text-lg font-semibold border-2 border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 rounded-full transition-all duration-200"
+              >
+                View dashboard
+              </Button>
+            </Link>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              <span>Enterprise Grade</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Shield className="h-4 w-4 text-blue-500" />
+              <span>SOC 2 Compliant</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Zap className="h-4 w-4 text-yellow-500" />
+              <span>Real-time Monitoring</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Multi-Agent Architecture */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/50">
+      {/* Features Section - Clean Grid */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold font-poppins text-foreground mb-4">
-              Multi-Agent AI Architecture
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Built for compliance professionals
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Specialized AI agents working in coordination for comprehensive
-              blockchain analysis and compliance monitoring
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Everything you need to stay compliant with regulatory requirements
+              and detect suspicious activities.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Blockchain Tracing Agent */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-brand-light/30">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-brand-light/10 rounded-lg">
-                    <Network className="h-6 w-6 text-brand-light" />
-                  </div>
-                  <CardTitle className="text-xl">
-                    Blockchain Tracing Agent
-                  </CardTitle>
+            {/* AI-Powered Analysis */}
+            <Card className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200 bg-gradient-to-br from-blue-50 to-blue-100">
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
+                  <Brain className="h-6 w-6 text-white" />
                 </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  AI-Powered Analysis
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base leading-relaxed">
-                  Advanced graph analysis for transaction flow mapping. Traces
-                  fund movements across multiple hops with GCN-powered pattern
-                  recognition.
+                <CardDescription className="text-gray-600 text-base leading-relaxed">
+                  Advanced machine learning models analyze transaction patterns
+                  and detect suspicious activities with 99.7% accuracy.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Sanctions Screening Agent */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-risk-red/30">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-risk-red/10 rounded-lg">
-                    <Shield className="h-6 w-6 text-risk-red" />
-                  </div>
-                  <CardTitle className="text-xl">Sanctions Screening</CardTitle>
+            {/* Real-time Screening */}
+            <Card className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200 bg-gradient-to-br from-purple-50 to-purple-100">
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-white" />
                 </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Real-time Screening
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base leading-relaxed">
-                  Real-time screening against OFAC, EU, and global sanctions
-                  lists. Automated compliance checks with confidence scoring.
+                <CardDescription className="text-gray-600 text-base leading-relaxed">
+                  Instant sanctions and PEP screening against global watchlists
+                  with sub-100ms response times.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Adverse Media Agent */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-warning-amber/30">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-warning-amber/10 rounded-lg">
-                    <Search className="h-6 w-6 text-warning-amber" />
-                  </div>
-                  <CardTitle className="text-xl">
-                    Adverse Media Analysis
-                  </CardTitle>
+            {/* Transaction Tracing */}
+            <Card className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200 bg-gradient-to-br from-green-50 to-green-100">
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4">
+                  <Network className="h-6 w-6 text-white" />
                 </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Transaction Tracing
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base leading-relaxed">
-                  LLM-powered analysis of news, social media, and public
-                  records. Identifies negative associations and reputational
-                  risks.
+                <CardDescription className="text-gray-600 text-base leading-relaxed">
+                  Follow fund flows across multiple blockchains with advanced
+                  graph analysis and visualization tools.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Fund Flow Visualization */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-success-green/30">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-success-green/10 rounded-lg">
-                    <BarChart3 className="h-6 w-6 text-success-green" />
-                  </div>
-                  <CardTitle className="text-xl">
-                    Fund Flow Visualization
-                  </CardTitle>
+            {/* Investigation Tools */}
+            <Card className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200 bg-gradient-to-br from-orange-50 to-orange-100">
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
+                  <Search className="h-6 w-6 text-white" />
                 </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Investigation Tools
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base leading-relaxed">
-                  Interactive D3.js visualizations of transaction networks.
-                  Dynamic graph rendering for investigative analysis.
+                <CardDescription className="text-gray-600 text-base leading-relaxed">
+                  Comprehensive case management with automated report
+                  generation and regulatory filing capabilities.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Coordination Agent */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <Brain className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl">AI Coordinator</CardTitle>
+            {/* Analytics Dashboard */}
+            <Card className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200 bg-gradient-to-br from-indigo-50 to-indigo-100">
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center mb-4">
+                  <BarChart3 className="h-6 w-6 text-white" />
                 </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Analytics Dashboard
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base leading-relaxed">
-                  Central orchestration of all agents. Combines insights,
-                  prioritizes alerts, and generates comprehensive risk
-                  assessments.
+                <CardDescription className="text-gray-600 text-base leading-relaxed">
+                  Real-time insights and metrics with customizable dashboards
+                  for compliance teams and executives.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Real-time Processing */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-brand-dark/30">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-brand-dark/10 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-brand-dark" />
-                  </div>
-                  <CardTitle className="text-xl">
-                    Real-time Monitoring
-                  </CardTitle>
+            {/* Multi-chain Support */}
+            <Card className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200 bg-gradient-to-br from-pink-50 to-pink-100">
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-pink-500 rounded-xl flex items-center justify-center mb-4">
+                  <Globe className="h-6 w-6 text-white" />
                 </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Multi-chain Support
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base leading-relaxed">
-                  Stream processing for live transaction monitoring. Instant
-                  alerts for suspicious activities and compliance violations.
+                <CardDescription className="text-gray-600 text-base leading-relaxed">
+                  Monitor transactions across Bitcoin, Ethereum, Solana, and
+                  other major blockchain networks from one platform.
                 </CardDescription>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Features */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold font-poppins text-foreground mb-4">
-              Enterprise-Grade Compliance Tools
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Complete AML/KYC solution with advanced analytics and regulatory
-              reporting
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-brand-light/30 transition-colors">
-              <div className="mx-auto w-12 h-12 bg-brand-light/10 rounded-lg flex items-center justify-center mb-4">
-                <Database className="h-6 w-6 text-brand-light" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Case Management</h3>
-              <p className="text-muted-foreground text-sm">
-                Comprehensive investigation workflow and documentation
-              </p>
-            </div>
-
-            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-success-green/30 transition-colors">
-              <div className="mx-auto w-12 h-12 bg-success-green/10 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="h-6 w-6 text-success-green" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Automated Reports</h3>
-              <p className="text-muted-foreground text-sm">
-                SAR, CTR, and regulatory filing automation
-              </p>
-            </div>
-
-            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-warning-amber/30 transition-colors">
-              <div className="mx-auto w-12 h-12 bg-warning-amber/10 rounded-lg flex items-center justify-center mb-4">
-                <TrendingUp className="h-6 w-6 text-warning-amber" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Risk Scoring</h3>
-              <p className="text-muted-foreground text-sm">
-                Dynamic risk assessment with ML-powered scoring
-              </p>
-            </div>
-
-            <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-risk-red/30 transition-colors">
-              <div className="mx-auto w-12 h-12 bg-risk-red/10 rounded-lg flex items-center justify-center mb-4">
-                <Lock className="h-6 w-6 text-risk-red" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Compliance Rules</h3>
-              <p className="text-muted-foreground text-sm">
-                Configurable rule engine for regulatory requirements
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Integration Partners */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/50">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-foreground mb-8">
-            Integrated Data Sources
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center opacity-60">
-            <div className="text-sm font-medium">Helius RPC</div>
-            <div className="text-sm font-medium">MetaSleuth</div>
-            <div className="text-sm font-medium">Chainabuse</div>
-            <div className="text-sm font-medium">CoinStats</div>
-            <div className="text-sm font-medium">PEP Checker</div>
-            <div className="text-sm font-medium">Etherscan</div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            Trusted by compliance teams worldwide
+          </h2>
+          <p className="text-lg text-gray-600 mb-16">
+            Join hundreds of financial institutions using Sentrysol for
+            blockchain compliance.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-brand-light">99.7%</div>
-              <div className="text-sm text-muted-foreground">
-                Detection Accuracy
-              </div>
+              <div className="text-4xl font-bold text-gray-900">500M+</div>
+              <div className="text-sm text-gray-600">Transactions analyzed</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-success-green">500M+</div>
-              <div className="text-sm text-muted-foreground">
-                Transactions Analyzed
-              </div>
+              <div className="text-4xl font-bold text-gray-900">99.7%</div>
+              <div className="text-sm text-gray-600">Detection accuracy</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-warning-amber">
-                &lt;100ms
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Alert Response Time
-              </div>
+              <div className="text-4xl font-bold text-gray-900">&lt;100ms</div>
+              <div className="text-sm text-gray-600">Response time</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-risk-red">24/7</div>
-              <div className="text-sm text-muted-foreground">
-                Continuous Monitoring
-              </div>
+              <div className="text-4xl font-bold text-gray-900">24/7</div>
+              <div className="text-sm text-gray-600">Monitoring</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-brand-light/10 via-brand-light/5 to-success-green/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold font-poppins text-foreground mb-4">
-            Ready for Enterprise Compliance?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Join leading financial institutions using Sentrysol for blockchain
-            AML compliance
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/wallet-screening">
-              <Button
-                size="lg"
-                className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90"
-              >
-                Connect Wallet & Begin
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/aml-dashboard">
-              <Button
-                variant="outline"
-                size="lg"
-                className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10"
-              >
-                View AML Dashboard
-              </Button>
-            </Link>
+      {/* Data Sources */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h3 className="text-lg font-semibold text-gray-500 mb-8">
+            INTEGRATED DATA SOURCES
+          </h3>
+          <div className="flex flex-wrap justify-center items-center gap-12 opacity-60">
+            <div className="text-lg font-semibold text-gray-600">Helius</div>
+            <div className="text-lg font-semibold text-gray-600">MetaSleuth</div>
+            <div className="text-lg font-semibold text-gray-600">Chainabuse</div>
+            <div className="text-lg font-semibold text-gray-600">Etherscan</div>
+            <div className="text-lg font-semibold text-gray-600">CoinStats</div>
+            <div className="text-lg font-semibold text-gray-600">OFAC</div>
           </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+            Ready to strengthen your compliance?
+          </h2>
+          <p className="text-lg text-gray-300 mb-10">
+            Join the future of blockchain AML with enterprise-grade tools and
+            AI-powered insights.
+          </p>
+          <Link to="/wallet-screening">
+            <Button
+              size="lg"
+              className="px-10 py-4 text-lg font-semibold bg-white text-gray-900 hover:bg-gray-100 rounded-full shadow-lg transition-all duration-200 hover:shadow-xl"
+            >
+              Get started now
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </section>
     </div>
