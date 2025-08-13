@@ -42,8 +42,7 @@ export default function Navigation() {
     location.pathname.startsWith('/cases') ||
     location.pathname.startsWith('/analytics') ||
     location.pathname.startsWith('/compliance') ||
-    location.pathname.startsWith('/settings') ||
-    location.pathname.startsWith('/chat-sentry')
+    location.pathname.startsWith('/settings')
   );
 
   const externalNavigationItems = [
