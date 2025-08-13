@@ -1,9 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useEthereumWallet } from '@/contexts/EthereumWalletContext';
-import { SolanaWalletInfo, EthereumWalletInfo, WalletAnalysis } from '@/types/wallet';
-import { useToast } from '@/hooks/use-toast';
-import { mcpApiClient } from '@shared/api-client';
+import { useState, useEffect, useCallback } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useEthereumWallet } from "@/contexts/EthereumWalletContext";
+import {
+  SolanaWalletInfo,
+  EthereumWalletInfo,
+  WalletAnalysis,
+} from "@/types/wallet";
+import { useToast } from "@/hooks/use-toast";
+import { mcpApiClient } from "@shared/api-client";
 
 interface WalletIntegrationState {
   connectedWallets: {
@@ -11,25 +15,37 @@ interface WalletIntegrationState {
     ethereum?: EthereumWalletInfo;
   };
   isConnected: boolean;
-  activeWallet: 'solana' | 'ethereum' | null;
+  activeWallet: "solana" | "ethereum" | null;
   walletAnalyses: Record<string, WalletAnalysis>;
-  autoAnalyzeWallet: (address: string, chain: 'solana' | 'ethereum') => Promise<void>;
+  autoAnalyzeWallet: (
+    address: string,
+    chain: "solana" | "ethereum",
+  ) => Promise<void>;
   getWalletAnalysis: (address: string) => WalletAnalysis | null;
   fillAddressFromConnectedWallet: () => string | null;
 }
 
 export const useWalletIntegration = (): WalletIntegrationState => {
   const { connected: solanaConnected, publicKey } = useWallet();
-  const { isConnected: ethereumConnected, account, chainId, balance } = useEthereumWallet();
+  const {
+    isConnected: ethereumConnected,
+    account,
+    chainId,
+    balance,
+  } = useEthereumWallet();
   const { toast } = useToast();
-  
+
   const [connectedWallets, setConnectedWallets] = useState<{
     solana?: SolanaWalletInfo;
     ethereum?: EthereumWalletInfo;
   }>({});
-  
-  const [activeWallet, setActiveWallet] = useState<'solana' | 'ethereum' | null>(null);
-  const [walletAnalyses, setWalletAnalyses] = useState<Record<string, WalletAnalysis>>({});
+
+  const [activeWallet, setActiveWallet] = useState<
+    "solana" | "ethereum" | null
+  >(null);
+  const [walletAnalyses, setWalletAnalyses] = useState<
+    Record<string, WalletAnalysis>
+  >({});
 
   // Update connected wallets state
   useEffect(() => {
@@ -41,17 +57,17 @@ export const useWalletIntegration = (): WalletIntegrationState => {
         publicKey: publicKey.toString(),
         isConnected: true,
       };
-      if (!activeWallet) setActiveWallet('solana');
+      if (!activeWallet) setActiveWallet("solana");
     }
 
     if (ethereumConnected && account) {
       newConnectedWallets.ethereum = {
         address: account,
         chainId: chainId || 1,
-        balance: balance || '0',
+        balance: balance || "0",
         isConnected: true,
       };
-      if (!activeWallet) setActiveWallet('ethereum');
+      if (!activeWallet) setActiveWallet("ethereum");
     }
 
     setConnectedWallets(newConnectedWallets);
@@ -60,92 +76,129 @@ export const useWalletIntegration = (): WalletIntegrationState => {
     if (!solanaConnected && !ethereumConnected) {
       setActiveWallet(null);
     }
-  }, [solanaConnected, publicKey, ethereumConnected, account, chainId, balance, activeWallet]);
+  }, [
+    solanaConnected,
+    publicKey,
+    ethereumConnected,
+    account,
+    chainId,
+    balance,
+    activeWallet,
+  ]);
 
-  const autoAnalyzeWallet = useCallback(async (address: string, chain: 'solana' | 'ethereum') => {
-    try {
-      toast({
-        title: "Analyzing Wallet",
-        description: `Starting automated analysis for ${chain} wallet`,
-      });
+  const autoAnalyzeWallet = useCallback(
+    async (address: string, chain: "solana" | "ethereum") => {
+      try {
+        toast({
+          title: "Analyzing Wallet",
+          description: `Starting automated analysis for ${chain} wallet`,
+        });
 
-      // Check if wallet is connected for enhanced analysis
-      const connectedWallet = connectedWallets[chain];
-      let result;
+        // Check if wallet is connected for enhanced analysis
+        const connectedWallet = connectedWallets[chain];
+        let result;
 
-      if (connectedWallet && connectedWallet.address === address) {
-        // Use enhanced wallet analysis for connected wallets
-        result = await mcpApiClient.analyzeConnectedWallet(
+        if (connectedWallet && connectedWallet.address === address) {
+          // Use enhanced wallet analysis for connected wallets
+          result = await mcpApiClient.analyzeConnectedWallet(
+            address,
+            chain,
+            "connected",
+            { balance: connectedWallet.balance },
+          );
+        } else {
+          // Use standard wallet address analysis
+          result = await mcpApiClient.analyzeWalletAddress(address);
+        }
+
+        // Transform the result into our WalletAnalysis format
+        const analysis: WalletAnalysis = {
           address,
           chain,
-          'connected',
-          { balance: connectedWallet.balance }
-        );
-      } else {
-        // Use standard wallet address analysis
-        result = await mcpApiClient.analyzeWalletAddress(address);
+          riskScore:
+            result.riskAssessment?.overallScore || result.riskScore || 0,
+          flags:
+            result.riskAssessment?.factors?.map((f: any) => f.category) ||
+            result.findings?.map((f: any) => f.type) ||
+            [],
+          transactions: {
+            total:
+              result.tracingResults?.transactionHistory?.length ||
+              result.metadata?.transactionCount ||
+              0,
+            suspicious:
+              result.riskAssessment?.factors?.filter((f: any) => f.score > 70)
+                .length ||
+              result.findings?.filter(
+                (f: any) => f.severity === "high" || f.severity === "critical",
+              ).length ||
+              0,
+            volume:
+              result.realTimeData?.networkActivity?.last7d?.volume ||
+              result.metadata?.totalValue ||
+              "0",
+          },
+          sanctions: {
+            isListed:
+              result.complianceStatus?.sanctionsCheck?.status === "flagged" ||
+              result.compliance?.sanctionsStatus?.isMatch ||
+              false,
+            source:
+              result.complianceStatus?.sanctionsCheck?.source ||
+              result.compliance?.sanctionsStatus?.source,
+            details:
+              result.complianceStatus?.sanctionsCheck?.details ||
+              result.compliance?.sanctionsStatus?.details,
+          },
+          adverseMedia: {
+            mentions: result.compliance?.adverseMedia?.articles?.length || 0,
+            risk:
+              result.complianceStatus?.amlRating ||
+              (result.compliance?.adverseMedia?.riskScore > 70
+                ? "high"
+                : result.compliance?.adverseMedia?.riskScore > 40
+                  ? "medium"
+                  : "low"),
+            sources:
+              result.compliance?.adverseMedia?.articles?.map(
+                (a: any) => a.source,
+              ) || [],
+          },
+        };
+
+        setWalletAnalyses((prev) => ({
+          ...prev,
+          [address]: analysis,
+        }));
+
+        toast({
+          title: "Analysis Complete",
+          description: `Wallet analysis completed with risk score: ${analysis.riskScore}`,
+        });
+      } catch (error) {
+        console.error("Auto-analysis failed:", error);
+        toast({
+          title: "Analysis Failed",
+          description: "Failed to automatically analyze wallet",
+          variant: "destructive",
+        });
       }
+    },
+    [toast, connectedWallets],
+  );
 
-      // Transform the result into our WalletAnalysis format
-      const analysis: WalletAnalysis = {
-        address,
-        chain,
-        riskScore: result.riskAssessment?.overallScore || result.riskScore || 0,
-        flags: result.riskAssessment?.factors?.map((f: any) => f.category) ||
-               result.findings?.map((f: any) => f.type) || [],
-        transactions: {
-          total: result.tracingResults?.transactionHistory?.length ||
-                 result.metadata?.transactionCount || 0,
-          suspicious: result.riskAssessment?.factors?.filter((f: any) => f.score > 70).length ||
-                     result.findings?.filter((f: any) => f.severity === 'high' || f.severity === 'critical').length || 0,
-          volume: result.realTimeData?.networkActivity?.last7d?.volume ||
-                  result.metadata?.totalValue || '0',
-        },
-        sanctions: {
-          isListed: result.complianceStatus?.sanctionsCheck?.status === 'flagged' ||
-                   result.compliance?.sanctionsStatus?.isMatch || false,
-          source: result.complianceStatus?.sanctionsCheck?.source ||
-                  result.compliance?.sanctionsStatus?.source,
-          details: result.complianceStatus?.sanctionsCheck?.details ||
-                   result.compliance?.sanctionsStatus?.details,
-        },
-        adverseMedia: {
-          mentions: result.compliance?.adverseMedia?.articles?.length || 0,
-          risk: result.complianceStatus?.amlRating ||
-                (result.compliance?.adverseMedia?.riskScore > 70 ? 'high' :
-                 result.compliance?.adverseMedia?.riskScore > 40 ? 'medium' : 'low'),
-          sources: result.compliance?.adverseMedia?.articles?.map((a: any) => a.source) || [],
-        },
-      };
-
-      setWalletAnalyses(prev => ({
-        ...prev,
-        [address]: analysis,
-      }));
-
-      toast({
-        title: "Analysis Complete",
-        description: `Wallet analysis completed with risk score: ${analysis.riskScore}`,
-      });
-    } catch (error) {
-      console.error('Auto-analysis failed:', error);
-      toast({
-        title: "Analysis Failed",
-        description: "Failed to automatically analyze wallet",
-        variant: "destructive",
-      });
-    }
-  }, [toast, connectedWallets]);
-
-  const getWalletAnalysis = useCallback((address: string): WalletAnalysis | null => {
-    return walletAnalyses[address] || null;
-  }, [walletAnalyses]);
+  const getWalletAnalysis = useCallback(
+    (address: string): WalletAnalysis | null => {
+      return walletAnalyses[address] || null;
+    },
+    [walletAnalyses],
+  );
 
   const fillAddressFromConnectedWallet = useCallback((): string | null => {
-    if (activeWallet === 'solana' && connectedWallets.solana) {
+    if (activeWallet === "solana" && connectedWallets.solana) {
       return connectedWallets.solana.address;
     }
-    if (activeWallet === 'ethereum' && connectedWallets.ethereum) {
+    if (activeWallet === "ethereum" && connectedWallets.ethereum) {
       return connectedWallets.ethereum.address;
     }
     return null;

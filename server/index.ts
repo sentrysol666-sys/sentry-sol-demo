@@ -10,7 +10,7 @@ import {
   generateFlowVisualization,
   retryMCPConnection,
   getMCPTools,
-  callMCPTool
+  callMCPTool,
 } from "./routes/mcp";
 import walletAnalysisRoutes from "./routes/wallet-analysis";
 import comprehensiveAMLRoutes from "./routes/comprehensive-aml";

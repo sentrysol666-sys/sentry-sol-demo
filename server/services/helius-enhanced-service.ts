@@ -1,5 +1,5 @@
-import fetch from 'node-fetch';
-import WebSocket from 'ws';
+import fetch from "node-fetch";
+import WebSocket from "ws";
 
 export interface HeliusEnhancedTransaction {
   signature: string;
@@ -76,42 +76,53 @@ class HeliusEnhancedService {
   private apiKey: string;
   private rpcUrl: string;
   private wsUrl: string;
-  private baseUrl = 'https://api.helius.xyz/v0';
+  private baseUrl = "https://api.helius.xyz/v0";
 
   constructor() {
-    this.apiKey = process.env.HELIUS_API_KEY || '';
-    this.rpcUrl = process.env.RPC_URL || `https://mainnet.helius-rpc.com/?api-key=${this.apiKey}`;
-    this.wsUrl = process.env.STANDARD_WEBSOCKET_URL || `wss://mainnet.helius-rpc.com/?api-key=${this.apiKey}`;
-    
+    this.apiKey = process.env.HELIUS_API_KEY || "";
+    this.rpcUrl =
+      process.env.RPC_URL ||
+      `https://mainnet.helius-rpc.com/?api-key=${this.apiKey}`;
+    this.wsUrl =
+      process.env.STANDARD_WEBSOCKET_URL ||
+      `wss://mainnet.helius-rpc.com/?api-key=${this.apiKey}`;
+
     if (!this.apiKey) {
-      console.warn('Helius API key not configured');
+      console.warn("Helius API key not configured");
     }
   }
 
-  async parseTransactions(signatures: string[]): Promise<HeliusEnhancedTransaction[]> {
+  async parseTransactions(
+    signatures: string[],
+  ): Promise<HeliusEnhancedTransaction[]> {
     try {
-      const response = await fetch(`${this.baseUrl}/transactions/?api-key=${this.apiKey}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${this.baseUrl}/transactions/?api-key=${this.apiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            transactions: signatures,
+          }),
         },
-        body: JSON.stringify({
-          transactions: signatures,
-        }),
-      });
+      );
 
       if (!response.ok) {
-        throw new Error(`Helius parse transactions failed: ${response.statusText}`);
+        throw new Error(
+          `Helius parse transactions failed: ${response.statusText}`,
+        );
       }
 
-      const result = await response.json() as HeliusEnhancedTransaction[];
+      const result = (await response.json()) as HeliusEnhancedTransaction[];
       console.log(`✅ Helius parsed ${result.length} transactions`);
       return result;
     } catch (error) {
-      console.error('Helius parse transactions error:', error);
-      
+      console.error("Helius parse transactions error:", error);
+
       // Return mock enhanced transaction data
-      return signatures.map(signature => ({
+      return signatures.map((signature) => ({
         signature,
         blockTime: Date.now() / 1000,
         slot: Math.floor(Math.random() * 1000000),
@@ -119,13 +130,19 @@ class HeliusEnhancedService {
         feePayer: this.generateRandomSolanaAddress(),
         instructions: [
           {
-            programId: '11111111111111111111111111111112',
-            accounts: [this.generateRandomSolanaAddress(), this.generateRandomSolanaAddress()],
-            data: 'base64-encoded-data',
+            programId: "11111111111111111111111111111112",
+            accounts: [
+              this.generateRandomSolanaAddress(),
+              this.generateRandomSolanaAddress(),
+            ],
+            data: "base64-encoded-data",
           },
         ],
-        accountKeys: [this.generateRandomSolanaAddress(), this.generateRandomSolanaAddress()],
-        logMessages: ['Program log: Transfer completed'],
+        accountKeys: [
+          this.generateRandomSolanaAddress(),
+          this.generateRandomSolanaAddress(),
+        ],
+        logMessages: ["Program log: Transfer completed"],
         preBalances: [1000000000, 2000000000],
         postBalances: [900000000, 2100000000],
         preTokenBalances: [],
@@ -136,7 +153,7 @@ class HeliusEnhancedService {
           err: null,
           fee: Math.floor(Math.random() * 10000),
           innerInstructions: [],
-          logMessages: ['Program log: Transfer completed'],
+          logMessages: ["Program log: Transfer completed"],
           postBalances: [900000000, 2100000000],
           postTokenBalances: [],
           preBalances: [1000000000, 2000000000],
@@ -147,28 +164,35 @@ class HeliusEnhancedService {
     }
   }
 
-  async getTransactionHistory(address: string, limit: number = 100): Promise<HeliusEnhancedTransaction[]> {
+  async getTransactionHistory(
+    address: string,
+    limit: number = 100,
+  ): Promise<HeliusEnhancedTransaction[]> {
     try {
       const response = await fetch(
         `${this.baseUrl}/addresses/${address}/transactions/?api-key=${this.apiKey}&limit=${limit}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
-        throw new Error(`Helius transaction history failed: ${response.statusText}`);
+        throw new Error(
+          `Helius transaction history failed: ${response.statusText}`,
+        );
       }
 
-      const result = await response.json() as HeliusEnhancedTransaction[];
-      console.log(`✅ Helius transaction history for ${address}: ${result.length} transactions`);
+      const result = (await response.json()) as HeliusEnhancedTransaction[];
+      console.log(
+        `✅ Helius transaction history for ${address}: ${result.length} transactions`,
+      );
       return result;
     } catch (error) {
-      console.error('Helius transaction history error:', error);
-      
+      console.error("Helius transaction history error:", error);
+
       // Return mock transaction history
       const mockTransactions: HeliusEnhancedTransaction[] = [];
       for (let i = 0; i < Math.min(limit, 50); i++) {
@@ -180,13 +204,13 @@ class HeliusEnhancedService {
           feePayer: address,
           instructions: [
             {
-              programId: '11111111111111111111111111111112',
+              programId: "11111111111111111111111111111112",
               accounts: [address, this.generateRandomSolanaAddress()],
-              data: 'mock-instruction-data',
+              data: "mock-instruction-data",
             },
           ],
           accountKeys: [address, this.generateRandomSolanaAddress()],
-          logMessages: ['Program log: Instruction executed'],
+          logMessages: ["Program log: Instruction executed"],
           preBalances: [Math.floor(Math.random() * 10000000000)],
           postBalances: [Math.floor(Math.random() * 10000000000)],
           preTokenBalances: [],
@@ -197,7 +221,7 @@ class HeliusEnhancedService {
             err: null,
             fee: Math.floor(Math.random() * 10000),
             innerInstructions: [],
-            logMessages: ['Program log: Instruction executed'],
+            logMessages: ["Program log: Instruction executed"],
             postBalances: [Math.floor(Math.random() * 10000000000)],
             postTokenBalances: [],
             preBalances: [Math.floor(Math.random() * 10000000000)],
@@ -213,18 +237,15 @@ class HeliusEnhancedService {
   async getAddressInfo(address: string): Promise<HeliusAddressInfo> {
     try {
       const response = await fetch(this.rpcUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          jsonrpc: '2.0',
+          jsonrpc: "2.0",
           id: 1,
-          method: 'getAccountInfo',
-          params: [
-            address,
-            { encoding: 'jsonParsed' },
-          ],
+          method: "getAccountInfo",
+          params: [address, { encoding: "jsonParsed" }],
         }),
       });
 
@@ -232,11 +253,11 @@ class HeliusEnhancedService {
         throw new Error(`Helius address info failed: ${response.statusText}`);
       }
 
-      const result = await response.json() as any;
+      const result = (await response.json()) as any;
       const accountInfo = result.result?.value;
 
       if (!accountInfo) {
-        throw new Error('Address not found');
+        throw new Error("Address not found");
       }
 
       const addressInfo: HeliusAddressInfo = {
@@ -251,13 +272,13 @@ class HeliusEnhancedService {
       console.log(`✅ Helius address info for ${address}:`, addressInfo);
       return addressInfo;
     } catch (error) {
-      console.error('Helius address info error:', error);
-      
+      console.error("Helius address info error:", error);
+
       // Return mock address info
       return {
         address,
         lamports: Math.floor(Math.random() * 10000000000),
-        owner: '11111111111111111111111111111112',
+        owner: "11111111111111111111111111111112",
         executable: false,
         rentEpoch: Math.floor(Math.random() * 300),
       };
@@ -266,35 +287,38 @@ class HeliusEnhancedService {
 
   async getNFTsByOwner(address: string): Promise<HeliusNFTData[]> {
     try {
-      const response = await fetch(`${this.baseUrl}/addresses/${address}/nfts?api-key=${this.apiKey}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${this.baseUrl}/addresses/${address}/nfts?api-key=${this.apiKey}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       if (!response.ok) {
         throw new Error(`Helius NFTs failed: ${response.statusText}`);
       }
 
-      const result = await response.json() as HeliusNFTData[];
+      const result = (await response.json()) as HeliusNFTData[];
       console.log(`✅ Helius NFTs for ${address}: ${result.length} NFTs`);
       return result;
     } catch (error) {
-      console.error('Helius NFTs error:', error);
-      
+      console.error("Helius NFTs error:", error);
+
       // Return mock NFT data
       return [
         {
           mint: this.generateRandomSolanaAddress(),
-          name: 'Sample NFT #1',
-          symbol: 'SAMPLE',
-          description: 'A sample NFT for demonstration',
-          image: 'https://example.com/nft1.png',
-          externalUrl: 'https://example.com',
+          name: "Sample NFT #1",
+          symbol: "SAMPLE",
+          description: "A sample NFT for demonstration",
+          image: "https://example.com/nft1.png",
+          externalUrl: "https://example.com",
           attributes: [
-            { trait_type: 'Background', value: 'Blue' },
-            { trait_type: 'Eyes', value: 'Green' },
+            { trait_type: "Background", value: "Blue" },
+            { trait_type: "Eyes", value: "Green" },
           ],
           creators: [
             {
@@ -308,47 +332,52 @@ class HeliusEnhancedService {
     }
   }
 
-  async createWebhook(address: string, callback: (transaction: any) => void): Promise<WebSocket> {
+  async createWebhook(
+    address: string,
+    callback: (transaction: any) => void,
+  ): Promise<WebSocket> {
     try {
       const ws = new WebSocket(this.wsUrl);
 
-      ws.on('open', () => {
+      ws.on("open", () => {
         console.log(`✅ Helius WebSocket connected for ${address}`);
-        
+
         // Subscribe to account changes
-        ws.send(JSON.stringify({
-          jsonrpc: '2.0',
-          id: 1,
-          method: 'accountSubscribe',
-          params: [
-            address,
-            { encoding: 'jsonParsed', commitment: 'finalized' },
-          ],
-        }));
+        ws.send(
+          JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method: "accountSubscribe",
+            params: [
+              address,
+              { encoding: "jsonParsed", commitment: "finalized" },
+            ],
+          }),
+        );
       });
 
-      ws.on('message', (data) => {
+      ws.on("message", (data) => {
         try {
           const message = JSON.parse(data.toString());
-          if (message.method === 'accountNotification') {
+          if (message.method === "accountNotification") {
             callback(message.params);
           }
         } catch (error) {
-          console.error('WebSocket message parse error:', error);
+          console.error("WebSocket message parse error:", error);
         }
       });
 
-      ws.on('error', (error) => {
-        console.error('WebSocket error:', error);
+      ws.on("error", (error) => {
+        console.error("WebSocket error:", error);
       });
 
-      ws.on('close', () => {
+      ws.on("close", () => {
         console.log(`🔴 Helius WebSocket disconnected for ${address}`);
       });
 
       return ws;
     } catch (error) {
-      console.error('Helius WebSocket creation error:', error);
+      console.error("Helius WebSocket creation error:", error);
       throw error;
     }
   }
@@ -356,18 +385,18 @@ class HeliusEnhancedService {
   async getTokenAccounts(address: string): Promise<any[]> {
     try {
       const response = await fetch(this.rpcUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          jsonrpc: '2.0',
+          jsonrpc: "2.0",
           id: 1,
-          method: 'getTokenAccountsByOwner',
+          method: "getTokenAccountsByOwner",
           params: [
             address,
-            { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' },
-            { encoding: 'jsonParsed' },
+            { programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" },
+            { encoding: "jsonParsed" },
           ],
         }),
       });
@@ -376,18 +405,20 @@ class HeliusEnhancedService {
         throw new Error(`Helius token accounts failed: ${response.statusText}`);
       }
 
-      const result = await response.json() as any;
-      console.log(`✅ Helius token accounts for ${address}: ${result.result?.value?.length || 0} accounts`);
+      const result = (await response.json()) as any;
+      console.log(
+        `✅ Helius token accounts for ${address}: ${result.result?.value?.length || 0} accounts`,
+      );
       return result.result?.value || [];
     } catch (error) {
-      console.error('Helius token accounts error:', error);
+      console.error("Helius token accounts error:", error);
       return [];
     }
   }
 
   private generateRandomSolanaAddress(): string {
-    const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-    let result = '';
+    const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    let result = "";
     for (let i = 0; i < 44; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -395,8 +426,8 @@ class HeliusEnhancedService {
   }
 
   private generateRandomSignature(): string {
-    const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-    let result = '';
+    const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    let result = "";
     for (let i = 0; i < 88; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }

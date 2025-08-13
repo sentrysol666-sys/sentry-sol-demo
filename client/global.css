@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -42,10 +42,10 @@
     --radius: 0.5rem;
 
     /* Custom Brand Colors */
-    --brand-dark: 224 20% 25%;    /* #404258 */
-    --brand-medium: 224 19% 29%;   /* #474E68 */
-    --brand-light: 225 23% 34%;    /* #50577A */
-    --brand-accent: 224 15% 56%;   /* #6B728E */
+    --brand-dark: 224 20% 25%; /* #404258 */
+    --brand-medium: 224 19% 29%; /* #474E68 */
+    --brand-light: 225 23% 34%; /* #50577A */
+    --brand-accent: 224 15% 56%; /* #6B728E */
     --risk-red: 0 84% 60%;
     --warning-amber: 38 92% 50%;
     --success-green: 142 71% 45%;
@@ -140,6 +140,6 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 }

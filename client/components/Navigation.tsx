@@ -41,7 +41,8 @@ import {
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { isConnected, connectedWallets, activeWallet } = useWalletIntegration();
+  const { isConnected, connectedWallets, activeWallet } =
+    useWalletIntegration();
 
   const navigationItems = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
@@ -69,7 +70,10 @@ export default function Navigation() {
             <span className="font-bold text-xl font-poppins bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
               Sentrysol
             </span>
-            <Badge variant="secondary" className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20">
+            <Badge
+              variant="secondary"
+              className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20"
+            >
               Beta
             </Badge>
           </Link>
@@ -106,7 +110,7 @@ export default function Navigation() {
               <div className="flex items-center space-x-1">
                 <CheckCircle className="h-4 w-4 text-success-green" />
                 <span className="text-xs text-success-green">
-                  {activeWallet === 'solana' ? 'Solana' : 'Ethereum'} Connected
+                  {activeWallet === "solana" ? "Solana" : "Ethereum"} Connected
                 </span>
                 {connectedWallets.solana && (
                   <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
@@ -118,7 +122,9 @@ export default function Navigation() {
             ) : (
               <div className="flex items-center space-x-1">
                 <XCircle className="h-4 w-4 text-warning-amber" />
-                <span className="text-xs text-warning-amber font-medium">Connect Wallet Required</span>
+                <span className="text-xs text-warning-amber font-medium">
+                  Connect Wallet Required
+                </span>
               </div>
             )}
           </div>
@@ -137,7 +143,9 @@ export default function Navigation() {
                   <AvatarImage src="/placeholder-avatar.png" alt="User" />
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
-                <span className="hidden md:block text-sm">AML Investigator</span>
+                <span className="hidden md:block text-sm">
+                  AML Investigator
+                </span>
                 <ChevronDown className="h-3 w-3 opacity-50" />
               </Button>
             </DropdownMenuTrigger>

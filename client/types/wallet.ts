@@ -31,7 +31,12 @@ export interface EthereumWalletInfo extends WalletConnection {
   ensName?: string;
 }
 
-export type SupportedChain = 'solana' | 'ethereum' | 'polygon' | 'bsc' | 'arbitrum';
+export type SupportedChain =
+  | "solana"
+  | "ethereum"
+  | "polygon"
+  | "bsc"
+  | "arbitrum";
 
 export interface ChainConfig {
   chainId: number | string;
@@ -62,7 +67,7 @@ export interface WalletAnalysis {
   };
   adverseMedia: {
     mentions: number;
-    risk: 'low' | 'medium' | 'high';
+    risk: "low" | "medium" | "high";
     sources: string[];
   };
 }
@@ -70,56 +75,56 @@ export interface WalletAnalysis {
 export const CHAIN_CONFIGS: Record<string, ChainConfig> = {
   ethereum: {
     chainId: 1,
-    name: 'Ethereum Mainnet',
-    rpcUrl: 'https://mainnet.infura.io/v3/',
-    blockExplorer: 'https://etherscan.io',
+    name: "Ethereum Mainnet",
+    rpcUrl: "https://mainnet.infura.io/v3/",
+    blockExplorer: "https://etherscan.io",
     nativeCurrency: {
-      name: 'Ethereum',
-      symbol: 'ETH',
+      name: "Ethereum",
+      symbol: "ETH",
       decimals: 18,
     },
   },
   polygon: {
     chainId: 137,
-    name: 'Polygon Mainnet',
-    rpcUrl: 'https://polygon-rpc.com',
-    blockExplorer: 'https://polygonscan.com',
+    name: "Polygon Mainnet",
+    rpcUrl: "https://polygon-rpc.com",
+    blockExplorer: "https://polygonscan.com",
     nativeCurrency: {
-      name: 'Polygon',
-      symbol: 'MATIC',
+      name: "Polygon",
+      symbol: "MATIC",
       decimals: 18,
     },
   },
   bsc: {
     chainId: 56,
-    name: 'BNB Smart Chain',
-    rpcUrl: 'https://bsc-dataseed.binance.org',
-    blockExplorer: 'https://bscscan.com',
+    name: "BNB Smart Chain",
+    rpcUrl: "https://bsc-dataseed.binance.org",
+    blockExplorer: "https://bscscan.com",
     nativeCurrency: {
-      name: 'BNB',
-      symbol: 'BNB',
+      name: "BNB",
+      symbol: "BNB",
       decimals: 18,
     },
   },
   arbitrum: {
     chainId: 42161,
-    name: 'Arbitrum One',
-    rpcUrl: 'https://arb1.arbitrum.io/rpc',
-    blockExplorer: 'https://arbiscan.io',
+    name: "Arbitrum One",
+    rpcUrl: "https://arb1.arbitrum.io/rpc",
+    blockExplorer: "https://arbiscan.io",
     nativeCurrency: {
-      name: 'Ethereum',
-      symbol: 'ETH',
+      name: "Ethereum",
+      symbol: "ETH",
       decimals: 18,
     },
   },
   solana: {
-    chainId: 'mainnet-beta',
-    name: 'Solana Mainnet',
-    rpcUrl: 'https://api.mainnet-beta.solana.com',
-    blockExplorer: 'https://explorer.solana.com',
+    chainId: "mainnet-beta",
+    name: "Solana Mainnet",
+    rpcUrl: "https://api.mainnet-beta.solana.com",
+    blockExplorer: "https://explorer.solana.com",
     nativeCurrency: {
-      name: 'Solana',
-      symbol: 'SOL',
+      name: "Solana",
+      symbol: "SOL",
       decimals: 9,
     },
   },

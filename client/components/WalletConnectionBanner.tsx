@@ -1,9 +1,9 @@
-import React from 'react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { useWalletIntegration } from '@/hooks/useWalletIntegration';
-import { WalletIcon, InfoIcon } from '@/components/ui/material-icons';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { useWalletIntegration } from "@/hooks/useWalletIntegration";
+import { WalletIcon, InfoIcon } from "@/components/ui/material-icons";
+import { Link } from "react-router-dom";
 
 export const WalletConnectionBanner: React.FC = () => {
   const { isConnected } = useWalletIntegration();
@@ -18,13 +18,14 @@ export const WalletConnectionBanner: React.FC = () => {
       <AlertDescription className="flex items-center justify-between w-full">
         <div className="flex items-center gap-2">
           <span className="text-yellow-800 dark:text-yellow-200">
-            <strong>Wallet Required:</strong> Connect your wallet to access all AML investigation features.
+            <strong>Wallet Required:</strong> Connect your wallet to access all
+            AML investigation features.
           </span>
         </div>
         <div className="flex items-center gap-2 ml-4">
           <Link to="/wallet-screening">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               className="border-yellow-600 text-yellow-800 hover:bg-yellow-100 dark:text-yellow-200 dark:hover:bg-yellow-800/20"
             >

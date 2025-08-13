@@ -1,14 +1,18 @@
-import React from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Copy, ExternalLink } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import React from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import {
+  WalletMultiButton,
+  WalletDisconnectButton,
+} from "@solana/wallet-adapter-react-ui";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Copy, ExternalLink } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export const SolanaWalletConnector: React.FC = () => {
-  const { connected, publicKey, wallet, connecting, disconnecting } = useWallet();
+  const { connected, publicKey, wallet, connecting, disconnecting } =
+    useWallet();
   const { toast } = useToast();
 
   const copyAddress = () => {
@@ -23,7 +27,10 @@ export const SolanaWalletConnector: React.FC = () => {
 
   const openExplorer = () => {
     if (publicKey) {
-      window.open(`https://explorer.solana.com/address/${publicKey.toString()}`, '_blank');
+      window.open(
+        `https://explorer.solana.com/address/${publicKey.toString()}`,
+        "_blank",
+      );
     }
   };
 
@@ -39,7 +46,8 @@ export const SolanaWalletConnector: React.FC = () => {
         <CardContent>
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Connect your Solana wallet to start analyzing transactions and checking compliance.
+              Connect your Solana wallet to start analyzing transactions and
+              checking compliance.
             </p>
             <WalletMultiButton className="w-full" />
             {connecting && (
@@ -59,22 +67,24 @@ export const SolanaWalletConnector: React.FC = () => {
         <CardTitle className="flex items-center gap-2">
           <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
           Solana Wallet
-          <Badge variant="outline" className="ml-auto">Connected</Badge>
+          <Badge variant="outline" className="ml-auto">
+            Connected
+          </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           {wallet && (
             <div className="flex items-center gap-2">
-              <img 
-                src={wallet.adapter.icon} 
+              <img
+                src={wallet.adapter.icon}
                 alt={wallet.adapter.name}
                 className="w-6 h-6"
               />
               <span className="font-medium">{wallet.adapter.name}</span>
             </div>
           )}
-          
+
           {publicKey && (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">Wallet Address:</p>
@@ -101,13 +111,16 @@ export const SolanaWalletConnector: React.FC = () => {
               </div>
             </div>
           )}
-          
+
           <div className="flex gap-2">
-            <WalletDisconnectButton className="flex-1" disabled={disconnecting} />
+            <WalletDisconnectButton
+              className="flex-1"
+              disabled={disconnecting}
+            />
             <Button
               variant="outline"
               className="flex-1"
-              onClick={() => window.location.href = '/wallet-screening'}
+              onClick={() => (window.location.href = "/wallet-screening")}
             >
               Analyze Wallet
             </Button>

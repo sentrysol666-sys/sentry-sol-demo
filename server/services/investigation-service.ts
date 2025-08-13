@@ -1,7 +1,7 @@
-import { mcpManager } from './mcp-services';
-import { supervisorAgent } from '../agents/supervisor-agent';
-import { blockchainTracerAgent } from '../agents/blockchain-tracer';
-import { flowVisualizerAgent } from '../agents/flow-visualizer';
+import { mcpManager } from "./mcp-services";
+import { supervisorAgent } from "../agents/supervisor-agent";
+import { blockchainTracerAgent } from "../agents/blockchain-tracer";
+import { flowVisualizerAgent } from "../agents/flow-visualizer";
 
 export interface InvestigationResult {
   address: string;
@@ -14,8 +14,8 @@ export interface InvestigationResult {
 
 export interface Finding {
   id: string;
-  type: 'sanctions' | 'aml' | 'suspicious_activity' | 'pattern_detection';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  type: "sanctions" | "aml" | "suspicious_activity" | "pattern_detection";
+  severity: "low" | "medium" | "high" | "critical";
   description: string;
   evidence: any[];
   confidence: number;
@@ -38,7 +38,7 @@ export interface ComplianceCheck {
   };
   adverseMedia: {
     articles: any[];
-    sentiment: 'positive' | 'neutral' | 'negative';
+    sentiment: "positive" | "neutral" | "negative";
     riskScore: number;
     lastChecked: number;
   };
@@ -54,44 +54,49 @@ export interface AddressMetadata {
 }
 
 export class InvestigationService {
-
-  async investigateAddressWithAgents(address: string, investigationType: 'full' | 'sanctions' | 'tracing' | 'media' | 'visualization' = 'full'): Promise<any> {
-    console.log(`🧠 Starting Supervisor Multi-Agent investigation for: ${address}`);
+  async investigateAddressWithAgents(
+    address: string,
+    investigationType:
+      | "full"
+      | "sanctions"
+      | "tracing"
+      | "media"
+      | "visualization" = "full",
+  ): Promise<any> {
+    console.log(
+      `🧠 Starting Supervisor Multi-Agent investigation for: ${address}`,
+    );
 
     try {
       // Use the Supervisor Multi-Agent Architecture
       const result = await supervisorAgent.runInvestigation({
         address,
         investigationType,
-        userQuery: `Comprehensive AML investigation for address ${address}`
+        userQuery: `Comprehensive AML investigation for address ${address}`,
       });
 
       return result;
     } catch (error) {
-      console.error('Multi-agent investigation failed:', error);
+      console.error("Multi-agent investigation failed:", error);
       throw error;
     }
   }
 
   async investigateAddress(address: string): Promise<InvestigationResult> {
     console.log(`🔍 Starting investigation for address: ${address}`);
-    
+
     // Ensure MCP services are initialized
     await mcpManager.initializeAllServers();
-    
+
     const results = await Promise.allSettled([
       this.performSherlockAnalysis(address),
       this.performGitHubThreatIntel(address),
       this.performEtherscanAnalysis(address),
-      this.performHeliusAnalysis(address)
+      this.performHeliusAnalysis(address),
     ]);
 
-    const [
-      sherlockResult,
-      githubResult, 
-      etherscanResult,
-      heliusResult
-    ] = results.map(r => r.status === 'fulfilled' ? r.value : null);
+    const [sherlockResult, githubResult, etherscanResult, heliusResult] =
+      results.map((r) => (r.status === "fulfilled" ? r.value : null));
 
     // Aggregate all findings
     const findings: Finding[] = [];
@@ -99,15 +104,18 @@ export class InvestigationService {
     let findingCount = 0;
 
     // Process results
-    [sherlockResult, githubResult, etherscanResult, heliusResult].forEach(result => {
-      if (result) {
-        findings.push(...result.findings);
-        aggregatedRiskScore += result.riskScore;
-        findingCount++;
-      }
-    });
+    [sherlockResult, githubResult, etherscanResult, heliusResult].forEach(
+      (result) => {
+        if (result) {
+          findings.push(...result.findings);
+          aggregatedRiskScore += result.riskScore;
+          findingCount++;
+        }
+      },
+    );
 
-    const finalRiskScore = findingCount > 0 ? Math.round(aggregatedRiskScore / findingCount) : 0;
+    const finalRiskScore =
+      findingCount > 0 ? Math.round(aggregatedRiskScore / findingCount) : 0;
 
     return {
       address,
@@ -117,10 +125,10 @@ export class InvestigationService {
       metadata: {
         label: `Address ${address.slice(0, 8)}...${address.slice(-8)}`,
         verified: false,
-        source: 'Sentrysol Investigation',
-        lastUpdated: Date.now()
+        source: "Sentrysol Investigation",
+        lastUpdated: Date.now(),
       },
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
   }
 
@@ -129,45 +137,52 @@ export class InvestigationService {
     riskScore: number;
   }> {
     try {
-      const tools = await mcpManager.getAvailableTools('sherlock');
-      console.log('Sherlock tools:', tools.map(t => t.name));
+      const tools = await mcpManager.getAvailableTools("sherlock");
+      console.log(
+        "Sherlock tools:",
+        tools.map((t) => t.name),
+      );
 
       // Simulate Sherlock analysis since actual tools may vary
       const findings: Finding[] = [
         {
           id: `sherlock-${Date.now()}`,
-          type: 'pattern_detection',
-          severity: 'medium',
-          description: 'Address analyzed by Sherlock forensics engine',
-          evidence: [{ 
-            analysis: 'Pattern analysis completed',
-            transactionPatterns: ['standard_transfers'],
-            riskIndicators: []
-          }],
+          type: "pattern_detection",
+          severity: "medium",
+          description: "Address analyzed by Sherlock forensics engine",
+          evidence: [
+            {
+              analysis: "Pattern analysis completed",
+              transactionPatterns: ["standard_transfers"],
+              riskIndicators: [],
+            },
+          ],
           confidence: 75,
-          source: 'Sherlock MCP',
-          timestamp: Date.now()
-        }
+          source: "Sherlock MCP",
+          timestamp: Date.now(),
+        },
       ];
 
       return {
         findings,
-        riskScore: 25
+        riskScore: 25,
       };
     } catch (error) {
-      console.error('Sherlock analysis failed:', error);
+      console.error("Sherlock analysis failed:", error);
       return {
-        findings: [{
-          id: `sherlock-error-${Date.now()}`,
-          type: 'suspicious_activity',
-          severity: 'low',
-          description: 'Sherlock analysis unavailable',
-          evidence: [{ error: error.message }],
-          confidence: 10,
-          source: 'Sherlock MCP',
-          timestamp: Date.now()
-        }],
-        riskScore: 10
+        findings: [
+          {
+            id: `sherlock-error-${Date.now()}`,
+            type: "suspicious_activity",
+            severity: "low",
+            description: "Sherlock analysis unavailable",
+            evidence: [{ error: error.message }],
+            confidence: 10,
+            source: "Sherlock MCP",
+            timestamp: Date.now(),
+          },
+        ],
+        riskScore: 10,
       };
     }
   }
@@ -178,32 +193,35 @@ export class InvestigationService {
   }> {
     try {
       const searchQuery = `${address} threat intelligence scam malicious`;
-      
+
       // Simulate GitHub search - actual implementation would use MCP tools
       const findings: Finding[] = [];
       let riskScore = 0;
 
       // Mock some threat intelligence data
-      if (Math.random() > 0.8) { // 20% chance of finding something
+      if (Math.random() > 0.8) {
+        // 20% chance of finding something
         findings.push({
           id: `github-threat-${Date.now()}`,
-          type: 'aml',
-          severity: 'medium',
-          description: 'Address mentioned in threat intelligence repositories',
-          evidence: [{ 
-            repositories: ['crypto-scams-db', 'blockchain-blacklist'],
-            mentions: 2
-          }],
+          type: "aml",
+          severity: "medium",
+          description: "Address mentioned in threat intelligence repositories",
+          evidence: [
+            {
+              repositories: ["crypto-scams-db", "blockchain-blacklist"],
+              mentions: 2,
+            },
+          ],
           confidence: 60,
-          source: 'GitHub Threat Intel',
-          timestamp: Date.now()
+          source: "GitHub Threat Intel",
+          timestamp: Date.now(),
         });
         riskScore = 40;
       }
 
       return { findings, riskScore };
     } catch (error) {
-      console.error('GitHub threat intel failed:', error);
+      console.error("GitHub threat intel failed:", error);
       return { findings: [], riskScore: 0 };
     }
   }
@@ -220,17 +238,18 @@ export class InvestigationService {
       // Mock transaction analysis
       const mockTxCount = Math.floor(Math.random() * 1000);
       const mockFailedTxs = Math.floor(mockTxCount * 0.05); // 5% failure rate
-      
-      if (mockFailedTxs > mockTxCount * 0.1) { // More than 10% failed
+
+      if (mockFailedTxs > mockTxCount * 0.1) {
+        // More than 10% failed
         findings.push({
           id: `etherscan-failed-${Date.now()}`,
-          type: 'suspicious_activity', 
-          severity: 'medium',
+          type: "suspicious_activity",
+          severity: "medium",
           description: `High failure rate: ${mockFailedTxs}/${mockTxCount} transactions failed`,
           evidence: [{ failedCount: mockFailedTxs, totalCount: mockTxCount }],
           confidence: 70,
-          source: 'Etherscan Analysis',
-          timestamp: Date.now()
+          source: "Etherscan Analysis",
+          timestamp: Date.now(),
         });
         riskScore += 25;
       }
@@ -238,20 +257,20 @@ export class InvestigationService {
       if (mockTxCount > 1000) {
         findings.push({
           id: `etherscan-volume-${Date.now()}`,
-          type: 'suspicious_activity',
-          severity: 'medium', 
+          type: "suspicious_activity",
+          severity: "medium",
           description: `High transaction volume: ${mockTxCount} transactions`,
           evidence: [{ transactionCount: mockTxCount }],
           confidence: 50,
-          source: 'Etherscan Analysis',
-          timestamp: Date.now()
+          source: "Etherscan Analysis",
+          timestamp: Date.now(),
         });
         riskScore += 15;
       }
 
       return { findings, riskScore };
     } catch (error) {
-      console.error('Etherscan analysis failed:', error);
+      console.error("Etherscan analysis failed:", error);
       return { findings: [], riskScore: 0 };
     }
   }
@@ -271,62 +290,83 @@ export class InvestigationService {
 
       // Mock Solana analysis
       const flags = [];
-      if (Math.random() > 0.7) flags.push('HIGH_ACTIVITY');
-      if (Math.random() > 0.9) flags.push('MULTIPLE_FAILED_TXS');
-      if (Math.random() > 0.85) flags.push('HIGH_RECENT_ACTIVITY');
+      if (Math.random() > 0.7) flags.push("HIGH_ACTIVITY");
+      if (Math.random() > 0.9) flags.push("MULTIPLE_FAILED_TXS");
+      if (Math.random() > 0.85) flags.push("HIGH_RECENT_ACTIVITY");
 
-      flags.forEach(flag => {
+      flags.forEach((flag) => {
         findings.push({
           id: `helius-${flag}-${Date.now()}`,
-          type: 'suspicious_activity',
-          severity: 'medium',
-          description: `Helius detected: ${flag.replace(/_/g, ' ').toLowerCase()}`,
-          evidence: [{ 
-            flag,
-            analysis: 'Solana transaction pattern analysis'
-          }],
+          type: "suspicious_activity",
+          severity: "medium",
+          description: `Helius detected: ${flag.replace(/_/g, " ").toLowerCase()}`,
+          evidence: [
+            {
+              flag,
+              analysis: "Solana transaction pattern analysis",
+            },
+          ],
           confidence: 65,
-          source: 'Helius Analysis',
-          timestamp: Date.now()
+          source: "Helius Analysis",
+          timestamp: Date.now(),
         });
         riskScore += 20;
       });
 
       return { findings, riskScore: Math.min(riskScore, 100) };
     } catch (error) {
-      console.error('Helius analysis failed:', error);
+      console.error("Helius analysis failed:", error);
       return { findings: [], riskScore: 0 };
     }
   }
 
   private generateComplianceCheck(findings: Finding[]): ComplianceCheck {
     // Analyze findings to determine compliance status
-    const sanctionsFindings = findings.filter(f => f.type === 'sanctions' || f.description.toLowerCase().includes('sanction'));
-    const pepFindings = findings.filter(f => f.description.toLowerCase().includes('pep') || f.description.toLowerCase().includes('political'));
-    const adverseFindings = findings.filter(f => f.type === 'aml' || f.description.toLowerCase().includes('threat'));
+    const sanctionsFindings = findings.filter(
+      (f) =>
+        f.type === "sanctions" ||
+        f.description.toLowerCase().includes("sanction"),
+    );
+    const pepFindings = findings.filter(
+      (f) =>
+        f.description.toLowerCase().includes("pep") ||
+        f.description.toLowerCase().includes("political"),
+    );
+    const adverseFindings = findings.filter(
+      (f) => f.type === "aml" || f.description.toLowerCase().includes("threat"),
+    );
 
     return {
       sanctionsStatus: {
         isMatch: sanctionsFindings.length > 0,
-        lists: sanctionsFindings.map(f => f.source),
-        confidence: sanctionsFindings.length > 0 ? Math.max(...sanctionsFindings.map(f => f.confidence)) : 95,
-        lastChecked: Date.now()
+        lists: sanctionsFindings.map((f) => f.source),
+        confidence:
+          sanctionsFindings.length > 0
+            ? Math.max(...sanctionsFindings.map((f) => f.confidence))
+            : 95,
+        lastChecked: Date.now(),
       },
       pepStatus: {
         isMatch: pepFindings.length > 0,
-        confidence: pepFindings.length > 0 ? Math.max(...pepFindings.map(f => f.confidence)) : 95,
-        lastChecked: Date.now()
+        confidence:
+          pepFindings.length > 0
+            ? Math.max(...pepFindings.map((f) => f.confidence))
+            : 95,
+        lastChecked: Date.now(),
       },
       adverseMedia: {
-        articles: adverseFindings.map(f => ({ 
-          source: f.source, 
+        articles: adverseFindings.map((f) => ({
+          source: f.source,
           description: f.description,
-          confidence: f.confidence
+          confidence: f.confidence,
         })),
-        sentiment: adverseFindings.length > 0 ? 'negative' : 'neutral',
-        riskScore: adverseFindings.length > 0 ? Math.max(...adverseFindings.map(f => f.confidence)) : 0,
-        lastChecked: Date.now()
-      }
+        sentiment: adverseFindings.length > 0 ? "negative" : "neutral",
+        riskScore:
+          adverseFindings.length > 0
+            ? Math.max(...adverseFindings.map((f) => f.confidence))
+            : 0,
+        lastChecked: Date.now(),
+      },
     };
   }
 
@@ -345,12 +385,16 @@ export class InvestigationService {
       const result = await blockchainTracerAgent.traceAddress(address);
       return result;
     } catch (error) {
-      console.error('Blockchain tracing failed:', error);
+      console.error("Blockchain tracing failed:", error);
       throw error;
     }
   }
 
-  async generateFlowVisualization(address: string, transactionData: any[], connectedEntities: any[]): Promise<any> {
+  async generateFlowVisualization(
+    address: string,
+    transactionData: any[],
+    connectedEntities: any[],
+  ): Promise<any> {
     console.log(`📊 Generating flow visualization for: ${address}`);
 
     try {
@@ -358,7 +402,7 @@ export class InvestigationService {
         address,
         transactionData,
         connectedEntities,
-        2 // depth
+        2, // depth
       );
 
       // Also generate the D3.js code
@@ -366,10 +410,10 @@ export class InvestigationService {
 
       return {
         ...visualization,
-        d3Code
+        d3Code,
       };
     } catch (error) {
-      console.error('Flow visualization generation failed:', error);
+      console.error("Flow visualization generation failed:", error);
       throw error;
     }
   }

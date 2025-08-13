@@ -1,18 +1,24 @@
-import React from 'react';
-import { useEthereumWallet } from '@/contexts/EthereumWalletContext';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Copy, ExternalLink, AlertCircle } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { CHAIN_CONFIGS } from '@/types/wallet';
+import React from "react";
+import { useEthereumWallet } from "@/contexts/EthereumWalletContext";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Copy, ExternalLink, AlertCircle } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { CHAIN_CONFIGS } from "@/types/wallet";
 
 const SUPPORTED_CHAINS = [
-  { id: 1, name: 'Ethereum', icon: '🟦' },
-  { id: 137, name: 'Polygon', icon: '🟣' },
-  { id: 56, name: 'BNB Chain', icon: '🟡' },
-  { id: 42161, name: 'Arbitrum', icon: '🔵' },
+  { id: 1, name: "Ethereum", icon: "🟦" },
+  { id: 137, name: "Polygon", icon: "🟣" },
+  { id: 56, name: "BNB Chain", icon: "🟡" },
+  { id: 42161, name: "Arbitrum", icon: "🔵" },
 ];
 
 export const EthereumWalletConnector: React.FC = () => {
@@ -48,7 +54,7 @@ export const EthereumWalletConnector: React.FC = () => {
       await switchNetwork(parseInt(networkId));
       toast({
         title: "Network Switched",
-        description: `Switched to ${SUPPORTED_CHAINS.find(c => c.id.toString() === networkId)?.name}`,
+        description: `Switched to ${SUPPORTED_CHAINS.find((c) => c.id.toString() === networkId)?.name}`,
       });
     } catch (error: any) {
       toast({
@@ -71,15 +77,17 @@ export const EthereumWalletConnector: React.FC = () => {
 
   const openExplorer = () => {
     if (account && chainId) {
-      const chain = Object.values(CHAIN_CONFIGS).find(c => c.chainId === chainId);
+      const chain = Object.values(CHAIN_CONFIGS).find(
+        (c) => c.chainId === chainId,
+      );
       if (chain) {
-        window.open(`${chain.blockExplorer}/address/${account}`, '_blank');
+        window.open(`${chain.blockExplorer}/address/${account}`, "_blank");
       }
     }
   };
 
   const getCurrentChain = () => {
-    return SUPPORTED_CHAINS.find(c => c.id === chainId);
+    return SUPPORTED_CHAINS.find((c) => c.id === chainId);
   };
 
   if (!isConnected) {
@@ -94,10 +102,11 @@ export const EthereumWalletConnector: React.FC = () => {
         <CardContent>
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Connect your MetaMask or other Ethereum wallet to analyze transactions across multiple chains.
+              Connect your MetaMask or other Ethereum wallet to analyze
+              transactions across multiple chains.
             </p>
-            
-            {typeof window !== 'undefined' && !window.ethereum && (
+
+            {typeof window !== "undefined" && !window.ethereum && (
               <div className="flex items-center gap-2 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-md">
                 <AlertCircle className="h-4 w-4 text-yellow-600" />
                 <span className="text-sm text-yellow-800 dark:text-yellow-200">
@@ -105,11 +114,11 @@ export const EthereumWalletConnector: React.FC = () => {
                 </span>
               </div>
             )}
-            
-            <Button 
-              onClick={handleConnect} 
+
+            <Button
+              onClick={handleConnect}
               className="w-full"
-              disabled={typeof window !== 'undefined' && !window.ethereum}
+              disabled={typeof window !== "undefined" && !window.ethereum}
             >
               Connect MetaMask
             </Button>
@@ -127,14 +136,16 @@ export const EthereumWalletConnector: React.FC = () => {
         <CardTitle className="flex items-center gap-2">
           <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
           Ethereum Wallet
-          <Badge variant="outline" className="ml-auto">Connected</Badge>
+          <Badge variant="outline" className="ml-auto">
+            Connected
+          </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <img 
-              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iI0Y2ODUxQiIvPgo8cGF0aCBkPSJNMTYuMjYyIDIuOTM2OUwxNS44MzE4IDQuMjE2NjRWMjEuNjY4M0wxNi4yNjIgMjIuMDkxOEwyMy45MzA2IDE3LjM3MzVMMTYuMjYyIDIuOTM2OVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIuOTM2OUw4LjU5Mzc1IDE3LjM3MzVMMTYuMjYyNCAyMi4wOTE4VjEyLjcxNzdWMi45MzY5WiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC42Ii8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIzLjcyNThMMTYuMDQ1OCAyMy45ODI3VjI5LjA0MkwxNi4yNjI0IDI5LjYzMjZMMjMuOTM0NSAxOS4wMDVMMTYuMjYyNCAyMy43MjU4WiIgZmlsbD0id2hpdGUiLz4KPHA=" 
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iI0Y2ODUxQiIvPgo8cGF0aCBkPSJNMTYuMjYyIDIuOTM2OUwxNS44MzE4IDQuMjE2NjRWMjEuNjY4M0wxNi4yNjIgMjIuMDkxOEwyMy45MzA2IDE3LjM3MzVMMTYuMjYyIDIuOTM2OVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIuOTM2OUw4LjU5Mzc1IDE3LjM3MzVMMTYuMjYyNCAyMi4wOTE4VjEyLjcxNzdWMi45MzY5WiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC42Ii8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIzLjcyNThMMTYuMDQ1OCAyMy45ODI3VjI5LjA0MkwxNi4yNjI0IDI5LjYzMjZMMjMuOTM0NSAxOS4wMDVMMTYuMjYyNCAyMy43MjU4WiIgZmlsbD0id2hpdGUiLz4KPHA="
               alt="MetaMask"
               className="w-6 h-6"
             />
@@ -171,14 +182,12 @@ export const EthereumWalletConnector: React.FC = () => {
               </SelectContent>
             </Select>
           </div>
-          
+
           {account && (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">Wallet Address:</p>
               <div className="flex items-center gap-2 p-2 bg-muted rounded-md">
-                <code className="text-xs flex-1 truncate">
-                  {account}
-                </code>
+                <code className="text-xs flex-1 truncate">{account}</code>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -204,24 +213,27 @@ export const EthereumWalletConnector: React.FC = () => {
               <p className="text-sm text-muted-foreground">Balance:</p>
               <div className="p-2 bg-muted rounded-md">
                 <span className="text-sm font-mono">
-                  {parseFloat(balance).toFixed(4)} {currentChain ? CHAIN_CONFIGS[Object.keys(CHAIN_CONFIGS).find(k => CHAIN_CONFIGS[k].chainId === chainId) || 'ethereum']?.nativeCurrency.symbol : 'ETH'}
+                  {parseFloat(balance).toFixed(4)}{" "}
+                  {currentChain
+                    ? CHAIN_CONFIGS[
+                        Object.keys(CHAIN_CONFIGS).find(
+                          (k) => CHAIN_CONFIGS[k].chainId === chainId,
+                        ) || "ethereum"
+                      ]?.nativeCurrency.symbol
+                    : "ETH"}
                 </span>
               </div>
             </div>
           )}
-          
+
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={disconnect}
-              className="flex-1"
-            >
+            <Button variant="outline" onClick={disconnect} className="flex-1">
               Disconnect
             </Button>
             <Button
               variant="outline"
               className="flex-1"
-              onClick={() => window.location.href = '/wallet-screening'}
+              onClick={() => (window.location.href = "/wallet-screening")}
             >
               Analyze Wallet
             </Button>

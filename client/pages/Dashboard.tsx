@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,10 +14,26 @@ import { Input } from "@/components/ui/input";
 import MCPServicesStatus from "@/components/MCPServicesStatus";
 import WalletConnectionBanner from "@/components/WalletConnectionBanner";
 import {
-  AlertTriangle, Shield, Brain, Network, Search, BarChart3,
-  TrendingUp, TrendingDown, Activity, Clock, CheckCircle,
-  XCircle, Eye, Users, FileText, Settings, Zap,
-  AlertCircle, Info, RefreshCw
+  AlertTriangle,
+  Shield,
+  Brain,
+  Network,
+  Search,
+  BarChart3,
+  TrendingUp,
+  TrendingDown,
+  Activity,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Eye,
+  Users,
+  FileText,
+  Settings,
+  Zap,
+  AlertCircle,
+  Info,
+  RefreshCw,
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -32,8 +54,8 @@ export default function Dashboard() {
       activities: [
         "Mapped transaction flow from 0x742d35Cc6aF1cD6c...89BA",
         "Detected multi-hop pattern across 15 addresses",
-        "Identified potential mixing service usage"
-      ]
+        "Identified potential mixing service usage",
+      ],
     },
     {
       id: "sanctions_screen",
@@ -48,8 +70,8 @@ export default function Dashboard() {
       activities: [
         "OFAC match found: 0x1a2b3c4d5e6f7g8h...ABCD",
         "EU sanctions list updated and re-screened",
-        "PEP database cross-reference completed"
-      ]
+        "PEP database cross-reference completed",
+      ],
     },
     {
       id: "adverse_media",
@@ -64,8 +86,8 @@ export default function Dashboard() {
       activities: [
         "Analyzed 45 news articles mentioning target entity",
         "Detected negative sentiment in 12 publications",
-        "Cross-referenced with social media mentions"
-      ]
+        "Cross-referenced with social media mentions",
+      ],
     },
     {
       id: "graph_analysis",
@@ -80,8 +102,8 @@ export default function Dashboard() {
       activities: [
         "Detected clustering pattern in transaction network",
         "Identified 23 potential intermediary addresses",
-        "Generated D3.js visualization of fund flow"
-      ]
+        "Generated D3.js visualization of fund flow",
+      ],
     },
     {
       id: "coordinator",
@@ -96,9 +118,9 @@ export default function Dashboard() {
       activities: [
         "Prioritized 7 high-risk alerts for investigation",
         "Generated comprehensive risk assessment",
-        "Coordinated agent task assignment"
-      ]
-    }
+        "Coordinated agent task assignment",
+      ],
+    },
   ];
 
   const alerts = [
@@ -109,7 +131,7 @@ export default function Dashboard() {
       title: "OFAC Sanctions Match Detected",
       description: "Wallet 0x742d35Cc6aF1cD6c...89BA matches OFAC SDN list",
       timestamp: "2 minutes ago",
-      confidence: 99
+      confidence: 99,
     },
     {
       id: "2",
@@ -118,7 +140,7 @@ export default function Dashboard() {
       title: "Unusual Transaction Pattern",
       description: "Rapid-fire transactions detected across 15 addresses",
       timestamp: "8 minutes ago",
-      confidence: 94
+      confidence: 94,
     },
     {
       id: "3",
@@ -127,32 +149,64 @@ export default function Dashboard() {
       title: "PEP Association Found",
       description: "Transaction link to politically exposed person identified",
       timestamp: "15 minutes ago",
-      confidence: 87
-    }
+      confidence: 87,
+    },
   ];
 
   const stats = [
-    { label: "Active Alerts", value: "47", change: "+12%", trend: "up", color: "text-risk-red" },
-    { label: "Addresses Monitored", value: "12.4K", change: "+8%", trend: "up", color: "text-brand-light" },
-    { label: "Risk Score Avg", value: "23.7", change: "-5%", trend: "down", color: "text-success-green" },
-    { label: "Cases Active", value: "156", change: "+3%", trend: "up", color: "text-warning-amber" }
+    {
+      label: "Active Alerts",
+      value: "47",
+      change: "+12%",
+      trend: "up",
+      color: "text-risk-red",
+    },
+    {
+      label: "Addresses Monitored",
+      value: "12.4K",
+      change: "+8%",
+      trend: "up",
+      color: "text-brand-light",
+    },
+    {
+      label: "Risk Score Avg",
+      value: "23.7",
+      change: "-5%",
+      trend: "down",
+      color: "text-success-green",
+    },
+    {
+      label: "Cases Active",
+      value: "156",
+      change: "+3%",
+      trend: "up",
+      color: "text-warning-amber",
+    },
   ];
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case "critical": return "text-risk-red bg-risk-red/10 border-risk-red/20";
-      case "high": return "text-warning-amber bg-warning-amber/10 border-warning-amber/20";
-      case "medium": return "text-brand-light bg-brand-light/10 border-brand-light/20";
-      default: return "text-muted-foreground bg-muted/10 border-border";
+      case "critical":
+        return "text-risk-red bg-risk-red/10 border-risk-red/20";
+      case "high":
+        return "text-warning-amber bg-warning-amber/10 border-warning-amber/20";
+      case "medium":
+        return "text-brand-light bg-brand-light/10 border-brand-light/20";
+      default:
+        return "text-muted-foreground bg-muted/10 border-border";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "active": return <CheckCircle className="h-4 w-4 text-success-green" />;
-      case "processing": return <Clock className="h-4 w-4 text-warning-amber" />;
-      case "error": return <XCircle className="h-4 w-4 text-risk-red" />;
-      default: return <AlertCircle className="h-4 w-4 text-muted-foreground" />;
+      case "active":
+        return <CheckCircle className="h-4 w-4 text-success-green" />;
+      case "processing":
+        return <Clock className="h-4 w-4 text-warning-amber" />;
+      case "error":
+        return <XCircle className="h-4 w-4 text-risk-red" />;
+      default:
+        return <AlertCircle className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -165,15 +219,22 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold font-poppins text-foreground">AML Intelligence Dashboard</h1>
-            <p className="text-muted-foreground">Multi-agent AI monitoring and compliance analysis</p>
+            <h1 className="text-3xl font-bold font-poppins text-foreground">
+              AML Intelligence Dashboard
+            </h1>
+            <p className="text-muted-foreground">
+              Multi-agent AI monitoring and compliance analysis
+            </p>
           </div>
           <div className="flex items-center space-x-3">
             <Button variant="outline" size="sm">
               <RefreshCw className="mr-2 h-4 w-4" />
               Refresh
             </Button>
-            <Button size="sm" className="bg-brand-light hover:bg-brand-light/90">
+            <Button
+              size="sm"
+              className="bg-brand-light hover:bg-brand-light/90"
+            >
               <Search className="mr-2 h-4 w-4" />
               Screen Address
             </Button>
@@ -187,8 +248,12 @@ export default function Dashboard() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
-                    <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {stat.label}
+                    </p>
+                    <p className="text-2xl font-bold text-foreground">
+                      {stat.value}
+                    </p>
                   </div>
                   <div className={`flex items-center space-x-1 ${stat.color}`}>
                     {stat.trend === "up" ? (
@@ -233,7 +298,11 @@ export default function Dashboard() {
                             ? "border-brand-light/30 bg-brand-light/5"
                             : "border-border hover:border-border/60"
                         }`}
-                        onClick={() => setSelectedAgent(selectedAgent === agent.id ? null : agent.id)}
+                        onClick={() =>
+                          setSelectedAgent(
+                            selectedAgent === agent.id ? null : agent.id,
+                          )
+                        }
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center space-x-3">
@@ -241,8 +310,12 @@ export default function Dashboard() {
                               <Icon className={`h-5 w-5 ${agent.color}`} />
                             </div>
                             <div>
-                              <h3 className="font-medium text-foreground">{agent.name}</h3>
-                              <p className="text-sm text-muted-foreground">{agent.description}</p>
+                              <h3 className="font-medium text-foreground">
+                                {agent.name}
+                              </h3>
+                              <p className="text-sm text-muted-foreground">
+                                {agent.description}
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
@@ -252,20 +325,30 @@ export default function Dashboard() {
                             </Badge>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">{agent.lastAction}</span>
+                          <span className="text-muted-foreground">
+                            {agent.lastAction}
+                          </span>
                           <div className="flex items-center space-x-2">
-                            <Progress value={agent.confidence} className="w-16 h-2" />
+                            <Progress
+                              value={agent.confidence}
+                              className="w-16 h-2"
+                            />
                           </div>
                         </div>
 
                         {selectedAgent === agent.id && (
                           <div className="mt-4 pt-3 border-t border-border">
-                            <h4 className="font-medium text-sm mb-2">Recent Activities:</h4>
+                            <h4 className="font-medium text-sm mb-2">
+                              Recent Activities:
+                            </h4>
                             <ul className="space-y-1">
                               {agent.activities.map((activity, index) => (
-                                <li key={index} className="text-xs text-muted-foreground flex items-start">
+                                <li
+                                  key={index}
+                                  className="text-xs text-muted-foreground flex items-start"
+                                >
                                   <div className="w-1 h-1 bg-brand-light rounded-full mt-2 mr-2 flex-shrink-0"></div>
                                   {activity}
                                 </li>
@@ -296,17 +379,26 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-3">
                   {alerts.map((alert) => (
-                    <div key={alert.id} className={`p-3 rounded-lg border ${getSeverityColor(alert.severity)}`}>
+                    <div
+                      key={alert.id}
+                      className={`p-3 rounded-lg border ${getSeverityColor(alert.severity)}`}
+                    >
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-medium text-sm">{alert.title}</h4>
                         <Badge variant="secondary" className="text-xs">
                           {alert.severity}
                         </Badge>
                       </div>
-                      <p className="text-xs text-muted-foreground mb-2">{alert.description}</p>
+                      <p className="text-xs text-muted-foreground mb-2">
+                        {alert.description}
+                      </p>
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">{alert.timestamp}</span>
-                        <span className="font-medium">{alert.confidence}% confidence</span>
+                        <span className="text-muted-foreground">
+                          {alert.timestamp}
+                        </span>
+                        <span className="font-medium">
+                          {alert.confidence}% confidence
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -327,8 +419,14 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <Input placeholder="Enter wallet address to screen..." className="text-sm" />
-                  <Button size="sm" className="w-full bg-brand-light hover:bg-brand-light/90">
+                  <Input
+                    placeholder="Enter wallet address to screen..."
+                    className="text-sm"
+                  />
+                  <Button
+                    size="sm"
+                    className="w-full bg-brand-light hover:bg-brand-light/90"
+                  >
                     Screen Address
                   </Button>
                   <div className="grid grid-cols-2 gap-2 mt-4">
@@ -370,9 +468,12 @@ export default function Dashboard() {
                     "New high-risk case created: Case #AML-2024-0156",
                     "Transaction pattern analysis detected suspicious activity",
                     "Adverse media agent found 3 new negative mentions",
-                    "Graph analysis identified potential mixing service usage"
+                    "Graph analysis identified potential mixing service usage",
                   ].map((activity, index) => (
-                    <div key={index} className="flex items-center space-x-3 text-sm">
+                    <div
+                      key={index}
+                      className="flex items-center space-x-3 text-sm"
+                    >
                       <div className="w-2 h-2 bg-brand-light rounded-full"></div>
                       <span className="text-muted-foreground">{activity}</span>
                       <span className="text-xs text-muted-foreground ml-auto">
@@ -383,13 +484,19 @@ export default function Dashboard() {
                 </div>
               </TabsContent>
               <TabsContent value="alerts">
-                <p className="text-muted-foreground">Alert-specific activity would be shown here.</p>
+                <p className="text-muted-foreground">
+                  Alert-specific activity would be shown here.
+                </p>
               </TabsContent>
               <TabsContent value="screening">
-                <p className="text-muted-foreground">Screening activity would be shown here.</p>
+                <p className="text-muted-foreground">
+                  Screening activity would be shown here.
+                </p>
               </TabsContent>
               <TabsContent value="cases">
-                <p className="text-muted-foreground">Case management activity would be shown here.</p>
+                <p className="text-muted-foreground">
+                  Case management activity would be shown here.
+                </p>
               </TabsContent>
             </Tabs>
           </CardContent>

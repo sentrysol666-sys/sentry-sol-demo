@@ -5,6 +5,7 @@
 ### 🎯 One-Click Setup & Deploy
 
 #### Option 1: Automated Setup (Recommended)
+
 ```bash
 # Linux/Mac
 ./deploy.sh
@@ -17,6 +18,7 @@ npm run dev:start
 ```
 
 #### Option 2: Manual Setup
+
 ```bash
 # 1. Install dependencies
 npm install
@@ -45,6 +47,7 @@ Once running, the server will be available at:
 ## 🔧 Configuration Details
 
 ### Port Configuration
+
 The development server is configured to run on **port 8080** with the following settings:
 
 ```typescript
@@ -60,6 +63,7 @@ server: {
 ```
 
 ### Environment Variables
+
 ```env
 PORT=8080
 NODE_ENV=development
@@ -68,17 +72,18 @@ VITE_DEV_SERVER_PORT=8080
 
 ## 🛠️ Available Scripts
 
-| Script | Command | Description |
-|--------|---------|-------------|
-| **Setup** | `npm run setup` | Complete environment setup |
-| **Development** | `npm run dev` | Start dev server on port 8080 |
-| **Quick Start** | `npm run dev:start` | Setup + start in one command |
-| **Build** | `npm run build` | Production build |
-| **Production** | `npm run start:prod` | Production server on port 8080 |
+| Script          | Command              | Description                    |
+| --------------- | -------------------- | ------------------------------ |
+| **Setup**       | `npm run setup`      | Complete environment setup     |
+| **Development** | `npm run dev`        | Start dev server on port 8080  |
+| **Quick Start** | `npm run dev:start`  | Setup + start in one command   |
+| **Build**       | `npm run build`      | Production build               |
+| **Production**  | `npm run start:prod` | Production server on port 8080 |
 
 ## 🏗️ Architecture
 
 ### Frontend (Port 8080)
+
 - **React 18** with TypeScript
 - **Vite** for fast development
 - **Tailwind CSS** for styling
@@ -86,12 +91,14 @@ VITE_DEV_SERVER_PORT=8080
 - **Wallet Integration** (Multi-chain)
 
 ### Backend (Integrated)
+
 - **Express.js** API server
 - **LangChain** AI agents
 - **Real-time** blockchain data
 - **AML/Compliance** services
 
 ### AI/ML Stack
+
 - **LangGraph** for agent workflows
 - **Mistral AI** for analysis
 - **LangSmith** for tracing
@@ -100,16 +107,19 @@ VITE_DEV_SERVER_PORT=8080
 ## 🔌 API Integrations
 
 ### Blockchain Data
+
 - **Helius** - Solana enhanced data
 - **Coinstats** - Multi-chain portfolios
 - **Etherscan** - Ethereum data
 
 ### Compliance Services
+
 - **MetaSleuth** - Wallet screening
 - **Chainabuse** - Sanctions checking
 - **PEP Checker** - Political exposure
 
 ### Wallet Support
+
 - **Solana**: Phantom, Solflare, Backpack
 - **Ethereum**: MetaMask, WalletConnect
 - **Multi-chain**: Polygon, Arbitrum, BSC
@@ -117,6 +127,7 @@ VITE_DEV_SERVER_PORT=8080
 ## 🚨 Troubleshooting
 
 ### Port 8080 In Use
+
 ```bash
 # Find process using port 8080
 lsof -i :8080
@@ -130,6 +141,7 @@ taskkill /PID <PID> /F
 ```
 
 ### Dependencies Issues
+
 ```bash
 # Clear and reinstall
 rm -rf node_modules package-lock.json
@@ -137,6 +149,7 @@ npm run setup
 ```
 
 ### Build Issues
+
 ```bash
 # Clear build cache
 rm -rf dist .vite
@@ -144,6 +157,7 @@ npm run build
 ```
 
 ### Environment Issues
+
 ```bash
 # Recreate environment
 rm .env
@@ -153,13 +167,15 @@ npm run setup
 ## 🌐 Network Configuration
 
 ### Local Network Access
+
 To access from other devices on your network:
 
 1. Find your IP address:
+
    ```bash
    # Linux/Mac
    ifconfig | grep inet
-   
+
    # Windows
    ipconfig
    ```
@@ -167,6 +183,7 @@ To access from other devices on your network:
 2. Access via: `http://[your-ip]:8080`
 
 ### Firewall Configuration
+
 Ensure port 8080 is open:
 
 ```bash
@@ -180,16 +197,19 @@ sudo ufw allow 8080
 ## 📊 Development Features
 
 ### Hot Module Replacement (HMR)
+
 - **Fast Refresh** for React components
 - **Instant Updates** without page reload
 - **State Preservation** during development
 
 ### TypeScript Support
+
 - **Full Type Checking** in real-time
 - **IntelliSense** and auto-completion
 - **Error Detection** before runtime
 
 ### API Development
+
 - **Express Integration** with Vite
 - **Real-time APIs** during development
 - **AI Agent Testing** in dev mode
@@ -197,11 +217,13 @@ sudo ufw allow 8080
 ## 🔒 Security Considerations
 
 ### Development Security
+
 - **CORS** enabled for local development
 - **API Keys** in environment variables
 - **No Production Secrets** in dev mode
 
 ### Network Security
+
 - **Localhost** by default
 - **Network Access** configurable
 - **HTTPS** available with certificates
@@ -209,11 +231,13 @@ sudo ufw allow 8080
 ## 📈 Performance Optimization
 
 ### Development Mode
+
 - **Fast Startup** with Vite
 - **Efficient HMR** for quick iterations
 - **Lazy Loading** for large codebases
 
 ### Production Build
+
 - **Code Splitting** for optimal loading
 - **Tree Shaking** to reduce bundle size
 - **Compression** for faster delivery
@@ -221,11 +245,13 @@ sudo ufw allow 8080
 ## 📝 Logging
 
 ### Development Logs
+
 - **Console Output** for server logs
 - **Browser DevTools** for client logs
 - **File Logging** in `logs/` directory
 
 ### Log Files
+
 ```
 logs/
 ├── dev-server.log    # Development server logs
@@ -253,6 +279,7 @@ The development setup is configured to be deployment-ready:
 ## 📞 Support
 
 For development support:
+
 - Check browser console for client errors
 - Review terminal output for server errors
 - Ensure all API keys are valid

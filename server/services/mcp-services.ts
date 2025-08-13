@@ -3,8 +3,10 @@ import { createSmitheryUrl } from "@smithery/sdk";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 
 // MCP Configuration
-const SMITHERY_API_KEY = process.env.SMITHERY_API_KEY || "a02e2920-c6fc-4120-81e4-b4d15e8f4389";
-const SMITHERY_PROFILE = process.env.SMITHERY_PROFILE || "autonomous-hummingbird-dOxIG5";
+const SMITHERY_API_KEY =
+  process.env.SMITHERY_API_KEY || "a02e2920-c6fc-4120-81e4-b4d15e8f4389";
+const SMITHERY_PROFILE =
+  process.env.SMITHERY_PROFILE || "autonomous-hummingbird-dOxIG5";
 
 export interface MCPServerConfig {
   name: string;
@@ -20,28 +22,48 @@ export const MCP_SERVERS: Record<string, MCPServerConfig> = {
     url: "https://server.smithery.ai/@smithery-ai/github",
     profile: SMITHERY_PROFILE,
     description: "Access GitHub repositories, issues, and code analysis",
-    capabilities: ["repo_search", "code_analysis", "issue_tracking", "commit_history"]
+    capabilities: [
+      "repo_search",
+      "code_analysis",
+      "issue_tracking",
+      "commit_history",
+    ],
   },
   helius: {
-    name: "Helius MCP Server", 
+    name: "Helius MCP Server",
     url: "https://server.smithery.ai/@dcSpark/mcp-server-helius",
     profile: SMITHERY_PROFILE,
     description: "Solana blockchain data and transaction analysis",
-    capabilities: ["transaction_parsing", "account_info", "token_metadata", "nft_data"]
+    capabilities: [
+      "transaction_parsing",
+      "account_info",
+      "token_metadata",
+      "nft_data",
+    ],
   },
   sherlock: {
     name: "Sherlock MCP Server",
     url: "https://server.smithery.ai/@qKitNp/sherlock_mcp",
     description: "Advanced blockchain investigation and forensics",
-    capabilities: ["address_clustering", "transaction_tracing", "risk_analysis", "pattern_detection"]
+    capabilities: [
+      "address_clustering",
+      "transaction_tracing",
+      "risk_analysis",
+      "pattern_detection",
+    ],
   },
   etherscan: {
     name: "Etherscan MCP Server",
-    url: "https://server.smithery.ai/@xiaok/etherscan-mcp-server", 
+    url: "https://server.smithery.ai/@xiaok/etherscan-mcp-server",
     profile: SMITHERY_PROFILE,
     description: "Ethereum blockchain data and analytics",
-    capabilities: ["eth_transactions", "contract_verification", "token_transfers", "gas_analytics"]
-  }
+    capabilities: [
+      "eth_transactions",
+      "contract_verification",
+      "token_transfers",
+      "gas_analytics",
+    ],
+  },
 };
 
 export class MCPServiceManager {
@@ -51,16 +73,16 @@ export class MCPServiceManager {
 
   async initializeServer(serverKey: keyof typeof MCP_SERVERS): Promise<Client> {
     const config = MCP_SERVERS[serverKey];
-    
+
     if (this.clients.has(serverKey)) {
       return this.clients.get(serverKey)!;
     }
 
     try {
-      const serverUrl = config.profile 
-        ? createSmitheryUrl(config.url, { 
-            apiKey: SMITHERY_API_KEY, 
-            profile: config.profile 
+      const serverUrl = config.profile
+        ? createSmitheryUrl(config.url, {
+            apiKey: SMITHERY_API_KEY,
+            profile: config.profile,
           })
         : createSmitheryUrl(config.url, { apiKey: SMITHERY_API_KEY });
 
@@ -69,7 +91,7 @@ export class MCPServiceManager {
 
       const client = new Client({
         name: "Sentrysol AML Platform",
-        version: "1.0.0"
+        version: "1.0.0",
       });
 
       await client.connect(transport);
@@ -89,12 +111,13 @@ export class MCPServiceManager {
     }
 
     this.initPromise = (async () => {
-      const promises = Object.keys(MCP_SERVERS).map(key => 
-        this.initializeServer(key as keyof typeof MCP_SERVERS)
-          .catch(error => {
+      const promises = Object.keys(MCP_SERVERS).map((key) =>
+        this.initializeServer(key as keyof typeof MCP_SERVERS).catch(
+          (error) => {
             console.warn(`Failed to initialize ${key}:`, error);
             return null;
-          })
+          },
+        ),
       );
 
       await Promise.allSettled(promises);
@@ -124,15 +147,17 @@ export class MCPServiceManager {
 
   async getAllAvailableTools(): Promise<Record<string, any[]>> {
     const tools: Record<string, any[]> = {};
-    
+
     for (const serverKey of Object.keys(MCP_SERVERS)) {
       try {
-        tools[serverKey] = await this.getAvailableTools(serverKey as keyof typeof MCP_SERVERS);
+        tools[serverKey] = await this.getAvailableTools(
+          serverKey as keyof typeof MCP_SERVERS,
+        );
       } catch (error) {
         tools[serverKey] = [];
       }
     }
-    
+
     return tools;
   }
 
@@ -145,7 +170,7 @@ export class MCPServiceManager {
         console.error(`Error disconnecting from ${key}:`, error);
       }
     }
-    
+
     this.clients.clear();
     this.transports.clear();
     this.initPromise = null;
@@ -159,7 +184,11 @@ export class MCPServiceManager {
     return status;
   }
 
-  async callTool(serverKey: keyof typeof MCP_SERVERS, toolName: string, parameters: any = {}): Promise<any> {
+  async callTool(
+    serverKey: keyof typeof MCP_SERVERS,
+    toolName: string,
+    parameters: any = {},
+  ): Promise<any> {
     const client = this.getClient(serverKey);
     if (!client) {
       throw new Error(`Client for ${serverKey} not initialized`);

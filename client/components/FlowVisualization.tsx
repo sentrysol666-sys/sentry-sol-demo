@@ -1,12 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import * as d3 from 'd3';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Download, ZoomIn, ZoomOut, RotateCcw, Maximize2, 
-  Eye, Share2, Settings 
-} from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import * as d3 from "d3";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Download,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw,
+  Maximize2,
+  Eye,
+  Share2,
+  Settings,
+} from "lucide-react";
 
 interface FlowVisualizationProps {
   data: any;
@@ -33,7 +45,11 @@ interface Link extends d3.SimulationLinkDatum<Node> {
   type: string;
 }
 
-export default function FlowVisualization({ data, width = 800, height = 600 }: FlowVisualizationProps) {
+export default function FlowVisualization({
+  data,
+  width = 800,
+  height = 600,
+}: FlowVisualizationProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -55,7 +71,8 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
       .attr("viewBox", `0 0 ${actualWidth} ${actualHeight}`);
 
     // Create zoom behavior
-    const zoom = d3.zoom<SVGSVGElement, unknown>()
+    const zoom = d3
+      .zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.1, 4])
       .on("zoom", (event) => {
         container.attr("transform", event.transform);
@@ -68,10 +85,13 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
     const container = svg.append("g");
 
     // Create arrow markers for links
-    svg.append("defs").selectAll("marker")
+    svg
+      .append("defs")
+      .selectAll("marker")
       .data(["direct", "indirect", "suspicious"])
-      .enter().append("marker")
-      .attr("id", d => `arrow-${d}`)
+      .enter()
+      .append("marker")
+      .attr("id", (d) => `arrow-${d}`)
       .attr("viewBox", "0 -5 10 10")
       .attr("refX", 15)
       .attr("refY", 0)
@@ -80,37 +100,49 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
       .attr("orient", "auto")
       .append("path")
       .attr("d", "M0,-5L10,0L0,5")
-      .attr("fill", d => data.config.colorScheme.links[d]);
+      .attr("fill", (d) => data.config.colorScheme.links[d]);
 
     // Create simulation
-    const simulation = d3.forceSimulation<Node>(data.nodes)
-      .force("link", d3.forceLink<Node, Link>(data.links)
-        .id(d => d.id)
-        .distance(data.config.linkDistance))
+    const simulation = d3
+      .forceSimulation<Node>(data.nodes)
+      .force(
+        "link",
+        d3
+          .forceLink<Node, Link>(data.links)
+          .id((d) => d.id)
+          .distance(data.config.linkDistance),
+      )
       .force("charge", d3.forceManyBody().strength(data.config.chargeStrength))
       .force("center", d3.forceCenter(actualWidth / 2, actualHeight / 2))
-      .force("collision", d3.forceCollide().radius(d => getNodeRadius(d) + 5));
+      .force(
+        "collision",
+        d3.forceCollide().radius((d) => getNodeRadius(d) + 5),
+      );
 
     // Create links
-    const link = container.append("g")
+    const link = container
+      .append("g")
       .attr("class", "links")
       .selectAll("line")
       .data(data.links)
-      .enter().append("line")
-      .attr("stroke", d => data.config.colorScheme.links[d.type])
-      .attr("stroke-width", d => Math.max(1, Math.sqrt(d.value / 100000)))
+      .enter()
+      .append("line")
+      .attr("stroke", (d) => data.config.colorScheme.links[d.type])
+      .attr("stroke-width", (d) => Math.max(1, Math.sqrt(d.value / 100000)))
       .attr("stroke-opacity", 0.6)
-      .attr("marker-end", d => `url(#arrow-${d.type})`);
+      .attr("marker-end", (d) => `url(#arrow-${d.type})`);
 
     // Create nodes
-    const node = container.append("g")
+    const node = container
+      .append("g")
       .attr("class", "nodes")
       .selectAll("circle")
       .data(data.nodes)
-      .enter().append("circle")
+      .enter()
+      .append("circle")
       .attr("r", getNodeRadius)
-      .attr("fill", d => data.config.colorScheme.nodes[d.type])
-      .attr("stroke", d => data.config.colorScheme.risk[d.riskLevel])
+      .attr("fill", (d) => data.config.colorScheme.nodes[d.type])
+      .attr("stroke", (d) => data.config.colorScheme.risk[d.riskLevel])
       .attr("stroke-width", 3)
       .style("cursor", "pointer")
       .on("click", (event, d) => {
@@ -123,26 +155,33 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
         showTooltip(event, d);
       })
       .on("mouseout", hideTooltip)
-      .call(d3.drag<SVGCircleElement, Node>()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
+      .call(
+        d3
+          .drag<SVGCircleElement, Node>()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended),
+      );
 
     // Create labels
-    const label = container.append("g")
+    const label = container
+      .append("g")
       .attr("class", "labels")
       .selectAll("text")
       .data(data.nodes)
-      .enter().append("text")
-      .text(d => d.label)
+      .enter()
+      .append("text")
+      .text((d) => d.label)
       .attr("font-size", 10)
       .attr("font-family", "Poppins, sans-serif")
-      .attr("dx", d => getNodeRadius(d) + 5)
+      .attr("dx", (d) => getNodeRadius(d) + 5)
       .attr("dy", 4)
       .style("pointer-events", "none");
 
     // Create tooltip
-    const tooltip = d3.select("body").append("div")
+    const tooltip = d3
+      .select("body")
+      .append("div")
       .attr("class", "flow-tooltip")
       .style("position", "absolute")
       .style("background", "rgba(0, 0, 0, 0.8)")
@@ -156,18 +195,14 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
     // Simulation tick
     simulation.on("tick", () => {
       link
-        .attr("x1", d => (d.source as Node).x!)
-        .attr("y1", d => (d.source as Node).y!)
-        .attr("x2", d => (d.target as Node).x!)
-        .attr("y2", d => (d.target as Node).y!);
+        .attr("x1", (d) => (d.source as Node).x!)
+        .attr("y1", (d) => (d.source as Node).y!)
+        .attr("x2", (d) => (d.target as Node).x!)
+        .attr("y2", (d) => (d.target as Node).y!);
 
-      node
-        .attr("cx", d => d.x!)
-        .attr("cy", d => d.y!);
+      node.attr("cx", (d) => d.x!).attr("cy", (d) => d.y!);
 
-      label
-        .attr("x", d => d.x!)
-        .attr("y", d => d.y!);
+      label.attr("x", (d) => d.x!).attr("y", (d) => d.y!);
     });
 
     // Helper functions
@@ -201,38 +236,45 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
       label.style("opacity", 0.3);
 
       // Highlight selected node
-      node.filter(d => d.id === selectedNode.id).style("opacity", 1);
-      label.filter(d => d.id === selectedNode.id).style("opacity", 1);
+      node.filter((d) => d.id === selectedNode.id).style("opacity", 1);
+      label.filter((d) => d.id === selectedNode.id).style("opacity", 1);
 
       // Highlight connected nodes and links
       const connectedNodeIds = new Set<string>();
-      link.filter(d => {
-        const sourceId = typeof d.source === 'string' ? d.source : d.source.id;
-        const targetId = typeof d.target === 'string' ? d.target : d.target.id;
-        
-        if (sourceId === selectedNode.id || targetId === selectedNode.id) {
-          connectedNodeIds.add(sourceId);
-          connectedNodeIds.add(targetId);
-          return true;
-        }
-        return false;
-      }).style("opacity", 0.8);
+      link
+        .filter((d) => {
+          const sourceId =
+            typeof d.source === "string" ? d.source : d.source.id;
+          const targetId =
+            typeof d.target === "string" ? d.target : d.target.id;
 
-      node.filter(d => connectedNodeIds.has(d.id)).style("opacity", 1);
-      label.filter(d => connectedNodeIds.has(d.id)).style("opacity", 1);
+          if (sourceId === selectedNode.id || targetId === selectedNode.id) {
+            connectedNodeIds.add(sourceId);
+            connectedNodeIds.add(targetId);
+            return true;
+          }
+          return false;
+        })
+        .style("opacity", 0.8);
+
+      node.filter((d) => connectedNodeIds.has(d.id)).style("opacity", 1);
+      label.filter((d) => connectedNodeIds.has(d.id)).style("opacity", 1);
     }
 
     function showTooltip(event: any, d: Node) {
       tooltip.transition().duration(200).style("opacity", 1);
-      tooltip.html(`
+      tooltip
+        .html(
+          `
         <strong>${d.label}</strong><br/>
         Type: ${d.type}<br/>
         Risk: ${d.riskLevel}<br/>
         Transactions: ${d.transactionCount.toLocaleString()}<br/>
         Value: $${d.value.toLocaleString()}
-      `)
-        .style("left", (event.pageX + 10) + "px")
-        .style("top", (event.pageY - 10) + "px");
+      `,
+        )
+        .style("left", event.pageX + 10 + "px")
+        .style("top", event.pageY - 10 + "px");
     }
 
     function hideTooltip() {
@@ -247,26 +289,28 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
 
   const handleZoomIn = () => {
     const svg = d3.select(svgRef.current);
-    svg.transition().call(
-      d3.zoom<SVGSVGElement, unknown>().scaleBy as any, 1.5
-    );
+    svg
+      .transition()
+      .call(d3.zoom<SVGSVGElement, unknown>().scaleBy as any, 1.5);
   };
 
   const handleZoomOut = () => {
     const svg = d3.select(svgRef.current);
-    svg.transition().call(
-      d3.zoom<SVGSVGElement, unknown>().scaleBy as any, 1 / 1.5
-    );
+    svg
+      .transition()
+      .call(d3.zoom<SVGSVGElement, unknown>().scaleBy as any, 1 / 1.5);
   };
 
   const handleReset = () => {
     const svg = d3.select(svgRef.current);
-    svg.transition().call(
-      d3.zoom<SVGSVGElement, unknown>().transform as any,
-      d3.zoomIdentity
-    );
+    svg
+      .transition()
+      .call(
+        d3.zoom<SVGSVGElement, unknown>().transform as any,
+        d3.zoomIdentity,
+      );
     setSelectedNode(null);
-    
+
     // Reset all highlighting
     svg.selectAll("circle").style("opacity", 1);
     svg.selectAll("line").style("opacity", 0.6);
@@ -281,12 +325,12 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
     const source = serializer.serializeToString(svg);
     const blob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
     const url = URL.createObjectURL(blob);
-    
+
     const link = document.createElement("a");
     link.href = url;
     link.download = `flow-visualization-${Date.now()}.svg`;
     link.click();
-    
+
     URL.revokeObjectURL(url);
   };
 
@@ -327,7 +371,7 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
               </Badge>
             </div>
           </div>
-          
+
           {/* Controls */}
           <div className="flex items-center space-x-2">
             <Button size="sm" variant="outline" onClick={handleZoomIn}>
@@ -339,7 +383,11 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
             <Button size="sm" variant="outline" onClick={handleReset}>
               <RotateCcw className="h-4 w-4" />
             </Button>
-            <Button size="sm" variant="outline" onClick={() => setIsFullscreen(!isFullscreen)}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setIsFullscreen(!isFullscreen)}
+            >
               <Maximize2 className="h-4 w-4" />
             </Button>
             <Button size="sm" variant="outline" onClick={handleDownload}>
@@ -352,10 +400,15 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
           <div className="flex">
             {/* Main visualization */}
             <div className="flex-1">
-              <svg 
+              <svg
                 ref={svgRef}
                 className="border border-border rounded-lg"
-                style={{ background: 'linear-gradient(45deg, #f8f9fa 25%, transparent 25%), linear-gradient(-45deg, #f8f9fa 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f8f9fa 75%), linear-gradient(-45deg, transparent 75%, #f8f9fa 75%)', backgroundSize: '20px 20px', backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px' }}
+                style={{
+                  background:
+                    "linear-gradient(45deg, #f8f9fa 25%, transparent 25%), linear-gradient(-45deg, #f8f9fa 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f8f9fa 75%), linear-gradient(-45deg, transparent 75%, #f8f9fa 75%)",
+                  backgroundSize: "20px 20px",
+                  backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
+                }}
               />
             </div>
 
@@ -365,42 +418,63 @@ export default function FlowVisualization({ data, width = 800, height = 600 }: F
                 <h3 className="font-medium text-lg mb-4">Node Details</h3>
                 <div className="space-y-3">
                   <div>
-                    <label className="text-sm text-muted-foreground">Address</label>
-                    <p className="font-mono text-xs break-all">{selectedNode.metadata.address}</p>
+                    <label className="text-sm text-muted-foreground">
+                      Address
+                    </label>
+                    <p className="font-mono text-xs break-all">
+                      {selectedNode.metadata.address}
+                    </p>
                   </div>
                   <div>
-                    <label className="text-sm text-muted-foreground">Type</label>
+                    <label className="text-sm text-muted-foreground">
+                      Type
+                    </label>
                     <Badge className="ml-2">{selectedNode.type}</Badge>
                   </div>
                   <div>
-                    <label className="text-sm text-muted-foreground">Risk Level</label>
-                    <Badge 
+                    <label className="text-sm text-muted-foreground">
+                      Risk Level
+                    </label>
+                    <Badge
                       className={`ml-2 ${
-                        selectedNode.riskLevel === 'critical' ? 'bg-risk-red/10 text-risk-red border-risk-red/20' :
-                        selectedNode.riskLevel === 'high' ? 'bg-warning-amber/10 text-warning-amber border-warning-amber/20' :
-                        selectedNode.riskLevel === 'medium' ? 'bg-brand-light/10 text-brand-light border-brand-light/20' :
-                        'bg-success-green/10 text-success-green border-success-green/20'
+                        selectedNode.riskLevel === "critical"
+                          ? "bg-risk-red/10 text-risk-red border-risk-red/20"
+                          : selectedNode.riskLevel === "high"
+                            ? "bg-warning-amber/10 text-warning-amber border-warning-amber/20"
+                            : selectedNode.riskLevel === "medium"
+                              ? "bg-brand-light/10 text-brand-light border-brand-light/20"
+                              : "bg-success-green/10 text-success-green border-success-green/20"
                       }`}
                     >
                       {selectedNode.riskLevel}
                     </Badge>
                   </div>
                   <div>
-                    <label className="text-sm text-muted-foreground">Transaction Count</label>
+                    <label className="text-sm text-muted-foreground">
+                      Transaction Count
+                    </label>
                     <p>{selectedNode.transactionCount.toLocaleString()}</p>
                   </div>
                   <div>
-                    <label className="text-sm text-muted-foreground">Total Value</label>
+                    <label className="text-sm text-muted-foreground">
+                      Total Value
+                    </label>
                     <p>${selectedNode.value.toLocaleString()}</p>
                   </div>
                   {selectedNode.metadata.isExchange && (
-                    <Badge variant="outline" className="text-xs">Exchange</Badge>
+                    <Badge variant="outline" className="text-xs">
+                      Exchange
+                    </Badge>
                   )}
                   {selectedNode.metadata.isMixer && (
-                    <Badge variant="outline" className="text-xs">Mixer</Badge>
+                    <Badge variant="outline" className="text-xs">
+                      Mixer
+                    </Badge>
                   )}
                   {selectedNode.metadata.isContract && (
-                    <Badge variant="outline" className="text-xs">Contract</Badge>
+                    <Badge variant="outline" className="text-xs">
+                      Contract
+                    </Badge>
                   )}
                 </div>
               </div>

@@ -1,5 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
-import { mcpApiClient, MCPStatus, InvestigationResult } from '@shared/api-client';
+import { useState, useEffect, useCallback } from "react";
+import {
+  mcpApiClient,
+  MCPStatus,
+  InvestigationResult,
+} from "@shared/api-client";
 
 export interface MCPServiceStatus {
   isInitialized: boolean;
@@ -14,23 +18,43 @@ const MCP_SERVERS = {
   github: {
     name: "GitHub MCP Server",
     description: "Access GitHub repositories, issues, and code analysis",
-    capabilities: ["repo_search", "code_analysis", "issue_tracking", "commit_history"]
+    capabilities: [
+      "repo_search",
+      "code_analysis",
+      "issue_tracking",
+      "commit_history",
+    ],
   },
   helius: {
-    name: "Helius MCP Server", 
+    name: "Helius MCP Server",
     description: "Solana blockchain data and transaction analysis",
-    capabilities: ["transaction_parsing", "account_info", "token_metadata", "nft_data"]
+    capabilities: [
+      "transaction_parsing",
+      "account_info",
+      "token_metadata",
+      "nft_data",
+    ],
   },
   sherlock: {
     name: "Sherlock MCP Server",
     description: "Advanced blockchain investigation and forensics",
-    capabilities: ["address_clustering", "transaction_tracing", "risk_analysis", "pattern_detection"]
+    capabilities: [
+      "address_clustering",
+      "transaction_tracing",
+      "risk_analysis",
+      "pattern_detection",
+    ],
   },
   etherscan: {
     name: "Etherscan MCP Server",
     description: "Ethereum blockchain data and analytics",
-    capabilities: ["eth_transactions", "contract_verification", "token_transfers", "gas_analytics"]
-  }
+    capabilities: [
+      "eth_transactions",
+      "contract_verification",
+      "token_transfers",
+      "gas_analytics",
+    ],
+  },
 };
 
 export function useMCPServices() {
@@ -40,28 +64,28 @@ export function useMCPServices() {
     failedServers: [],
     availableTools: {},
     isLoading: true,
-    error: null
+    error: null,
   });
 
   const fetchStatus = useCallback(async () => {
     try {
-      setStatus(prev => ({ ...prev, isLoading: true, error: null }));
-      
-      console.log('🚀 Fetching MCP status from server...');
-      
+      setStatus((prev) => ({ ...prev, isLoading: true, error: null }));
+
+      console.log("🚀 Fetching MCP status from server...");
+
       const mcpStatus: MCPStatus = await mcpApiClient.getMCPStatus();
-      
+
       const connectedServers = Object.entries(mcpStatus.serverStatus)
         .filter(([_, connected]) => connected)
         .map(([server, _]) => server);
-      
+
       const failedServers = Object.entries(mcpStatus.serverStatus)
         .filter(([_, connected]) => !connected)
         .map(([server, _]) => server);
 
-      console.log('✅ MCP Status received');
-      console.log('Connected servers:', connectedServers);
-      console.log('Failed servers:', failedServers);
+      console.log("✅ MCP Status received");
+      console.log("Connected servers:", connectedServers);
+      console.log("Failed servers:", failedServers);
 
       setStatus({
         isInitialized: true,
@@ -69,15 +93,14 @@ export function useMCPServices() {
         failedServers,
         availableTools: mcpStatus.availableTools,
         isLoading: false,
-        error: null
+        error: null,
       });
-
     } catch (error) {
-      console.error('❌ Failed to fetch MCP status:', error);
-      setStatus(prev => ({
+      console.error("❌ Failed to fetch MCP status:", error);
+      setStatus((prev) => ({
         ...prev,
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: error instanceof Error ? error.message : "Unknown error",
       }));
     }
   }, []);
@@ -87,48 +110,53 @@ export function useMCPServices() {
       key,
       ...config,
       connected: status.connectedServers.includes(key),
-      tools: status.availableTools[key] || []
+      tools: status.availableTools[key] || [],
     }));
   }, [status.connectedServers, status.availableTools]);
 
-  const investigateAddress = useCallback(async (address: string) => {
-    if (!status.isInitialized) {
-      throw new Error('MCP services not initialized');
-    }
-    
-    return mcpApiClient.investigateAddress(address);
-  }, [status.isInitialized]);
+  const investigateAddress = useCallback(
+    async (address: string) => {
+      if (!status.isInitialized) {
+        throw new Error("MCP services not initialized");
+      }
 
-  const retryConnection = useCallback(async (serverKey: string) => {
-    try {
-      setStatus(prev => ({ 
-        ...prev, 
-        isLoading: true,
-        failedServers: prev.failedServers.filter(s => s !== serverKey)
-      }));
+      return mcpApiClient.investigateAddress(address);
+    },
+    [status.isInitialized],
+  );
 
-      await mcpApiClient.retryConnection(serverKey);
-      
-      // Refresh status after retry
-      await fetchStatus();
+  const retryConnection = useCallback(
+    async (serverKey: string) => {
+      try {
+        setStatus((prev) => ({
+          ...prev,
+          isLoading: true,
+          failedServers: prev.failedServers.filter((s) => s !== serverKey),
+        }));
 
-    } catch (error) {
-      console.error(`Failed to retry connection to ${serverKey}:`, error);
-      setStatus(prev => ({ 
-        ...prev, 
-        isLoading: false,
-        failedServers: [...new Set([...prev.failedServers, serverKey])]
-      }));
-    }
-  }, [fetchStatus]);
+        await mcpApiClient.retryConnection(serverKey);
+
+        // Refresh status after retry
+        await fetchStatus();
+      } catch (error) {
+        console.error(`Failed to retry connection to ${serverKey}:`, error);
+        setStatus((prev) => ({
+          ...prev,
+          isLoading: false,
+          failedServers: [...new Set([...prev.failedServers, serverKey])],
+        }));
+      }
+    },
+    [fetchStatus],
+  );
 
   // Initialize on mount
   useEffect(() => {
     fetchStatus();
-    
+
     // Set up periodic status refresh
     const interval = setInterval(fetchStatus, 30000); // Refresh every 30 seconds
-    
+
     return () => {
       clearInterval(interval);
     };
@@ -139,7 +167,7 @@ export function useMCPServices() {
     fetchStatus,
     getServerInfo,
     investigateAddress,
-    retryConnection
+    retryConnection,
   };
 }
 
@@ -153,35 +181,43 @@ export function useMCPInvestigation() {
   }>({
     isLoading: false,
     result: null,
-    error: null
+    error: null,
   });
 
-  const runInvestigation = useCallback(async (address: string) => {
-    if (!status.isInitialized) {
-      setInvestigation({
-        isLoading: false,
-        result: null,
-        error: 'MCP services not initialized'
-      });
-      return;
-    }
+  const runInvestigation = useCallback(
+    async (address: string) => {
+      if (!status.isInitialized) {
+        setInvestigation({
+          isLoading: false,
+          result: null,
+          error: "MCP services not initialized",
+        });
+        return;
+      }
 
-    setInvestigation({ isLoading: true, result: null, error: null });
-    
-    try {
-      const result = await investigateAddress(address);
-      setInvestigation({ isLoading: false, result, error: null });
-      return result;
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Investigation failed';
-      setInvestigation({ isLoading: false, result: null, error: errorMessage });
-      throw error;
-    }
-  }, [status.isInitialized, investigateAddress]);
+      setInvestigation({ isLoading: true, result: null, error: null });
+
+      try {
+        const result = await investigateAddress(address);
+        setInvestigation({ isLoading: false, result, error: null });
+        return result;
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Investigation failed";
+        setInvestigation({
+          isLoading: false,
+          result: null,
+          error: errorMessage,
+        });
+        throw error;
+      }
+    },
+    [status.isInitialized, investigateAddress],
+  );
 
   return {
     investigation,
     runInvestigation,
-    isReady: status.isInitialized
+    isReady: status.isInitialized,
   };
 }

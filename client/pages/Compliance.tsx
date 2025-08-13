@@ -13,7 +13,7 @@ export default function Compliance() {
         "Audit preparation tools",
         "Compliance training modules",
         "Policy management system",
-        "Regulatory update notifications"
+        "Regulatory update notifications",
       ]}
     />
   );

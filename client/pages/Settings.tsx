@@ -13,7 +13,7 @@ export default function Settings() {
         "Data source configuration",
         "Notification preferences",
         "Security settings and 2FA",
-        "Audit log configuration"
+        "Audit log configuration",
       ]}
     />
   );

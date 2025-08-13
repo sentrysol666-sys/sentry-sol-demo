@@ -28,8 +28,8 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 
   // Force dark mode
   useEffect(() => {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark');
+    document.documentElement.classList.add("dark");
+    document.body.classList.add("dark");
   }, []);
 
   return (

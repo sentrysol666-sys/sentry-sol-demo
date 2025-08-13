@@ -13,7 +13,7 @@ export default function Cases() {
         "Automated report generation (SAR, CTR)",
         "Case status workflow management",
         "Investigator assignment and notifications",
-        "Audit trail and compliance logging"
+        "Audit trail and compliance logging",
       ]}
     />
   );

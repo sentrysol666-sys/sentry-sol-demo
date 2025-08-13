@@ -53,8 +53,8 @@ import {
   LockOpen as LockOpenIcon,
   Verified as VerifiedIcon,
   Block as BlockIcon,
-  Flag as FlagIcon
-} from '@mui/icons-material';
+  Flag as FlagIcon,
+} from "@mui/icons-material";
 
 // Export all icons with consistent naming
 export {
@@ -109,7 +109,7 @@ export {
   LockOpenIcon,
   VerifiedIcon,
   BlockIcon,
-  FlagIcon
+  FlagIcon,
 };
 
 // Default export for convenience
@@ -165,5 +165,5 @@ export default {
   LockOpen: LockOpenIcon,
   Verified: VerifiedIcon,
   Block: BlockIcon,
-  Flag: FlagIcon
+  Flag: FlagIcon,
 };

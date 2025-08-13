@@ -13,7 +13,7 @@ export default function Analytics() {
         "Risk trend visualization",
         "Compliance metrics dashboard",
         "Performance KPI tracking",
-        "Predictive risk modeling"
+        "Predictive risk modeling",
       ]}
     />
   );

@@ -1,17 +1,17 @@
-import { Router } from 'express';
-import { walletAnalysisService } from '../services/wallet-analysis-service.ts';
-import { supervisorAgent } from '../agents/supervisor-agent.ts';
+import { Router } from "express";
+import { walletAnalysisService } from "../services/wallet-analysis-service.ts";
+import { supervisorAgent } from "../agents/supervisor-agent.ts";
 
 const router = Router();
 
 // Analyze connected wallet
-router.post('/analyze-connected', async (req, res) => {
+router.post("/analyze-connected", async (req, res) => {
   try {
     const { address, chain, walletType, connectionData } = req.body;
 
     if (!address || !chain || !walletType) {
       return res.status(400).json({
-        error: 'Missing required fields: address, chain, walletType'
+        error: "Missing required fields: address, chain, walletType",
       });
     }
 
@@ -21,57 +21,58 @@ router.post('/analyze-connected', async (req, res) => {
       address,
       chain,
       walletType,
-      connectionData || {}
+      connectionData || {},
     );
 
     res.json({
       success: true,
       data: result,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error('Connected wallet analysis error:', error);
+    console.error("Connected wallet analysis error:", error);
     res.status(500).json({
-      error: 'Failed to analyze connected wallet',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      error: "Failed to analyze connected wallet",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 });
 
 // Analyze disconnected wallet (address only)
-router.post('/analyze-address', async (req, res) => {
+router.post("/analyze-address", async (req, res) => {
   try {
     const { address } = req.body;
 
     if (!address) {
       return res.status(400).json({
-        error: 'Missing required field: address'
+        error: "Missing required field: address",
       });
     }
 
     console.log(`API: Analyzing disconnected wallet ${address}`);
 
-    const result = await walletAnalysisService.analyzeDisconnectedWallet(address);
+    const result =
+      await walletAnalysisService.analyzeDisconnectedWallet(address);
 
     res.json({
       success: true,
       data: result,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error('Disconnected wallet analysis error:', error);
+    console.error("Disconnected wallet analysis error:", error);
     res.status(500).json({
-      error: 'Failed to analyze wallet address',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      error: "Failed to analyze wallet address",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 });
 
 // Get wallet connection status
-router.get('/connection-status/:address', async (req, res) => {
+router.get("/connection-status/:address", async (req, res) => {
   try {
     const { address } = req.params;
-    
+
     const isConnected = walletAnalysisService.isWalletConnected(address);
     const metadata = walletAnalysisService.getConnectedWallet(address);
 
@@ -80,30 +81,32 @@ router.get('/connection-status/:address', async (req, res) => {
       data: {
         address,
         isConnected,
-        metadata: isConnected ? metadata : null
-      }
+        metadata: isConnected ? metadata : null,
+      },
     });
   } catch (error) {
-    console.error('Connection status error:', error);
+    console.error("Connection status error:", error);
     res.status(500).json({
-      error: 'Failed to get connection status',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      error: "Failed to get connection status",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 });
 
 // Live risk monitoring for connected wallets
-router.post('/live-monitoring', async (req, res) => {
+router.post("/live-monitoring", async (req, res) => {
   try {
     const { addresses } = req.body;
 
     if (!Array.isArray(addresses) || addresses.length === 0) {
       return res.status(400).json({
-        error: 'Missing or invalid addresses array'
+        error: "Missing or invalid addresses array",
       });
     }
 
-    console.log(`API: Starting live monitoring for ${addresses.length} addresses`);
+    console.log(
+      `API: Starting live monitoring for ${addresses.length} addresses`,
+    );
 
     const results = await Promise.all(
       addresses.map(async (address: string) => {
@@ -115,26 +118,26 @@ router.post('/live-monitoring', async (req, res) => {
               address,
               isConnected: true,
               walletType: metadata?.walletType,
-              status: 'monitoring',
-              lastUpdate: new Date().toISOString()
+              status: "monitoring",
+              lastUpdate: new Date().toISOString(),
             };
           } else {
             // For disconnected wallets, basic monitoring
             return {
               address,
               isConnected: false,
-              status: 'basic_monitoring',
-              lastUpdate: new Date().toISOString()
+              status: "basic_monitoring",
+              lastUpdate: new Date().toISOString(),
             };
           }
         } catch (error) {
           return {
             address,
-            error: error instanceof Error ? error.message : 'Unknown error',
-            status: 'error'
+            error: error instanceof Error ? error.message : "Unknown error",
+            status: "error",
           };
         }
-      })
+      }),
     );
 
     res.json({
@@ -142,26 +145,26 @@ router.post('/live-monitoring', async (req, res) => {
       data: {
         monitoringResults: results,
         totalAddresses: addresses.length,
-        connectedWallets: results.filter(r => r.isConnected).length
-      }
+        connectedWallets: results.filter((r) => r.isConnected).length,
+      },
     });
   } catch (error) {
-    console.error('Live monitoring error:', error);
+    console.error("Live monitoring error:", error);
     res.status(500).json({
-      error: 'Failed to start live monitoring',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      error: "Failed to start live monitoring",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 });
 
 // Enhanced investigation for connected wallets
-router.post('/enhanced-investigation', async (req, res) => {
+router.post("/enhanced-investigation", async (req, res) => {
   try {
-    const { address, investigationType = 'full' } = req.body;
+    const { address, investigationType = "full" } = req.body;
 
     if (!address) {
       return res.status(400).json({
-        error: 'Missing required field: address'
+        error: "Missing required field: address",
       });
     }
 
@@ -169,18 +172,18 @@ router.post('/enhanced-investigation', async (req, res) => {
 
     // Check if wallet is connected for enhanced analysis
     const isConnected = walletAnalysisService.isWalletConnected(address);
-    
+
     let result;
     if (isConnected) {
       // Use wallet-specific analysis for connected wallets
       const metadata = walletAnalysisService.getConnectedWallet(address);
-      const chain = address.startsWith('0x') ? 'ethereum' : 'solana';
-      
+      const chain = address.startsWith("0x") ? "ethereum" : "solana";
+
       result = await walletAnalysisService.analyzeConnectedWallet(
         address,
         chain,
-        metadata?.walletType || 'unknown',
-        { balance: metadata?.balance || '0' }
+        metadata?.walletType || "unknown",
+        { balance: metadata?.balance || "0" },
       );
     } else {
       // Use standard investigation for disconnected wallets
@@ -192,24 +195,24 @@ router.post('/enhanced-investigation', async (req, res) => {
       data: {
         ...result,
         isConnectedWallet: isConnected,
-        enhancedAnalysis: isConnected
+        enhancedAnalysis: isConnected,
       },
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error('Enhanced investigation error:', error);
+    console.error("Enhanced investigation error:", error);
     res.status(500).json({
-      error: 'Failed to conduct enhanced investigation',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      error: "Failed to conduct enhanced investigation",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 });
 
 // Get wallet risk factors breakdown
-router.get('/risk-factors/:address', async (req, res) => {
+router.get("/risk-factors/:address", async (req, res) => {
   try {
     const { address } = req.params;
-    
+
     // This would normally fetch cached analysis results
     // For now, we'll return a simple response
     res.json({
@@ -218,27 +221,27 @@ router.get('/risk-factors/:address', async (req, res) => {
         address,
         riskFactors: [
           {
-            category: 'transaction_patterns',
+            category: "transaction_patterns",
             score: 25,
             weight: 0.3,
-            description: 'Low risk transaction patterns detected'
+            description: "Low risk transaction patterns detected",
           },
           {
-            category: 'connected_entities',
+            category: "connected_entities",
             score: 15,
             weight: 0.25,
-            description: 'Connected entities show low risk'
-          }
+            description: "Connected entities show low risk",
+          },
         ],
         overallScore: 20,
-        lastAnalyzed: new Date().toISOString()
-      }
+        lastAnalyzed: new Date().toISOString(),
+      },
     });
   } catch (error) {
-    console.error('Risk factors error:', error);
+    console.error("Risk factors error:", error);
     res.status(500).json({
-      error: 'Failed to get risk factors',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      error: "Failed to get risk factors",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 });

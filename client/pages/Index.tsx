@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import Spline from '@splinetool/react-spline';
 import {
-  ArrowRight, Shield, Brain, Network, AlertTriangle,
-  Eye, Database, TrendingUp, Users, Lock,
-  FileText, CheckCircle, Search, BarChart3
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Spline from "@splinetool/react-spline";
+import {
+  ArrowRight,
+  Shield,
+  Brain,
+  Network,
+  AlertTriangle,
+  Eye,
+  Database,
+  TrendingUp,
+  Users,
+  Lock,
+  FileText,
+  CheckCircle,
+  Search,
+  BarChart3,
 } from "lucide-react";
 
 export default function Index() {
@@ -25,29 +42,40 @@ export default function Index() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="text-center">
-            <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium bg-brand-light/20 text-brand-light border-brand-light/30 backdrop-blur-sm">
+            <Badge
+              variant="secondary"
+              className="mb-6 px-4 py-2 text-sm font-medium bg-brand-light/20 text-brand-light border-brand-light/30 backdrop-blur-sm"
+            >
               🧠 AI-Powered AML/Compliance Platform - Beta
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-poppins tracking-tight text-foreground mb-6 drop-shadow-lg">
               Next-Gen{" "}
               <span className="bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
                 AML Intelligence
-              </span>
-              {" "}for Blockchain
+              </span>{" "}
+              for Blockchain
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed drop-shadow-sm">
-              Advanced Graph Neural Networks (GCN) and LLM analysis for comprehensive blockchain compliance.
-              Multi-agent architecture for sanctions screening, transaction monitoring, and risk assessment.
+              Advanced Graph Neural Networks (GCN) and LLM analysis for
+              comprehensive blockchain compliance. Multi-agent architecture for
+              sanctions screening, transaction monitoring, and risk assessment.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/wallet-screening">
-                <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90 shadow-lg">
+                <Button
+                  size="lg"
+                  className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90 shadow-lg"
+                >
                   Connect Wallet & Start
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/dashboard">
-                <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10 backdrop-blur-sm shadow-lg">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10 backdrop-blur-sm shadow-lg"
+                >
                   View Dashboard
                 </Button>
               </Link>
@@ -64,7 +92,8 @@ export default function Index() {
               Multi-Agent AI Architecture
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Specialized AI agents working in coordination for comprehensive blockchain analysis and compliance monitoring
+              Specialized AI agents working in coordination for comprehensive
+              blockchain analysis and compliance monitoring
             </p>
           </div>
 
@@ -76,12 +105,16 @@ export default function Index() {
                   <div className="p-2 bg-brand-light/10 rounded-lg">
                     <Network className="h-6 w-6 text-brand-light" />
                   </div>
-                  <CardTitle className="text-xl">Blockchain Tracing Agent</CardTitle>
+                  <CardTitle className="text-xl">
+                    Blockchain Tracing Agent
+                  </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base leading-relaxed">
-                  Advanced graph analysis for transaction flow mapping. Traces fund movements across multiple hops with GCN-powered pattern recognition.
+                  Advanced graph analysis for transaction flow mapping. Traces
+                  fund movements across multiple hops with GCN-powered pattern
+                  recognition.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -98,7 +131,8 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base leading-relaxed">
-                  Real-time screening against OFAC, EU, and global sanctions lists. Automated compliance checks with confidence scoring.
+                  Real-time screening against OFAC, EU, and global sanctions
+                  lists. Automated compliance checks with confidence scoring.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -110,12 +144,16 @@ export default function Index() {
                   <div className="p-2 bg-warning-amber/10 rounded-lg">
                     <Search className="h-6 w-6 text-warning-amber" />
                   </div>
-                  <CardTitle className="text-xl">Adverse Media Analysis</CardTitle>
+                  <CardTitle className="text-xl">
+                    Adverse Media Analysis
+                  </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base leading-relaxed">
-                  LLM-powered analysis of news, social media, and public records. Identifies negative associations and reputational risks.
+                  LLM-powered analysis of news, social media, and public
+                  records. Identifies negative associations and reputational
+                  risks.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -127,12 +165,15 @@ export default function Index() {
                   <div className="p-2 bg-success-green/10 rounded-lg">
                     <BarChart3 className="h-6 w-6 text-success-green" />
                   </div>
-                  <CardTitle className="text-xl">Fund Flow Visualization</CardTitle>
+                  <CardTitle className="text-xl">
+                    Fund Flow Visualization
+                  </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base leading-relaxed">
-                  Interactive D3.js visualizations of transaction networks. Dynamic graph rendering for investigative analysis.
+                  Interactive D3.js visualizations of transaction networks.
+                  Dynamic graph rendering for investigative analysis.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -149,7 +190,9 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base leading-relaxed">
-                  Central orchestration of all agents. Combines insights, prioritizes alerts, and generates comprehensive risk assessments.
+                  Central orchestration of all agents. Combines insights,
+                  prioritizes alerts, and generates comprehensive risk
+                  assessments.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -161,12 +204,15 @@ export default function Index() {
                   <div className="p-2 bg-brand-dark/10 rounded-lg">
                     <AlertTriangle className="h-6 w-6 text-brand-dark" />
                   </div>
-                  <CardTitle className="text-xl">Real-time Monitoring</CardTitle>
+                  <CardTitle className="text-xl">
+                    Real-time Monitoring
+                  </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base leading-relaxed">
-                  Stream processing for live transaction monitoring. Instant alerts for suspicious activities and compliance violations.
+                  Stream processing for live transaction monitoring. Instant
+                  alerts for suspicious activities and compliance violations.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -182,7 +228,8 @@ export default function Index() {
               Enterprise-Grade Compliance Tools
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Complete AML/KYC solution with advanced analytics and regulatory reporting
+              Complete AML/KYC solution with advanced analytics and regulatory
+              reporting
             </p>
           </div>
 
@@ -192,7 +239,9 @@ export default function Index() {
                 <Database className="h-6 w-6 text-brand-light" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Case Management</h3>
-              <p className="text-muted-foreground text-sm">Comprehensive investigation workflow and documentation</p>
+              <p className="text-muted-foreground text-sm">
+                Comprehensive investigation workflow and documentation
+              </p>
             </div>
 
             <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-success-green/30 transition-colors">
@@ -200,7 +249,9 @@ export default function Index() {
                 <FileText className="h-6 w-6 text-success-green" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Automated Reports</h3>
-              <p className="text-muted-foreground text-sm">SAR, CTR, and regulatory filing automation</p>
+              <p className="text-muted-foreground text-sm">
+                SAR, CTR, and regulatory filing automation
+              </p>
             </div>
 
             <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-warning-amber/30 transition-colors">
@@ -208,7 +259,9 @@ export default function Index() {
                 <TrendingUp className="h-6 w-6 text-warning-amber" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Risk Scoring</h3>
-              <p className="text-muted-foreground text-sm">Dynamic risk assessment with ML-powered scoring</p>
+              <p className="text-muted-foreground text-sm">
+                Dynamic risk assessment with ML-powered scoring
+              </p>
             </div>
 
             <div className="text-center p-6 rounded-lg bg-card border border-border hover:border-risk-red/30 transition-colors">
@@ -216,7 +269,9 @@ export default function Index() {
                 <Lock className="h-6 w-6 text-risk-red" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Compliance Rules</h3>
-              <p className="text-muted-foreground text-sm">Configurable rule engine for regulatory requirements</p>
+              <p className="text-muted-foreground text-sm">
+                Configurable rule engine for regulatory requirements
+              </p>
             </div>
           </div>
         </div>
@@ -225,7 +280,9 @@ export default function Index() {
       {/* Integration Partners */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/50">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-foreground mb-8">Integrated Data Sources</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">
+            Integrated Data Sources
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center opacity-60">
             <div className="text-sm font-medium">Helius RPC</div>
             <div className="text-sm font-medium">MetaSleuth</div>
@@ -243,19 +300,29 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
               <div className="text-3xl font-bold text-brand-light">99.7%</div>
-              <div className="text-sm text-muted-foreground">Detection Accuracy</div>
+              <div className="text-sm text-muted-foreground">
+                Detection Accuracy
+              </div>
             </div>
             <div className="space-y-2">
               <div className="text-3xl font-bold text-success-green">500M+</div>
-              <div className="text-sm text-muted-foreground">Transactions Analyzed</div>
+              <div className="text-sm text-muted-foreground">
+                Transactions Analyzed
+              </div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-warning-amber">&lt;100ms</div>
-              <div className="text-sm text-muted-foreground">Alert Response Time</div>
+              <div className="text-3xl font-bold text-warning-amber">
+                &lt;100ms
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Alert Response Time
+              </div>
             </div>
             <div className="space-y-2">
               <div className="text-3xl font-bold text-risk-red">24/7</div>
-              <div className="text-sm text-muted-foreground">Continuous Monitoring</div>
+              <div className="text-sm text-muted-foreground">
+                Continuous Monitoring
+              </div>
             </div>
           </div>
         </div>
@@ -268,17 +335,25 @@ export default function Index() {
             Ready for Enterprise Compliance?
           </h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join leading financial institutions using Sentrysol for blockchain AML compliance
+            Join leading financial institutions using Sentrysol for blockchain
+            AML compliance
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/wallet-screening">
-              <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90">
+              <Button
+                size="lg"
+                className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90"
+              >
                 Connect Wallet & Begin
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link to="/aml-dashboard">
-              <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10">
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10"
+              >
                 View AML Dashboard
               </Button>
             </Link>

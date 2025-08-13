@@ -1,9 +1,12 @@
-import { blockchainTracerAgent, TracingResult } from '../agents/blockchain-tracer.ts';
-import { supervisorAgent } from '../agents/supervisor-agent.ts';
+import {
+  blockchainTracerAgent,
+  TracingResult,
+} from "../agents/blockchain-tracer.ts";
+import { supervisorAgent } from "../agents/supervisor-agent.ts";
 
 export interface WalletAnalysisResult {
   address: string;
-  chain: 'solana' | 'ethereum';
+  chain: "solana" | "ethereum";
   isConnectedWallet: boolean;
   walletMetadata: WalletMetadata;
   riskAssessment: RiskAssessment;
@@ -72,8 +75,8 @@ export interface NetworkActivity {
 }
 
 export interface Recommendation {
-  type: 'action' | 'monitoring' | 'investigation';
-  priority: 'low' | 'medium' | 'high' | 'critical';
+  type: "action" | "monitoring" | "investigation";
+  priority: "low" | "medium" | "high" | "critical";
   title: string;
   description: string;
   suggestedAction: string;
@@ -81,16 +84,16 @@ export interface Recommendation {
 
 export interface ComplianceStatus {
   sanctionsCheck: {
-    status: 'clear' | 'flagged' | 'unknown';
+    status: "clear" | "flagged" | "unknown";
     confidence: number;
     lastChecked: Date;
   };
   pepCheck: {
-    status: 'clear' | 'flagged' | 'unknown';
+    status: "clear" | "flagged" | "unknown";
     confidence: number;
     lastChecked: Date;
   };
-  amlRating: 'low' | 'medium' | 'high' | 'critical';
+  amlRating: "low" | "medium" | "high" | "critical";
   jurisdictionRisk: string;
 }
 
@@ -99,15 +102,22 @@ export class WalletAnalysisService {
 
   async analyzeConnectedWallet(
     address: string,
-    chain: 'solana' | 'ethereum',
+    chain: "solana" | "ethereum",
     walletType: string,
-    connectionData: any
+    connectionData: any,
   ): Promise<WalletAnalysisResult> {
-    console.log(`🔍 Wallet Analysis: Analyzing connected ${chain} wallet ${address}`);
+    console.log(
+      `🔍 Wallet Analysis: Analyzing connected ${chain} wallet ${address}`,
+    );
 
     try {
       // 1. Store wallet metadata
-      const walletMetadata = await this.buildWalletMetadata(address, chain, walletType, connectionData);
+      const walletMetadata = await this.buildWalletMetadata(
+        address,
+        chain,
+        walletType,
+        connectionData,
+      );
       this.connectedWallets.set(address, walletMetadata);
 
       // 2. Run blockchain tracing
@@ -121,11 +131,14 @@ export class WalletAnalysisService {
         address,
         tracingResults,
         walletMetadata,
-        realTimeData
+        realTimeData,
       );
 
       // 5. Run full compliance investigation using supervisor
-      const investigationResult = await supervisorAgent.investigate(address, 'full');
+      const investigationResult = await supervisorAgent.investigate(
+        address,
+        "full",
+      );
 
       // 6. Generate compliance status
       const complianceStatus = this.buildComplianceStatus(investigationResult);
@@ -134,7 +147,7 @@ export class WalletAnalysisService {
       const recommendations = this.generateRecommendations(
         riskAssessment,
         tracingResults,
-        complianceStatus
+        complianceStatus,
       );
 
       return {
@@ -149,26 +162,31 @@ export class WalletAnalysisService {
         complianceStatus,
       };
     } catch (error) {
-      console.error('Wallet analysis failed:', error);
+      console.error("Wallet analysis failed:", error);
       throw error;
     }
   }
 
-  async analyzeDisconnectedWallet(address: string): Promise<WalletAnalysisResult> {
+  async analyzeDisconnectedWallet(
+    address: string,
+  ): Promise<WalletAnalysisResult> {
     console.log(`🔍 Wallet Analysis: Analyzing disconnected wallet ${address}`);
 
     const chain = this.detectChain(address);
     const tracingResults = await blockchainTracerAgent.traceAddress(address);
-    const investigationResult = await supervisorAgent.investigate(address, 'full');
+    const investigationResult = await supervisorAgent.investigate(
+      address,
+      "full",
+    );
 
     return {
       address,
       chain,
       isConnectedWallet: false,
       walletMetadata: {
-        walletType: 'unknown',
+        walletType: "unknown",
         connectionTime: new Date(),
-        balance: '0',
+        balance: "0",
         tokenBalances: [],
         nftHoldings: [],
       },
@@ -180,12 +198,12 @@ export class WalletAnalysisService {
       },
       tracingResults,
       realTimeData: {
-        currentBalance: '0',
+        currentBalance: "0",
         lastTransaction: null,
         activeConnections: 0,
         networkActivity: {
-          last24h: { transactions: 0, volume: '0', uniqueCounterparties: 0 },
-          last7d: { transactions: 0, volume: '0', uniqueCounterparties: 0 },
+          last24h: { transactions: 0, volume: "0", uniqueCounterparties: 0 },
+          last7d: { transactions: 0, volume: "0", uniqueCounterparties: 0 },
         },
       },
       recommendations: [],
@@ -195,46 +213,55 @@ export class WalletAnalysisService {
 
   private async buildWalletMetadata(
     address: string,
-    chain: 'solana' | 'ethereum',
+    chain: "solana" | "ethereum",
     walletType: string,
-    connectionData: any
+    connectionData: any,
   ): Promise<WalletMetadata> {
     return {
       walletType,
       connectionTime: new Date(),
-      balance: connectionData.balance || '0',
+      balance: connectionData.balance || "0",
       tokenBalances: await this.getTokenBalances(address, chain),
       nftHoldings: await this.getNFTHoldings(address, chain),
     };
   }
 
-  private async getTokenBalances(address: string, chain: 'solana' | 'ethereum'): Promise<TokenBalance[]> {
+  private async getTokenBalances(
+    address: string,
+    chain: "solana" | "ethereum",
+  ): Promise<TokenBalance[]> {
     // In production, this would fetch real token balances
     // For now, return mock data
     return [
       {
-        symbol: chain === 'solana' ? 'SOL' : 'ETH',
-        amount: '10.5',
-        value: '$2,100',
-        contract: chain === 'solana' ? undefined : '0x...',
+        symbol: chain === "solana" ? "SOL" : "ETH",
+        amount: "10.5",
+        value: "$2,100",
+        contract: chain === "solana" ? undefined : "0x...",
       },
     ];
   }
 
-  private async getNFTHoldings(address: string, chain: 'solana' | 'ethereum'): Promise<NFTHolding[]> {
+  private async getNFTHoldings(
+    address: string,
+    chain: "solana" | "ethereum",
+  ): Promise<NFTHolding[]> {
     // In production, this would fetch real NFT holdings
     return [];
   }
 
-  private async getRealTimeData(address: string, chain: 'solana' | 'ethereum'): Promise<RealTimeData> {
+  private async getRealTimeData(
+    address: string,
+    chain: "solana" | "ethereum",
+  ): Promise<RealTimeData> {
     // In production, this would fetch real-time data from blockchain APIs
     return {
-      currentBalance: '10.5',
+      currentBalance: "10.5",
       lastTransaction: null,
       activeConnections: 1,
       networkActivity: {
-        last24h: { transactions: 2, volume: '$500', uniqueCounterparties: 2 },
-        last7d: { transactions: 15, volume: '$3,200', uniqueCounterparties: 8 },
+        last24h: { transactions: 2, volume: "$500", uniqueCounterparties: 2 },
+        last7d: { transactions: 15, volume: "$3,200", uniqueCounterparties: 8 },
       },
     };
   }
@@ -243,7 +270,7 @@ export class WalletAnalysisService {
     address: string,
     tracingResults: TracingResult,
     walletMetadata: WalletMetadata,
-    realTimeData: RealTimeData
+    realTimeData: RealTimeData,
   ): Promise<RiskAssessment> {
     const factors: RiskFactor[] = [];
     let totalScore = 0;
@@ -251,7 +278,7 @@ export class WalletAnalysisService {
     // Factor 1: Transaction patterns
     const patternScore = Math.min(tracingResults.flowPatterns.length * 20, 80);
     factors.push({
-      category: 'transaction_patterns',
+      category: "transaction_patterns",
       score: patternScore,
       weight: 0.3,
       description: `${tracingResults.flowPatterns.length} suspicious patterns detected`,
@@ -262,7 +289,7 @@ export class WalletAnalysisService {
     // Factor 2: Risk indicators
     const riskScore = Math.min(tracingResults.riskIndicators.length * 15, 70);
     factors.push({
-      category: 'risk_indicators',
+      category: "risk_indicators",
       score: riskScore,
       weight: 0.25,
       description: `${tracingResults.riskIndicators.length} risk indicators found`,
@@ -272,11 +299,14 @@ export class WalletAnalysisService {
 
     // Factor 3: Connected entities risk
     const entityScore = Math.min(
-      tracingResults.connectedEntities.reduce((sum, e) => sum + e.riskScore, 0) / tracingResults.connectedEntities.length || 0,
-      80
+      tracingResults.connectedEntities.reduce(
+        (sum, e) => sum + e.riskScore,
+        0,
+      ) / tracingResults.connectedEntities.length || 0,
+      80,
     );
     factors.push({
-      category: 'connected_entities',
+      category: "connected_entities",
       score: entityScore,
       weight: 0.2,
       description: `Average risk score of connected entities: ${entityScore.toFixed(1)}`,
@@ -285,9 +315,12 @@ export class WalletAnalysisService {
     totalScore += entityScore * 0.2;
 
     // Factor 4: Velocity metrics
-    const velocityScore = Math.min(tracingResults.temporalAnalysis.velocityMetrics.velocityScore, 60);
+    const velocityScore = Math.min(
+      tracingResults.temporalAnalysis.velocityMetrics.velocityScore,
+      60,
+    );
     factors.push({
-      category: 'transaction_velocity',
+      category: "transaction_velocity",
       score: velocityScore,
       weight: 0.15,
       description: `Transaction velocity score: ${velocityScore}`,
@@ -296,9 +329,9 @@ export class WalletAnalysisService {
     totalScore += velocityScore * 0.15;
 
     // Factor 5: Wallet connection risk (lower risk for connected wallets)
-    const connectionScore = walletMetadata.walletType === 'unknown' ? 30 : 10;
+    const connectionScore = walletMetadata.walletType === "unknown" ? 30 : 10;
     factors.push({
-      category: 'wallet_connection',
+      category: "wallet_connection",
       score: connectionScore,
       weight: 0.1,
       description: `Wallet type: ${walletMetadata.walletType}`,
@@ -317,70 +350,87 @@ export class WalletAnalysisService {
   private buildComplianceStatus(investigationResult: any): ComplianceStatus {
     return {
       sanctionsCheck: {
-        status: investigationResult.compliance?.sanctionsStatus?.isMatch ? 'flagged' : 'clear',
-        confidence: investigationResult.compliance?.sanctionsStatus?.confidence || 0,
+        status: investigationResult.compliance?.sanctionsStatus?.isMatch
+          ? "flagged"
+          : "clear",
+        confidence:
+          investigationResult.compliance?.sanctionsStatus?.confidence || 0,
         lastChecked: new Date(),
       },
       pepCheck: {
-        status: investigationResult.compliance?.pepStatus?.isMatch ? 'flagged' : 'clear',
+        status: investigationResult.compliance?.pepStatus?.isMatch
+          ? "flagged"
+          : "clear",
         confidence: investigationResult.compliance?.pepStatus?.confidence || 0,
         lastChecked: new Date(),
       },
-      amlRating: investigationResult.riskScore >= 70 ? 'critical' :
-                 investigationResult.riskScore >= 50 ? 'high' :
-                 investigationResult.riskScore >= 30 ? 'medium' : 'low',
-      jurisdictionRisk: 'unknown',
+      amlRating:
+        investigationResult.riskScore >= 70
+          ? "critical"
+          : investigationResult.riskScore >= 50
+            ? "high"
+            : investigationResult.riskScore >= 30
+              ? "medium"
+              : "low",
+      jurisdictionRisk: "unknown",
     };
   }
 
   private generateRecommendations(
     riskAssessment: RiskAssessment,
     tracingResults: TracingResult,
-    complianceStatus: ComplianceStatus
+    complianceStatus: ComplianceStatus,
   ): Recommendation[] {
     const recommendations: Recommendation[] = [];
 
     // High risk score recommendations
     if (riskAssessment.overallScore >= 70) {
       recommendations.push({
-        type: 'investigation',
-        priority: 'critical',
-        title: 'Enhanced Due Diligence Required',
-        description: 'High risk score detected requiring immediate attention',
-        suggestedAction: 'Conduct manual investigation and consider transaction monitoring',
+        type: "investigation",
+        priority: "critical",
+        title: "Enhanced Due Diligence Required",
+        description: "High risk score detected requiring immediate attention",
+        suggestedAction:
+          "Conduct manual investigation and consider transaction monitoring",
       });
     }
 
     // Sanctions check recommendations
-    if (complianceStatus.sanctionsCheck.status === 'flagged') {
+    if (complianceStatus.sanctionsCheck.status === "flagged") {
       recommendations.push({
-        type: 'action',
-        priority: 'critical',
-        title: 'Sanctions Match Detected',
-        description: 'Address matches sanctions list',
-        suggestedAction: 'Immediately freeze any transactions and report to compliance team',
+        type: "action",
+        priority: "critical",
+        title: "Sanctions Match Detected",
+        description: "Address matches sanctions list",
+        suggestedAction:
+          "Immediately freeze any transactions and report to compliance team",
       });
     }
 
     // Pattern-based recommendations
-    if (tracingResults.flowPatterns.some(p => p.type === 'mixing' || p.type === 'layering')) {
+    if (
+      tracingResults.flowPatterns.some(
+        (p) => p.type === "mixing" || p.type === "layering",
+      )
+    ) {
       recommendations.push({
-        type: 'monitoring',
-        priority: 'high',
-        title: 'Money Laundering Patterns Detected',
-        description: 'Suspicious transaction patterns identified',
-        suggestedAction: 'Enable continuous monitoring and flag future transactions',
+        type: "monitoring",
+        priority: "high",
+        title: "Money Laundering Patterns Detected",
+        description: "Suspicious transaction patterns identified",
+        suggestedAction:
+          "Enable continuous monitoring and flag future transactions",
       });
     }
 
     return recommendations;
   }
 
-  private detectChain(address: string): 'solana' | 'ethereum' {
+  private detectChain(address: string): "solana" | "ethereum" {
     if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
-      return 'solana';
+      return "solana";
     }
-    return 'ethereum';
+    return "ethereum";
   }
 
   getConnectedWallet(address: string): WalletMetadata | null {

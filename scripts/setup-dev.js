@@ -1,45 +1,47 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+const { execSync } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
-console.log('🚀 Setting up Development Server on Port 8080...\n');
+console.log("🚀 Setting up Development Server on Port 8080...\n");
 
 // Check if we have the correct package manager
-const packageManager = 'pnpm';
+const packageManager = "pnpm";
 
 try {
   // Check if pnpm is installed
-  execSync('pnpm --version', { stdio: 'ignore' });
-  console.log('✅ PNPM detected');
+  execSync("pnpm --version", { stdio: "ignore" });
+  console.log("✅ PNPM detected");
 } catch (error) {
-  console.log('❌ PNPM not found. Installing...');
+  console.log("❌ PNPM not found. Installing...");
   try {
-    execSync('npm install -g pnpm', { stdio: 'inherit' });
-    console.log('✅ PNPM installed successfully');
+    execSync("npm install -g pnpm", { stdio: "inherit" });
+    console.log("✅ PNPM installed successfully");
   } catch (installError) {
-    console.error('❌ Failed to install PNPM. Please install manually: npm install -g pnpm');
+    console.error(
+      "❌ Failed to install PNPM. Please install manually: npm install -g pnpm",
+    );
     process.exit(1);
   }
 }
 
-console.log('\n📦 Installing dependencies...');
+console.log("\n📦 Installing dependencies...");
 try {
-  execSync('pnpm install', { stdio: 'inherit' });
-  console.log('✅ Dependencies installed successfully');
+  execSync("pnpm install", { stdio: "inherit" });
+  console.log("✅ Dependencies installed successfully");
 } catch (error) {
-  console.error('❌ Failed to install dependencies');
+  console.error("❌ Failed to install dependencies");
   process.exit(1);
 }
 
-console.log('\n🔧 Checking environment configuration...');
+console.log("\n🔧 Checking environment configuration...");
 
 // Check if .env file exists
-if (!fs.existsSync('.env')) {
-  console.log('⚠️  .env file not found');
-  console.log('📝 Creating .env file with default values...');
-  
+if (!fs.existsSync(".env")) {
+  console.log("⚠️  .env file not found");
+  console.log("📝 Creating .env file with default values...");
+
   const defaultEnv = `# Sentrysol AML Platform Environment Configuration
 # Development Server Configuration
 PORT=8080
@@ -80,33 +82,33 @@ GITHUB_ACCESS_TOKEN=github_pat_11BVUHWDY0b6qt6ERP69Rj_WaebI1Tq32KsGoGifsjavKtZbl
 HELIUS_PARSE_TRANSACTIONS_URL=https://api.helius.xyz/v0/transactions/?api-key=49107f03-be28-4419-b417-8341142ba90a
 HELIUS_TRANSACTION_HISTORY_URL=https://api.helius.xyz/v0/addresses
 `;
-  
-  fs.writeFileSync('.env', defaultEnv);
-  console.log('✅ .env file created with default configuration');
+
+  fs.writeFileSync(".env", defaultEnv);
+  console.log("✅ .env file created with default configuration");
 } else {
-  console.log('✅ .env file exists');
+  console.log("✅ .env file exists");
 }
 
-console.log('\n🔍 Verifying Vite configuration...');
-const viteConfigPath = path.join(process.cwd(), 'vite.config.ts');
+console.log("\n🔍 Verifying Vite configuration...");
+const viteConfigPath = path.join(process.cwd(), "vite.config.ts");
 if (fs.existsSync(viteConfigPath)) {
-  const viteConfig = fs.readFileSync(viteConfigPath, 'utf8');
-  if (viteConfig.includes('port: 8080')) {
-    console.log('✅ Vite configured for port 8080');
+  const viteConfig = fs.readFileSync(viteConfigPath, "utf8");
+  if (viteConfig.includes("port: 8080")) {
+    console.log("✅ Vite configured for port 8080");
   } else {
-    console.log('⚠️  Vite configuration may need port 8080 setup');
+    console.log("⚠️  Vite configuration may need port 8080 setup");
   }
 } else {
-  console.log('❌ vite.config.ts not found');
+  console.log("❌ vite.config.ts not found");
 }
 
-console.log('\n🎯 Development server setup complete!');
-console.log('\n📋 Available commands:');
-console.log('  pnpm dev        - Start development server on port 8080');
-console.log('  pnpm build      - Build for production');
-console.log('  pnpm start      - Start production server');
-console.log('  pnpm test       - Run tests');
-console.log('\n🌐 Server will be available at:');
-console.log('  Local:    http://localhost:8080');
-console.log('  Network:  http://[your-ip]:8080');
-console.log('\n🚀 Ready to start! Run: pnpm dev');
+console.log("\n🎯 Development server setup complete!");
+console.log("\n📋 Available commands:");
+console.log("  pnpm dev        - Start development server on port 8080");
+console.log("  pnpm build      - Build for production");
+console.log("  pnpm start      - Start production server");
+console.log("  pnpm test       - Run tests");
+console.log("\n🌐 Server will be available at:");
+console.log("  Local:    http://localhost:8080");
+console.log("  Network:  http://[your-ip]:8080");
+console.log("\n🚀 Ready to start! Run: pnpm dev");

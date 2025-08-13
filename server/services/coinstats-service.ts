@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
 export interface CoinstatsWalletBalance {
   blockchain: string;
@@ -26,8 +26,8 @@ export interface CoinstatsTransaction {
   valueInUSD: string;
   gasUsed: string;
   gasPrice: string;
-  status: 'success' | 'failed';
-  type: 'send' | 'receive';
+  status: "success" | "failed";
+  type: "send" | "receive";
   token?: {
     symbol: string;
     name: string;
@@ -54,51 +54,59 @@ export interface CoinstatsPortfolio {
 
 class CoinstatsService {
   private apiKey: string;
-  private baseUrl = 'https://openapi.coinstats.app';
+  private baseUrl = "https://openapi.coinstats.app";
 
   constructor() {
-    this.apiKey = process.env.COINSTATS_API_KEY || '';
-    
+    this.apiKey = process.env.COINSTATS_API_KEY || "";
+
     if (!this.apiKey) {
-      console.warn('Coinstats API key not configured');
+      console.warn("Coinstats API key not configured");
     }
   }
 
   private getHeaders() {
     return {
-      'X-API-KEY': this.apiKey,
-      'Content-Type': 'application/json',
+      "X-API-KEY": this.apiKey,
+      "Content-Type": "application/json",
     };
   }
 
-  async getWalletBalance(address: string, blockchain: string = 'ethereum'): Promise<CoinstatsWalletBalance> {
+  async getWalletBalance(
+    address: string,
+    blockchain: string = "ethereum",
+  ): Promise<CoinstatsWalletBalance> {
     try {
       const response = await fetch(
         `${this.baseUrl}/v1/wallet/balance?address=${address}&blockchain=${blockchain}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: this.getHeaders(),
-        }
+        },
       );
 
       if (!response.ok) {
-        throw new Error(`Coinstats wallet balance failed: ${response.statusText}`);
+        throw new Error(
+          `Coinstats wallet balance failed: ${response.statusText}`,
+        );
       }
 
-      const result = await response.json() as any;
-      
+      const result = (await response.json()) as any;
+
       const formattedResponse: CoinstatsWalletBalance = {
         blockchain,
-        balance: result.balance || '0',
-        balanceInUSD: result.balanceInUSD || '0',
+        balance: result.balance || "0",
+        balanceInUSD: result.balanceInUSD || "0",
         tokens: result.tokens || [],
       };
 
-      console.log(`✅ Coinstats wallet balance for ${address}:`, formattedResponse);
+      console.log(
+        `✅ Coinstats wallet balance for ${address}:`,
+        formattedResponse,
+      );
       return formattedResponse;
     } catch (error) {
-      console.error('Coinstats wallet balance error:', error);
-      
+      console.error("Coinstats wallet balance error:", error);
+
       // Return mock data
       return {
         blockchain,
@@ -106,12 +114,12 @@ class CoinstatsService {
         balanceInUSD: (Math.random() * 25000).toFixed(2),
         tokens: [
           {
-            symbol: blockchain === 'ethereum' ? 'ETH' : 'SOL',
-            name: blockchain === 'ethereum' ? 'Ethereum' : 'Solana',
+            symbol: blockchain === "ethereum" ? "ETH" : "SOL",
+            name: blockchain === "ethereum" ? "Ethereum" : "Solana",
             balance: (Math.random() * 5).toFixed(4),
             balanceInUSD: (Math.random() * 15000).toFixed(2),
-            price: blockchain === 'ethereum' ? '3500' : '200',
-            logoUrl: '',
+            price: blockchain === "ethereum" ? "3500" : "200",
+            logoUrl: "",
           },
         ],
       };
@@ -119,29 +127,34 @@ class CoinstatsService {
   }
 
   async getWalletTransactions(
-    address: string, 
-    blockchain: string = 'ethereum',
-    limit: number = 50
+    address: string,
+    blockchain: string = "ethereum",
+    limit: number = 50,
   ): Promise<CoinstatsTransaction[]> {
     try {
       const response = await fetch(
         `${this.baseUrl}/v1/wallet/transactions?address=${address}&blockchain=${blockchain}&limit=${limit}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: this.getHeaders(),
-        }
+        },
       );
 
       if (!response.ok) {
-        throw new Error(`Coinstats transactions failed: ${response.statusText}`);
+        throw new Error(
+          `Coinstats transactions failed: ${response.statusText}`,
+        );
       }
 
-      const result = await response.json() as any;
-      console.log(`✅ Coinstats transactions for ${address}:`, result.data?.length || 0);
+      const result = (await response.json()) as any;
+      console.log(
+        `✅ Coinstats transactions for ${address}:`,
+        result.data?.length || 0,
+      );
       return result.data || [];
     } catch (error) {
-      console.error('Coinstats transactions error:', error);
-      
+      console.error("Coinstats transactions error:", error);
+
       // Return mock transactions
       const mockTransactions: CoinstatsTransaction[] = [];
       for (let i = 0; i < Math.min(limit, 20); i++) {
@@ -156,8 +169,8 @@ class CoinstatsService {
           valueInUSD: (Math.random() * 3500).toFixed(2),
           gasUsed: Math.floor(Math.random() * 100000).toString(),
           gasPrice: Math.floor(Math.random() * 100).toString(),
-          status: Math.random() > 0.05 ? 'success' : 'failed',
-          type: Math.random() > 0.5 ? 'send' : 'receive',
+          status: Math.random() > 0.05 ? "success" : "failed",
+          type: Math.random() > 0.5 ? "send" : "receive",
         });
       }
       return mockTransactions;
@@ -169,21 +182,21 @@ class CoinstatsService {
       const response = await fetch(
         `${this.baseUrl}/v1/portfolio/value?walletId=${walletId}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: this.getHeaders(),
-        }
+        },
       );
 
       if (!response.ok) {
         throw new Error(`Coinstats portfolio failed: ${response.statusText}`);
       }
 
-      const result = await response.json() as any;
+      const result = (await response.json()) as any;
       console.log(`✅ Coinstats portfolio for ${walletId}:`, result.data);
       return result.data;
     } catch (error) {
-      console.error('Coinstats portfolio error:', error);
-      
+      console.error("Coinstats portfolio error:", error);
+
       // Return mock portfolio data
       return {
         totalValue: (Math.random() * 100000).toFixed(2),
@@ -193,8 +206,8 @@ class CoinstatsService {
         percentChange30d: (Math.random() - 0.5) * 60,
         coins: [
           {
-            symbol: 'ETH',
-            name: 'Ethereum',
+            symbol: "ETH",
+            name: "Ethereum",
             amount: (Math.random() * 10).toFixed(4),
             value: (Math.random() * 50000).toFixed(2),
             valueInUSD: (Math.random() * 50000).toFixed(2),
@@ -202,8 +215,8 @@ class CoinstatsService {
             allocation: Math.random() * 100,
           },
           {
-            symbol: 'BTC',
-            name: 'Bitcoin',
+            symbol: "BTC",
+            name: "Bitcoin",
             amount: (Math.random() * 2).toFixed(6),
             value: (Math.random() * 30000).toFixed(2),
             valueInUSD: (Math.random() * 30000).toFixed(2),
@@ -217,41 +230,47 @@ class CoinstatsService {
 
   async getWalletChart(
     address: string,
-    blockchain: string = 'ethereum',
-    period: '24h' | '7d' | '30d' | '90d' | '1y' = '7d'
+    blockchain: string = "ethereum",
+    period: "24h" | "7d" | "30d" | "90d" | "1y" = "7d",
   ): Promise<Array<{ timestamp: number; value: number }>> {
     try {
       const response = await fetch(
         `${this.baseUrl}/v1/wallet/chart?address=${address}&blockchain=${blockchain}&period=${period}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: this.getHeaders(),
-        }
+        },
       );
 
       if (!response.ok) {
-        throw new Error(`Coinstats wallet chart failed: ${response.statusText}`);
+        throw new Error(
+          `Coinstats wallet chart failed: ${response.statusText}`,
+        );
       }
 
-      const result = await response.json() as any;
+      const result = (await response.json()) as any;
       return result.data || [];
     } catch (error) {
-      console.error('Coinstats wallet chart error:', error);
-      
+      console.error("Coinstats wallet chart error:", error);
+
       // Return mock chart data
-      const days = period === '24h' ? 1 : period === '7d' ? 7 : period === '30d' ? 30 : 90;
-      const points = days * (period === '24h' ? 24 : 1);
+      const days =
+        period === "24h" ? 1 : period === "7d" ? 7 : period === "30d" ? 30 : 90;
+      const points = days * (period === "24h" ? 24 : 1);
       const chart = [];
       let baseValue = Math.random() * 50000;
-      
+
       for (let i = 0; i < points; i++) {
         chart.push({
-          timestamp: Date.now() - (points - i) * (period === '24h' ? 60 * 60 * 1000 : 24 * 60 * 60 * 1000),
+          timestamp:
+            Date.now() -
+            (points - i) *
+              (period === "24h" ? 60 * 60 * 1000 : 24 * 60 * 60 * 1000),
           value: baseValue * (0.8 + Math.random() * 0.4),
         });
         baseValue *= 0.99 + Math.random() * 0.02;
       }
-      
+
       return chart;
     }
   }
@@ -259,7 +278,7 @@ class CoinstatsService {
   async getBlockchains(): Promise<string[]> {
     try {
       const response = await fetch(`${this.baseUrl}/v1/wallet/blockchains`, {
-        method: 'GET',
+        method: "GET",
         headers: this.getHeaders(),
       });
 
@@ -267,16 +286,16 @@ class CoinstatsService {
         throw new Error(`Coinstats blockchains failed: ${response.statusText}`);
       }
 
-      const result = await response.json() as any;
+      const result = (await response.json()) as any;
       return result.data || [];
     } catch (error) {
-      console.error('Coinstats blockchains error:', error);
-      return ['ethereum', 'bitcoin', 'solana', 'polygon', 'bsc', 'arbitrum'];
+      console.error("Coinstats blockchains error:", error);
+      return ["ethereum", "bitcoin", "solana", "polygon", "bsc", "arbitrum"];
     }
   }
 
   private generateRandomAddress(): string {
-    return '0x' + Math.random().toString(16).substr(2, 40);
+    return "0x" + Math.random().toString(16).substr(2, 40);
   }
 }
 

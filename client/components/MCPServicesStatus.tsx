@@ -1,30 +1,52 @@
-import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { 
-  CheckCircle, XCircle, RefreshCw, Activity, 
-  Server, Database, Code, Search 
-} from 'lucide-react';
-import { useMCPServices } from '@/hooks/useMCPServices';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  CheckCircle,
+  XCircle,
+  RefreshCw,
+  Activity,
+  Server,
+  Database,
+  Code,
+  Search,
+} from "lucide-react";
+import { useMCPServices } from "@/hooks/useMCPServices";
 
 const getServerIcon = (serverKey: string) => {
   switch (serverKey) {
-    case 'github': return Code;
-    case 'helius': return Database;
-    case 'sherlock': return Search;
-    case 'etherscan': return Activity;
-    default: return Server;
+    case "github":
+      return Code;
+    case "helius":
+      return Database;
+    case "sherlock":
+      return Search;
+    case "etherscan":
+      return Activity;
+    default:
+      return Server;
   }
 };
 
 const getServerDescription = (serverKey: string) => {
   switch (serverKey) {
-    case 'github': return 'Code analysis & threat intelligence';
-    case 'helius': return 'Solana blockchain data & transactions';
-    case 'sherlock': return 'Advanced blockchain forensics';
-    case 'etherscan': return 'Ethereum blockchain analytics';
-    default: return 'MCP Server';
+    case "github":
+      return "Code analysis & threat intelligence";
+    case "helius":
+      return "Solana blockchain data & transactions";
+    case "sherlock":
+      return "Advanced blockchain forensics";
+    case "etherscan":
+      return "Ethereum blockchain analytics";
+    default:
+      return "MCP Server";
   }
 };
 
@@ -57,11 +79,18 @@ export default function MCPServicesStatus() {
             <Server className="h-5 w-5 text-brand-light" />
             <span>MCP Intelligence Network</span>
           </div>
-          <Badge 
-            variant={status.connectedServers.length > 0 ? 'default' : 'destructive'}
-            className={status.connectedServers.length > 0 ? 'bg-success-green/10 text-success-green border-success-green/20' : ''}
+          <Badge
+            variant={
+              status.connectedServers.length > 0 ? "default" : "destructive"
+            }
+            className={
+              status.connectedServers.length > 0
+                ? "bg-success-green/10 text-success-green border-success-green/20"
+                : ""
+            }
           >
-            {status.connectedServers.length}/{Object.keys(serverInfo).length} Connected
+            {status.connectedServers.length}/{Object.keys(serverInfo).length}{" "}
+            Connected
           </Badge>
         </CardTitle>
         <CardDescription>
@@ -80,20 +109,24 @@ export default function MCPServicesStatus() {
             {serverInfo.map((server) => {
               const Icon = getServerIcon(server.key);
               const isConnected = server.connected;
-              
+
               return (
-                <div 
+                <div
                   key={server.key}
                   className={`p-4 rounded-lg border transition-colors ${
-                    isConnected 
-                      ? 'border-success-green/20 bg-success-green/5' 
-                      : 'border-risk-red/20 bg-risk-red/5'
+                    isConnected
+                      ? "border-success-green/20 bg-success-green/5"
+                      : "border-risk-red/20 bg-risk-red/5"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center space-x-2">
-                      <Icon className={`h-4 w-4 ${isConnected ? 'text-success-green' : 'text-risk-red'}`} />
-                      <span className="font-medium text-sm capitalize">{server.name}</span>
+                      <Icon
+                        className={`h-4 w-4 ${isConnected ? "text-success-green" : "text-risk-red"}`}
+                      />
+                      <span className="font-medium text-sm capitalize">
+                        {server.name}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-2">
                       {isConnected ? (
@@ -109,28 +142,32 @@ export default function MCPServicesStatus() {
                           disabled={status.isLoading}
                           className="h-6 px-2 text-xs"
                         >
-                          <RefreshCw className={`h-3 w-3 mr-1 ${status.isLoading ? 'animate-spin' : ''}`} />
+                          <RefreshCw
+                            className={`h-3 w-3 mr-1 ${status.isLoading ? "animate-spin" : ""}`}
+                          />
                           Retry
                         </Button>
                       )}
                     </div>
                   </div>
-                  
+
                   <p className="text-xs text-muted-foreground mb-2">
                     {getServerDescription(server.key)}
                   </p>
 
                   {isConnected && server.tools.length > 0 && (
                     <div className="flex flex-wrap gap-1">
-                      {server.tools.slice(0, 3).map((tool: any, index: number) => (
-                        <Badge 
-                          key={index} 
-                          variant="secondary" 
-                          className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20"
-                        >
-                          {tool.name}
-                        </Badge>
-                      ))}
+                      {server.tools
+                        .slice(0, 3)
+                        .map((tool: any, index: number) => (
+                          <Badge
+                            key={index}
+                            variant="secondary"
+                            className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20"
+                          >
+                            {tool.name}
+                          </Badge>
+                        ))}
                       {server.tools.length > 3 && (
                         <Badge variant="secondary" className="text-xs">
                           +{server.tools.length - 3} more
@@ -141,7 +178,8 @@ export default function MCPServicesStatus() {
 
                   {isConnected && (
                     <div className="mt-2 text-xs text-success-green">
-                      ✓ {server.capabilities?.length || 0} capabilities available
+                      ✓ {server.capabilities?.length || 0} capabilities
+                      available
                     </div>
                   )}
                 </div>
@@ -157,7 +195,8 @@ export default function MCPServicesStatus() {
                 <span className="text-success-green">Operational</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                All connected services are ready for blockchain intelligence operations
+                All connected services are ready for blockchain intelligence
+                operations
               </p>
             </div>
           )}
@@ -169,7 +208,8 @@ export default function MCPServicesStatus() {
                 <span className="font-medium">Degraded Performance:</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                {status.failedServers.length} service(s) unavailable: {status.failedServers.join(', ')}
+                {status.failedServers.length} service(s) unavailable:{" "}
+                {status.failedServers.join(", ")}
               </p>
             </div>
           )}

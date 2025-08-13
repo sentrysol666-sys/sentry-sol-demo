@@ -1,10 +1,20 @@
-import React from 'react';
-import { useWalletIntegration } from '@/hooks/useWalletIntegration';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { WalletIcon, SecurityIcon, LockIcon } from '@/components/ui/material-icons';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useWalletIntegration } from "@/hooks/useWalletIntegration";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  WalletIcon,
+  SecurityIcon,
+  LockIcon,
+} from "@/components/ui/material-icons";
+import { Link } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -15,7 +25,7 @@ interface ProtectedRouteProps {
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   requireWallet = true,
-  fallbackPath = '/wallet-screening'
+  fallbackPath = "/wallet-screening",
 }) => {
   const { isConnected } = useWalletIntegration();
 
@@ -31,9 +41,12 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
             <div className="mx-auto w-16 h-16 bg-warning-amber/10 rounded-full flex items-center justify-center mb-4">
               <LockIcon className="h-8 w-8 text-warning-amber" />
             </div>
-            <CardTitle className="text-xl">Wallet Connection Required</CardTitle>
+            <CardTitle className="text-xl">
+              Wallet Connection Required
+            </CardTitle>
             <CardDescription>
-              This feature requires a connected wallet to access advanced AML capabilities
+              This feature requires a connected wallet to access advanced AML
+              capabilities
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -49,12 +62,20 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
                 <li>• Pattern detection alerts</li>
               </ul>
             </div>
-            
+
             <div className="flex items-center justify-center gap-2">
-              <Badge variant="outline" className="text-xs">Solana</Badge>
-              <Badge variant="outline" className="text-xs">Ethereum</Badge>
-              <Badge variant="outline" className="text-xs">Polygon</Badge>
-              <Badge variant="outline" className="text-xs">Arbitrum</Badge>
+              <Badge variant="outline" className="text-xs">
+                Solana
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                Ethereum
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                Polygon
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                Arbitrum
+              </Badge>
             </div>
 
             <div className="space-y-2">
@@ -64,7 +85,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
                   Connect Wallet
                 </Button>
               </Link>
-              
+
               <Link to="/dashboard" className="w-full">
                 <Button variant="outline" className="w-full">
                   Back to Dashboard

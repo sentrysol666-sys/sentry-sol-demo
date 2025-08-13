@@ -3,30 +3,38 @@
 ## Quick Start
 
 ### 1. Setup Dependencies
+
 ```bash
 npm run setup
 ```
+
 This command will:
+
 - Install PNPM if not available
 - Install all project dependencies
 - Create `.env` file with default configuration
 - Verify Vite configuration for port 8080
 
 ### 2. Start Development Server
+
 ```bash
 npm run dev
 ```
+
 This starts the development server on port 8080.
 
 ## Alternative Commands
 
 ### Full Setup and Start
+
 ```bash
 npm run dev:start
 ```
+
 Runs setup and immediately starts the dev server.
 
 ### Manual Steps
+
 ```bash
 # Install dependencies
 npm install
@@ -45,18 +53,21 @@ npm run dev
 ## Features
 
 ### 🔧 Development Features
+
 - **Hot Module Replacement (HMR)** - Live reloading
 - **TypeScript Support** - Full type checking
 - **Express API Integration** - Backend API available during dev
 - **Multi-Chain Wallet Support** - Solana, Ethereum, Polygon, Arbitrum
 
 ### 🧠 AI/ML Capabilities
+
 - **LangChain Integration** - Multi-agent AI workflows
 - **Mistral AI** - Advanced language model analysis
 - **LangSmith Tracing** - AI operation monitoring
 - **Real-time Analysis** - Live transaction monitoring
 
 ### 🛡️ AML/Compliance Features
+
 - **MetaSleuth Integration** - Wallet screening
 - **Chainabuse API** - Sanctions checking
 - **Helius RPC** - Enhanced Solana data
@@ -86,6 +97,7 @@ COINSTATS_API_KEY=...
 ## Troubleshooting
 
 ### Port 8080 Already in Use
+
 ```bash
 # Find and kill process using port 8080
 lsof -ti:8080 | xargs kill -9
@@ -95,6 +107,7 @@ npm run dev -- --port 8081
 ```
 
 ### Dependencies Issues
+
 ```bash
 # Clear node_modules and reinstall
 rm -rf node_modules
@@ -102,6 +115,7 @@ npm run setup
 ```
 
 ### Environment Issues
+
 ```bash
 # Recreate .env file
 rm .env
@@ -111,27 +125,29 @@ npm run setup
 ## Production Deployment
 
 ### Build for Production
+
 ```bash
 npm run build
 ```
 
 ### Start Production Server
+
 ```bash
 npm run start:prod
 ```
 
 ## Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run setup` | Setup development environment |
-| `npm run dev` | Start development server on port 8080 |
-| `npm run dev:start` | Setup and start in one command |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run start:prod` | Start production server on port 8080 |
-| `npm run test` | Run tests |
-| `npm run typecheck` | Check TypeScript types |
+| Command              | Description                           |
+| -------------------- | ------------------------------------- |
+| `npm run setup`      | Setup development environment         |
+| `npm run dev`        | Start development server on port 8080 |
+| `npm run dev:start`  | Setup and start in one command        |
+| `npm run build`      | Build for production                  |
+| `npm run start`      | Start production server               |
+| `npm run start:prod` | Start production server on port 8080  |
+| `npm run test`       | Run tests                             |
+| `npm run typecheck`  | Check TypeScript types                |
 
 ## Architecture
 
@@ -147,6 +163,7 @@ Sentrysol AML Platform
 ## Next Steps
 
 After setup:
+
 1. Visit http://localhost:8080
 2. Connect your wallet (Phantom, MetaMask, etc.)
 3. Start using AML investigation features
@@ -156,6 +173,7 @@ After setup:
 ## Support
 
 For development issues:
+
 - Check the browser console for errors
 - Review the terminal output for server logs
 - Ensure all environment variables are set

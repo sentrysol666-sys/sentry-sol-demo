@@ -10,8 +10,15 @@ export interface VisualizationData {
 export interface NetworkNode {
   id: string;
   label: string;
-  type: 'target' | 'source' | 'sink' | 'exchange' | 'mixer' | 'bridge' | 'unknown';
-  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  type:
+    | "target"
+    | "source"
+    | "sink"
+    | "exchange"
+    | "mixer"
+    | "bridge"
+    | "unknown";
+  riskLevel: "low" | "medium" | "high" | "critical";
   value: number;
   transactionCount: number;
   firstSeen: Date;
@@ -25,7 +32,7 @@ export interface NetworkLink {
   value: number;
   frequency: number;
   riskScore: number;
-  type: 'direct' | 'indirect' | 'suspicious';
+  type: "direct" | "indirect" | "suspicious";
   timespan: {
     start: Date;
     end: Date;
@@ -57,7 +64,7 @@ export interface VisualizationMetadata {
 }
 
 export interface D3Config {
-  layout: 'force' | 'hierarchical' | 'circular' | 'tree';
+  layout: "force" | "hierarchical" | "circular" | "tree";
   width: number;
   height: number;
   nodeRadius: {
@@ -94,7 +101,7 @@ export interface ColorScheme {
 }
 
 export interface LegendConfig {
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   nodeTypes: boolean;
   riskLevels: boolean;
   linkTypes: boolean;
@@ -106,7 +113,9 @@ export class FlowVisualizerAgent {
   constructor() {
     this.model = new ChatMistralAI({
       apiKey: process.env.MISTRAL_API_KEY,
-      model: process.env.MISTRAL_MODEL || "ft:mistral-medium-latest:b319469f:20250807:b80c0dce",
+      model:
+        process.env.MISTRAL_MODEL ||
+        "ft:mistral-medium-latest:b319469f:20250807:b80c0dce",
       temperature: 0.1,
     });
   }
@@ -115,9 +124,11 @@ export class FlowVisualizerAgent {
     targetAddress: string,
     transactionData: any[],
     connectedEntities: any[],
-    depth: number = 2
+    depth: number = 2,
   ): Promise<VisualizationData> {
-    console.log(`📊 Flow Visualizer: Creating visualization for ${targetAddress}`);
+    console.log(
+      `📊 Flow Visualizer: Creating visualization for ${targetAddress}`,
+    );
 
     try {
       // Step 1: Analyze transaction patterns with AI
@@ -136,19 +147,32 @@ export class FlowVisualizerAgent {
       Provide structured analysis for network visualization.`;
 
       const analysis = await this.model.invoke([
-        { role: "system", content: "You are an expert in blockchain network analysis and visualization." },
-        { role: "user", content: analysisPrompt }
+        {
+          role: "system",
+          content:
+            "You are an expert in blockchain network analysis and visualization.",
+        },
+        { role: "user", content: analysisPrompt },
       ]);
 
       // Step 2: Generate nodes
-      const nodes = await this.generateNodes(targetAddress, connectedEntities, transactionData);
-      
+      const nodes = await this.generateNodes(
+        targetAddress,
+        connectedEntities,
+        transactionData,
+      );
+
       // Step 3: Generate links
       const links = await this.generateLinks(transactionData, nodes);
-      
+
       // Step 4: Create metadata
-      const metadata = this.generateMetadata(targetAddress, nodes, links, depth);
-      
+      const metadata = this.generateMetadata(
+        targetAddress,
+        nodes,
+        links,
+        depth,
+      );
+
       // Step 5: Configure D3 settings
       const config = this.generateD3Config(nodes.length, links.length);
 
@@ -156,10 +180,10 @@ export class FlowVisualizerAgent {
         nodes,
         links,
         metadata,
-        config
+        config,
       };
     } catch (error) {
-      console.error('Flow visualization generation failed:', error);
+      console.error("Flow visualization generation failed:", error);
       throw error;
     }
   }
@@ -167,7 +191,7 @@ export class FlowVisualizerAgent {
   private async generateNodes(
     targetAddress: string,
     connectedEntities: any[],
-    transactionData: any[]
+    transactionData: any[],
   ): Promise<NetworkNode[]> {
     const nodes: NetworkNode[] = [];
     const addressSet = new Set<string>();
@@ -176,27 +200,30 @@ export class FlowVisualizerAgent {
     nodes.push({
       id: targetAddress,
       label: this.truncateAddress(targetAddress),
-      type: 'target',
-      riskLevel: 'medium', // Will be determined by analysis
+      type: "target",
+      riskLevel: "medium", // Will be determined by analysis
       value: this.calculateAddressValue(targetAddress, transactionData),
-      transactionCount: this.getTransactionCount(targetAddress, transactionData),
+      transactionCount: this.getTransactionCount(
+        targetAddress,
+        transactionData,
+      ),
       firstSeen: this.getFirstTransaction(targetAddress, transactionData),
       lastSeen: this.getLastTransaction(targetAddress, transactionData),
       metadata: {
         address: targetAddress,
         isExchange: false,
         isMixer: false,
-        isContract: false
-      }
+        isContract: false,
+      },
     });
     addressSet.add(targetAddress);
 
     // Add connected entity nodes
-    connectedEntities.forEach(entity => {
+    connectedEntities.forEach((entity) => {
       if (!addressSet.has(entity.address)) {
         const nodeType = this.determineNodeType(entity.address, entity);
         const riskLevel = this.determineRiskLevel(entity.riskScore);
-        
+
         nodes.push({
           id: entity.address,
           label: this.truncateAddress(entity.address),
@@ -204,30 +231,32 @@ export class FlowVisualizerAgent {
           riskLevel,
           value: entity.totalValue || 0,
           transactionCount: entity.transactionCount || 0,
-          firstSeen: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
+          firstSeen: new Date(
+            Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000,
+          ),
           lastSeen: new Date(),
           metadata: {
             address: entity.address,
-            isExchange: nodeType === 'exchange',
-            isMixer: nodeType === 'mixer',
-            isContract: nodeType === 'bridge',
-            reputation: entity.riskScore
-          }
+            isExchange: nodeType === "exchange",
+            isMixer: nodeType === "mixer",
+            isContract: nodeType === "bridge",
+            reputation: entity.riskScore,
+          },
         });
         addressSet.add(entity.address);
       }
     });
 
     // Add intermediate nodes from transaction data
-    transactionData.forEach(tx => {
-      [tx.from, tx.to].forEach(address => {
+    transactionData.forEach((tx) => {
+      [tx.from, tx.to].forEach((address) => {
         if (address && !addressSet.has(address)) {
           nodes.push({
             id: address,
             label: this.truncateAddress(address),
-            type: 'unknown',
-            riskLevel: 'low',
-            value: parseFloat(tx.value || '0'),
+            type: "unknown",
+            riskLevel: "low",
+            value: parseFloat(tx.value || "0"),
             transactionCount: 1,
             firstSeen: new Date(tx.timestamp),
             lastSeen: new Date(tx.timestamp),
@@ -235,8 +264,8 @@ export class FlowVisualizerAgent {
               address,
               isExchange: false,
               isMixer: false,
-              isContract: false
-            }
+              isContract: false,
+            },
           });
           addressSet.add(address);
         }
@@ -246,50 +275,59 @@ export class FlowVisualizerAgent {
     return nodes.slice(0, 50); // Limit nodes for performance
   }
 
-  private async generateLinks(transactionData: any[], nodes: NetworkNode[]): Promise<NetworkLink[]> {
+  private async generateLinks(
+    transactionData: any[],
+    nodes: NetworkNode[],
+  ): Promise<NetworkLink[]> {
     const links: NetworkLink[] = [];
     const linkMap = new Map<string, NetworkLink>();
 
-    transactionData.forEach(tx => {
+    transactionData.forEach((tx) => {
       const linkKey = `${tx.from}-${tx.to}`;
       const reverseKey = `${tx.to}-${tx.from}`;
-      
+
       // Check if nodes exist for this transaction
-      const sourceExists = nodes.find(n => n.id === tx.from);
-      const targetExists = nodes.find(n => n.id === tx.to);
-      
+      const sourceExists = nodes.find((n) => n.id === tx.from);
+      const targetExists = nodes.find((n) => n.id === tx.to);
+
       if (!sourceExists || !targetExists) return;
 
       if (linkMap.has(linkKey)) {
         // Update existing link
         const link = linkMap.get(linkKey)!;
-        link.value += parseFloat(tx.value || '0');
+        link.value += parseFloat(tx.value || "0");
         link.frequency += 1;
         link.transactions.push(tx.hash);
-        link.timespan.end = new Date(Math.max(link.timespan.end.getTime(), tx.timestamp));
+        link.timespan.end = new Date(
+          Math.max(link.timespan.end.getTime(), tx.timestamp),
+        );
       } else if (linkMap.has(reverseKey)) {
         // Update reverse link
         const link = linkMap.get(reverseKey)!;
-        link.value += parseFloat(tx.value || '0');
+        link.value += parseFloat(tx.value || "0");
         link.frequency += 1;
         link.transactions.push(tx.hash);
       } else {
         // Create new link
-        const riskScore = this.calculateLinkRiskScore(tx, sourceExists, targetExists);
+        const riskScore = this.calculateLinkRiskScore(
+          tx,
+          sourceExists,
+          targetExists,
+        );
         const linkType = this.determineLinkType(riskScore, tx);
-        
+
         linkMap.set(linkKey, {
           source: tx.from,
           target: tx.to,
-          value: parseFloat(tx.value || '0'),
+          value: parseFloat(tx.value || "0"),
           frequency: 1,
           riskScore,
           type: linkType,
           timespan: {
             start: new Date(tx.timestamp),
-            end: new Date(tx.timestamp)
+            end: new Date(tx.timestamp),
           },
-          transactions: [tx.hash]
+          transactions: [tx.hash],
         });
       }
     });
@@ -303,18 +341,18 @@ export class FlowVisualizerAgent {
     targetAddress: string,
     nodes: NetworkNode[],
     links: NetworkLink[],
-    depth: number
+    depth: number,
   ): VisualizationMetadata {
     const riskDistribution = {
-      low: nodes.filter(n => n.riskLevel === 'low').length,
-      medium: nodes.filter(n => n.riskLevel === 'medium').length,
-      high: nodes.filter(n => n.riskLevel === 'high').length,
-      critical: nodes.filter(n => n.riskLevel === 'critical').length
+      low: nodes.filter((n) => n.riskLevel === "low").length,
+      medium: nodes.filter((n) => n.riskLevel === "medium").length,
+      high: nodes.filter((n) => n.riskLevel === "high").length,
+      critical: nodes.filter((n) => n.riskLevel === "critical").length,
     };
 
     const timeRange = {
-      start: new Date(Math.min(...nodes.map(n => n.firstSeen.getTime()))),
-      end: new Date(Math.max(...nodes.map(n => n.lastSeen.getTime())))
+      start: new Date(Math.min(...nodes.map((n) => n.firstSeen.getTime()))),
+      end: new Date(Math.max(...nodes.map((n) => n.lastSeen.getTime()))),
     };
 
     return {
@@ -324,7 +362,7 @@ export class FlowVisualizerAgent {
       totalLinks: links.length,
       riskDistribution,
       timeRange,
-      generatedAt: new Date()
+      generatedAt: new Date(),
     };
   }
 
@@ -334,43 +372,43 @@ export class FlowVisualizerAgent {
     const height = Math.max(600, Math.min(900, nodeCount * 15));
 
     return {
-      layout: nodeCount > 30 ? 'force' : 'hierarchical',
+      layout: nodeCount > 30 ? "force" : "hierarchical",
       width,
       height,
       nodeRadius: {
         min: 8,
-        max: 25
+        max: 25,
       },
       linkDistance: 100,
       chargeStrength: -300,
       colorScheme: {
         nodes: {
-          target: '#FF6B6B',
-          source: '#4ECDC4',
-          sink: '#45B7D1',
-          exchange: '#96CEB4',
-          mixer: '#FECA57',
-          bridge: '#DDA0DD',
-          unknown: '#95A5A6'
+          target: "#FF6B6B",
+          source: "#4ECDC4",
+          sink: "#45B7D1",
+          exchange: "#96CEB4",
+          mixer: "#FECA57",
+          bridge: "#DDA0DD",
+          unknown: "#95A5A6",
         },
         links: {
-          direct: '#34495E',
-          indirect: '#BDC3C7',
-          suspicious: '#E74C3C'
+          direct: "#34495E",
+          indirect: "#BDC3C7",
+          suspicious: "#E74C3C",
         },
         risk: {
-          low: '#2ECC71',
-          medium: '#F39C12',
-          high: '#E67E22',
-          critical: '#E74C3C'
-        }
+          low: "#2ECC71",
+          medium: "#F39C12",
+          high: "#E67E22",
+          critical: "#E74C3C",
+        },
       },
       legend: {
-        position: 'top-right',
+        position: "top-right",
         nodeTypes: true,
         riskLevels: true,
-        linkTypes: true
-      }
+        linkTypes: true,
+      },
     };
   }
 
@@ -380,68 +418,83 @@ export class FlowVisualizerAgent {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
   }
 
-  private determineNodeType(address: string, entity: any): NetworkNode['type'] {
+  private determineNodeType(address: string, entity: any): NetworkNode["type"] {
     // Simple heuristics - in production this would use comprehensive address labeling
-    if (entity.transactionCount > 1000) return 'exchange';
-    if (entity.relationship === 'mixer') return 'mixer';
-    if (address.includes('bridge')) return 'bridge';
-    if (entity.transactionCount > 100) return 'source';
-    if (entity.transactionCount < 5) return 'sink';
-    return 'unknown';
+    if (entity.transactionCount > 1000) return "exchange";
+    if (entity.relationship === "mixer") return "mixer";
+    if (address.includes("bridge")) return "bridge";
+    if (entity.transactionCount > 100) return "source";
+    if (entity.transactionCount < 5) return "sink";
+    return "unknown";
   }
 
-  private determineRiskLevel(riskScore: number): NetworkNode['riskLevel'] {
-    if (riskScore >= 80) return 'critical';
-    if (riskScore >= 60) return 'high';
-    if (riskScore >= 30) return 'medium';
-    return 'low';
+  private determineRiskLevel(riskScore: number): NetworkNode["riskLevel"] {
+    if (riskScore >= 80) return "critical";
+    if (riskScore >= 60) return "high";
+    if (riskScore >= 30) return "medium";
+    return "low";
   }
 
   private calculateAddressValue(address: string, transactions: any[]): number {
     return transactions
-      .filter(tx => tx.from === address || tx.to === address)
-      .reduce((sum, tx) => sum + parseFloat(tx.value || '0'), 0);
+      .filter((tx) => tx.from === address || tx.to === address)
+      .reduce((sum, tx) => sum + parseFloat(tx.value || "0"), 0);
   }
 
   private getTransactionCount(address: string, transactions: any[]): number {
-    return transactions.filter(tx => tx.from === address || tx.to === address).length;
+    return transactions.filter((tx) => tx.from === address || tx.to === address)
+      .length;
   }
 
   private getFirstTransaction(address: string, transactions: any[]): Date {
-    const addressTxs = transactions.filter(tx => tx.from === address || tx.to === address);
+    const addressTxs = transactions.filter(
+      (tx) => tx.from === address || tx.to === address,
+    );
     if (addressTxs.length === 0) return new Date();
-    return new Date(Math.min(...addressTxs.map(tx => tx.timestamp)));
+    return new Date(Math.min(...addressTxs.map((tx) => tx.timestamp)));
   }
 
   private getLastTransaction(address: string, transactions: any[]): Date {
-    const addressTxs = transactions.filter(tx => tx.from === address || tx.to === address);
+    const addressTxs = transactions.filter(
+      (tx) => tx.from === address || tx.to === address,
+    );
     if (addressTxs.length === 0) return new Date();
-    return new Date(Math.max(...addressTxs.map(tx => tx.timestamp)));
+    return new Date(Math.max(...addressTxs.map((tx) => tx.timestamp)));
   }
 
-  private calculateLinkRiskScore(tx: any, sourceNode: NetworkNode, targetNode: NetworkNode): number {
+  private calculateLinkRiskScore(
+    tx: any,
+    sourceNode: NetworkNode,
+    targetNode: NetworkNode,
+  ): number {
     let riskScore = 0;
 
     // High-value transactions are riskier
-    const value = parseFloat(tx.value || '0');
+    const value = parseFloat(tx.value || "0");
     if (value > 1000000) riskScore += 30;
     else if (value > 100000) riskScore += 20;
     else if (value > 10000) riskScore += 10;
 
     // Connections to high-risk nodes
-    if (sourceNode.riskLevel === 'high' || targetNode.riskLevel === 'high') riskScore += 25;
-    if (sourceNode.riskLevel === 'critical' || targetNode.riskLevel === 'critical') riskScore += 40;
+    if (sourceNode.riskLevel === "high" || targetNode.riskLevel === "high")
+      riskScore += 25;
+    if (
+      sourceNode.riskLevel === "critical" ||
+      targetNode.riskLevel === "critical"
+    )
+      riskScore += 40;
 
     // Mixer connections
-    if (sourceNode.metadata.isMixer || targetNode.metadata.isMixer) riskScore += 35;
+    if (sourceNode.metadata.isMixer || targetNode.metadata.isMixer)
+      riskScore += 35;
 
     return Math.min(riskScore, 100);
   }
 
-  private determineLinkType(riskScore: number, tx: any): NetworkLink['type'] {
-    if (riskScore >= 50) return 'suspicious';
-    if (tx.gasUsed && tx.gasUsed > 50000) return 'indirect'; // Contract interaction
-    return 'direct';
+  private determineLinkType(riskScore: number, tx: any): NetworkLink["type"] {
+    if (riskScore >= 50) return "suspicious";
+    if (tx.gasUsed && tx.gasUsed > 50000) return "indirect"; // Contract interaction
+    return "direct";
   }
 
   // Method to generate client-side D3.js code

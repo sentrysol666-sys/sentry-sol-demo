@@ -1,9 +1,19 @@
-import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useWalletIntegration } from '@/hooks/useWalletIntegration';
-import WalletConnector from '@/components/WalletConnector';
-import { WalletIcon, SecurityIcon, InfoIcon } from '@/components/ui/material-icons';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useWalletIntegration } from "@/hooks/useWalletIntegration";
+import WalletConnector from "@/components/WalletConnector";
+import {
+  WalletIcon,
+  SecurityIcon,
+  InfoIcon,
+} from "@/components/ui/material-icons";
 
 interface WalletGuardProps {
   children: React.ReactNode;
@@ -18,7 +28,7 @@ export const WalletGuard: React.FC<WalletGuardProps> = ({
   requireConnection = true,
   showConnectPrompt = true,
   title = "Wallet Connection Required",
-  description = "Please connect your wallet to access AML investigation features"
+  description = "Please connect your wallet to access AML investigation features",
 }) => {
   const { isConnected, connectedWallets } = useWalletIntegration();
 
@@ -50,8 +60,9 @@ export const WalletGuard: React.FC<WalletGuardProps> = ({
           <Alert className="border-brand-light bg-brand-light/5">
             <SecurityIcon className="h-4 w-4 text-brand-light" />
             <AlertDescription className="text-foreground">
-              <strong>Secure Connection:</strong> Your wallet connection is encrypted and secure. 
-              We never store your private keys or have access to your funds.
+              <strong>Secure Connection:</strong> Your wallet connection is
+              encrypted and secure. We never store your private keys or have
+              access to your funds.
             </AlertDescription>
           </Alert>
 
@@ -70,7 +81,8 @@ export const WalletGuard: React.FC<WalletGuardProps> = ({
                 Why Connect Your Wallet?
               </CardTitle>
               <CardDescription>
-                Connecting your wallet unlocks enhanced AML investigation features
+                Connecting your wallet unlocks enhanced AML investigation
+                features
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -107,7 +119,9 @@ export const WalletGuard: React.FC<WalletGuardProps> = ({
                 <div className="p-3 border rounded-lg">
                   <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-2"></div>
                   <div className="text-sm font-medium">Solana</div>
-                  <div className="text-xs text-muted-foreground">Phantom, Solflare</div>
+                  <div className="text-xs text-muted-foreground">
+                    Phantom, Solflare
+                  </div>
                 </div>
                 <div className="p-3 border rounded-lg">
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mx-auto mb-2"></div>
@@ -117,12 +131,16 @@ export const WalletGuard: React.FC<WalletGuardProps> = ({
                 <div className="p-3 border rounded-lg">
                   <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full mx-auto mb-2"></div>
                   <div className="text-sm font-medium">Polygon</div>
-                  <div className="text-xs text-muted-foreground">Layer 2 Support</div>
+                  <div className="text-xs text-muted-foreground">
+                    Layer 2 Support
+                  </div>
                 </div>
                 <div className="p-3 border rounded-lg">
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full mx-auto mb-2"></div>
                   <div className="text-sm font-medium">Arbitrum</div>
-                  <div className="text-xs text-muted-foreground">Fast & Cheap</div>
+                  <div className="text-xs text-muted-foreground">
+                    Fast & Cheap
+                  </div>
                 </div>
               </div>
             </CardContent>
