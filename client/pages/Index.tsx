@@ -20,7 +20,7 @@ export default function Index() {
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
               Next-Gen{" "}
-              <span className="bg-gradient-to-r from-aml-blue to-compliance-green bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
                 AML Intelligence
               </span>
               {" "}for Blockchain
