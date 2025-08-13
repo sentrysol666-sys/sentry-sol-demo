@@ -139,44 +139,20 @@ export default function WalletSelector() {
     } catch (error: any) {
       setConnectionProgress(0);
 
-      // Extract proper error message
-      let errorMessage = "Failed to connect wallet";
-
-      if (error && typeof error === 'object') {
-        if (error.code === 4001) {
-          setError("Connection cancelled by user");
-          return;
-        } else if (error.code === -32002) {
-          setError("Connection request pending. Please check your wallet.");
-          return;
-        } else if (error.message) {
-          errorMessage = error.message;
-        } else if (error.reason) {
-          errorMessage = error.reason;
-        }
-      } else if (typeof error === 'string') {
-        errorMessage = error;
-      }
-
-      // Handle specific error patterns
-      if (errorMessage.includes("User rejected") || errorMessage.includes("User denied")) {
-        setError("Connection cancelled by user");
-      } else if (errorMessage.includes("not installed")) {
-        setError(`${walletId} is not installed`);
-      } else if (errorMessage.includes("already pending")) {
-        setError("Connection request already pending. Please check your wallet.");
-      } else if (errorMessage.includes("Failed to fetch") || errorMessage.includes("NetworkError")) {
-        setError("Network connection issue. Please try again.");
-      } else {
-        setError(errorMessage || "Failed to connect wallet");
-      }
-
-      console.error("Wallet connection error:", {
+      const walletError = logWalletError("WalletSelector.handleWalletConnect", error, {
         walletId,
         type,
-        message: errorMessage,
-        originalError: error
+        userAgent: navigator.userAgent
       });
+
+      // Only show errors that should be visible to users
+      if (shouldShowErrorToUser(walletError)) {
+        const friendlyMessage = getUserFriendlyErrorMessage(walletError);
+        setError(friendlyMessage);
+      } else {
+        // For user rejections, just clear the connection state without showing error
+        console.log("Connection cancelled by user");
+      }
     } finally {
       setTimeout(() => {
         setIsConnecting(false);
