@@ -24,6 +24,7 @@ import Help from "./pages/Help";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Onboarding from "./pages/Onboarding";
 
 const queryClient = new QueryClient();
 
