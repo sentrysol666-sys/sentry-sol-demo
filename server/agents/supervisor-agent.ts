@@ -419,6 +419,197 @@ export class SupervisorAgent {
   }
 
   // Helper methods
+  private detectChain(address: string): string {
+    if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
+      return 'solana';
+    } else if (/^0x[a-fA-F0-9]{40}$/.test(address)) {
+      return 'ethereum';
+    }
+    return 'ethereum'; // Default to Ethereum for unknown formats
+  }
+
+  private analyzeTransactionPatterns(transactions: any[]): any[] {
+    const patterns = [];
+
+    if (transactions.length === 0) return patterns;
+
+    // Check for rapid fire transactions (multiple txs in short time)
+    const rapidFire = this.detectRapidFirePattern(transactions);
+    if (rapidFire.detected) {
+      patterns.push({
+        type: 'rapid_fire',
+        confidence: rapidFire.confidence,
+        description: `${rapidFire.count} transactions within ${rapidFire.timeWindow} minutes`,
+        severity: 'medium'
+      });
+    }
+
+    // Check for circular transactions
+    const circular = this.detectCircularPattern(transactions);
+    if (circular.detected) {
+      patterns.push({
+        type: 'circular',
+        confidence: circular.confidence,
+        description: 'Circular transaction pattern detected',
+        severity: 'high'
+      });
+    }
+
+    // Check for mixer-like patterns (many small inputs/outputs)
+    const mixing = this.detectMixingPattern(transactions);
+    if (mixing.detected) {
+      patterns.push({
+        type: 'mixing',
+        confidence: mixing.confidence,
+        description: 'Potential mixing service usage',
+        severity: 'high'
+      });
+    }
+
+    return patterns;
+  }
+
+  private detectRapidFirePattern(transactions: any[]): any {
+    if (transactions.length < 5) return { detected: false };
+
+    const timeWindow = 10 * 60 * 1000; // 10 minutes
+    let maxCount = 0;
+
+    for (let i = 0; i < transactions.length - 1; i++) {
+      const startTime = transactions[i].timestamp || transactions[i].blockTime * 1000;
+      let count = 1;
+
+      for (let j = i + 1; j < transactions.length; j++) {
+        const txTime = transactions[j].timestamp || transactions[j].blockTime * 1000;
+        if (txTime - startTime <= timeWindow) {
+          count++;
+        } else {
+          break;
+        }
+      }
+
+      maxCount = Math.max(maxCount, count);
+    }
+
+    return {
+      detected: maxCount >= 5,
+      count: maxCount,
+      timeWindow: 10,
+      confidence: Math.min(maxCount / 10, 1)
+    };
+  }
+
+  private detectCircularPattern(transactions: any[]): any {
+    const addressMap = new Map();
+
+    transactions.forEach(tx => {
+      const from = tx.from || tx.feePayer;
+      const to = tx.to || tx.accountKeys?.[1];
+
+      if (!addressMap.has(from)) addressMap.set(from, new Set());
+      if (!addressMap.has(to)) addressMap.set(to, new Set());
+
+      addressMap.get(from).add(to);
+    });
+
+    // Simple circular detection: check if A -> B and B -> A
+    let circularCount = 0;
+    for (const [from, toSet] of addressMap) {
+      for (const to of toSet) {
+        if (addressMap.has(to) && addressMap.get(to).has(from)) {
+          circularCount++;
+        }
+      }
+    }
+
+    return {
+      detected: circularCount > 0,
+      confidence: Math.min(circularCount / 3, 1),
+      count: circularCount
+    };
+  }
+
+  private detectMixingPattern(transactions: any[]): any {
+    if (transactions.length < 10) return { detected: false };
+
+    const amounts = transactions.map(tx => parseFloat(tx.value || '0'));
+    const uniqueAmounts = new Set(amounts).size;
+    const avgAmount = amounts.reduce((a, b) => a + b, 0) / amounts.length;
+
+    // Check for many small, similar amounts (mixing pattern)
+    const smallAmounts = amounts.filter(amt => amt < avgAmount * 0.1).length;
+    const similarAmounts = amounts.length - uniqueAmounts;
+
+    const mixingScore = (smallAmounts + similarAmounts) / amounts.length;
+
+    return {
+      detected: mixingScore > 0.6,
+      confidence: mixingScore,
+      smallAmountRatio: smallAmounts / amounts.length,
+      uniqueAmountRatio: uniqueAmounts / amounts.length
+    };
+  }
+
+  private extractConnectedAddresses(transactions: any[]): string[] {
+    const addresses = new Set<string>();
+
+    transactions.forEach(tx => {
+      if (tx.from) addresses.add(tx.from);
+      if (tx.to) addresses.add(tx.to);
+      if (tx.feePayer) addresses.add(tx.feePayer);
+      if (tx.accountKeys) {
+        tx.accountKeys.forEach((addr: string) => addresses.add(addr));
+      }
+    });
+
+    return Array.from(addresses).slice(0, 20); // Limit to top 20
+  }
+
+  private analyzeTimeframes(transactions: any[]): any {
+    if (transactions.length === 0) {
+      return {
+        last24h: 0,
+        last7d: 0,
+        last30d: 0,
+        activity_pattern: 'no_activity'
+      };
+    }
+
+    const now = Date.now();
+    const hour24 = 24 * 60 * 60 * 1000;
+    const day7 = 7 * hour24;
+    const day30 = 30 * hour24;
+
+    const last24h = transactions.filter(tx => {
+      const txTime = tx.timestamp || tx.blockTime * 1000;
+      return now - txTime <= hour24;
+    }).length;
+
+    const last7d = transactions.filter(tx => {
+      const txTime = tx.timestamp || tx.blockTime * 1000;
+      return now - txTime <= day7;
+    }).length;
+
+    const last30d = transactions.filter(tx => {
+      const txTime = tx.timestamp || tx.blockTime * 1000;
+      return now - txTime <= day30;
+    }).length;
+
+    // Determine activity pattern
+    let activityPattern = 'normal';
+    if (last24h > 20) activityPattern = 'high_frequency';
+    else if (last24h === 0 && last7d === 0) activityPattern = 'dormant';
+    else if (last7d > last30d * 0.8) activityPattern = 'recent_surge';
+
+    return {
+      last24h,
+      last7d,
+      last30d,
+      activity_pattern: activityPattern,
+      avgDailyTxs: last30d / 30
+    };
+  }
+
   private determineNextAgent(state: typeof AgentState.State, response: string): string {
     // Simple routing logic - in production this would be more sophisticated
     const completedAgents = Object.keys(state.agent_outputs);
