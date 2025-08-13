@@ -263,10 +263,11 @@ export default function Index() {
                 <p className="text-white text-base sm:text-lg leading-relaxed font-poppins mb-8">
                   SentrySol is an AI-native, on-device behavioral security framework built specifically for Web3 mobile environments, initially focusing on Solana Mobile Seeker.
                 </p>
-                <Button 
+                <Button
                   className="bg-[#CFE0E3] text-black hover:bg-[#CFE0E3]/90 rounded-lg px-6 py-3 text-base font-bold font-poppins"
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
+                  onClick={handleGetStarted}
                 >
                   Get Started
                 </Button>
