@@ -11,14 +11,18 @@
     ]
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 8080 --host 0.0.0.0",
+    "dev:setup": "node scripts/setup-dev.js",
+    "dev:start": "npm run dev:setup && npm run dev",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build",
     "build:server": "vite build --config vite.config.server.ts",
     "start": "node dist/server/node-build.mjs",
+    "start:prod": "PORT=8080 node dist/server/node-build.mjs",
     "test": "vitest --run",
     "format.fix": "prettier --write .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "setup": "node scripts/setup-dev.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
