@@ -19,13 +19,13 @@ interface ProtectedRouteProps {
 
 export default function ProtectedRoute({
   children,
-  requireWallet = true
+  requireWallet = true,
 }: ProtectedRouteProps) {
   const { isConnected, isLoading } = useWalletIntegration();
   const location = useLocation();
 
   // Check if user has completed onboarding
-  const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+  const hasCompletedOnboarding = localStorage.getItem("hasCompletedOnboarding");
 
   // Show loading state while checking wallet connection
   if (isLoading) {
@@ -68,21 +68,22 @@ export default function ProtectedRoute({
               >
                 <Shield className="h-8 w-8 text-white" />
               </motion.div>
-              
+
               <CardTitle className="text-xl font-bold">
                 Wallet Connection Required
               </CardTitle>
             </CardHeader>
-            
+
             <CardContent className="text-center space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
                   <Info className="h-5 w-5 text-primary flex-shrink-0" />
                   <p className="text-sm text-muted-foreground text-left">
-                    Connect your wallet to access compliance features and secure your account
+                    Connect your wallet to access compliance features and secure
+                    your account
                   </p>
                 </div>
-                
+
                 <div className="flex items-center space-x-3 p-3 bg-success-green/10 rounded-lg">
                   <Shield className="h-5 w-5 text-success-green flex-shrink-0" />
                   <p className="text-sm text-success-green/80 text-left">
@@ -90,13 +91,9 @@ export default function ProtectedRoute({
                   </p>
                 </div>
               </div>
-              
+
               <div className="space-y-3">
-                <Link 
-                  to="/signin" 
-                  state={{ from: location }} 
-                  className="block"
-                >
+                <Link to="/signin" state={{ from: location }} className="block">
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -108,7 +105,7 @@ export default function ProtectedRoute({
                     </Button>
                   </motion.div>
                 </Link>
-                
+
                 <Link to="/">
                   <Button variant="outline" className="w-full">
                     Back to Home
@@ -123,7 +120,11 @@ export default function ProtectedRoute({
   }
 
   // If connected but haven't completed onboarding, redirect to onboarding (except if already on onboarding page)
-  if (isConnected && !hasCompletedOnboarding && location.pathname !== '/onboarding') {
+  if (
+    isConnected &&
+    !hasCompletedOnboarding &&
+    location.pathname !== "/onboarding"
+  ) {
     return <Navigate to="/onboarding" replace />;
   }
 

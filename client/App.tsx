@@ -43,9 +43,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background dark flex flex-col">
       {!isHomePage && !isOnboardingPage && <Navigation />}
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
       {!isOnboardingPage && <Footer />}
     </div>
   );

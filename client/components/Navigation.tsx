@@ -35,15 +35,15 @@ export default function Navigation() {
   const { isConnected } = useWalletIntegration();
 
   // Check if user is on an internal/authenticated page
-  const isInternalPage = isConnected && (
-    location.pathname.startsWith('/dashboard') ||
-    location.pathname.startsWith('/aml-dashboard') ||
-    location.pathname.startsWith('/wallet-screening') ||
-    location.pathname.startsWith('/cases') ||
-    location.pathname.startsWith('/analytics') ||
-    location.pathname.startsWith('/compliance') ||
-    location.pathname.startsWith('/settings')
-  );
+  const isInternalPage =
+    isConnected &&
+    (location.pathname.startsWith("/dashboard") ||
+      location.pathname.startsWith("/aml-dashboard") ||
+      location.pathname.startsWith("/wallet-screening") ||
+      location.pathname.startsWith("/cases") ||
+      location.pathname.startsWith("/analytics") ||
+      location.pathname.startsWith("/compliance") ||
+      location.pathname.startsWith("/settings"));
 
   const externalNavigationItems = [
     { name: "Products", href: "/products" },
@@ -60,7 +60,9 @@ export default function Navigation() {
     { name: "Analytics", href: "/analytics", icon: Analytics },
   ];
 
-  const navigationItems = isInternalPage ? internalNavigationItems : externalNavigationItems;
+  const navigationItems = isInternalPage
+    ? internalNavigationItems
+    : externalNavigationItems;
 
   const isActive = (href: string) => location.pathname === href;
 
@@ -74,29 +76,47 @@ export default function Navigation() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={isInternalPage
-        ? "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-        : "fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl"
+      className={
+        isInternalPage
+          ? "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+          : "fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl"
       }
     >
-      <div className={isInternalPage ? "container flex h-16 items-center justify-between px-4" : "relative"}>
+      <div
+        className={
+          isInternalPage
+            ? "container flex h-16 items-center justify-between px-4"
+            : "relative"
+        }
+      >
         {/* External page glassmorphism background */}
-        {!isInternalPage && <div className="absolute inset-0 bg-white/10 backdrop-blur-lg border border-white/20 rounded-[100px] shadow-2xl" />}
+        {!isInternalPage && (
+          <div className="absolute inset-0 bg-white/10 backdrop-blur-lg border border-white/20 rounded-[100px] shadow-2xl" />
+        )}
 
         {/* Navigation content */}
-        <div className={isInternalPage
-          ? "flex items-center space-x-4"
-          : "relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px] w-full"
-        }>
+        <div
+          className={
+            isInternalPage
+              ? "flex items-center space-x-4"
+              : "relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px] w-full"
+          }
+        >
           {/* Logo */}
-          <Link to={isInternalPage ? "/dashboard" : "/"} className="flex items-center space-x-3">
+          <Link
+            to={isInternalPage ? "/dashboard" : "/"}
+            className="flex items-center space-x-3"
+          >
             <img
-              src={isInternalPage
-                ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
-                : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
+              src={
+                isInternalPage
+                  ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+                  : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
               }
               alt="Sentrysol Logo"
-              className={isInternalPage ? "h-8 w-auto" : "h-[65px] w-auto object-contain"}
+              className={
+                isInternalPage ? "h-8 w-auto" : "h-[65px] w-auto object-contain"
+              }
             />
             {isInternalPage && (
               <>
@@ -114,9 +134,15 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className={isInternalPage ? "hidden lg:flex items-center space-x-1" : "hidden lg:flex items-center space-x-12"}>
+          <div
+            className={
+              isInternalPage
+                ? "hidden lg:flex items-center space-x-1"
+                : "hidden lg:flex items-center space-x-12"
+            }
+          >
             {navigationItems.map((item) => {
-              const Icon = 'icon' in item ? item.icon : null;
+              const Icon = "icon" in item ? item.icon : null;
               return (
                 <motion.div
                   key={item.name}
@@ -191,25 +217,53 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="sm" className={isInternalPage ? "hover:bg-muted/50" : "text-white hover:bg-white/10"}>
-                <MenuIcon className={`h-6 w-6 ${isInternalPage ? "text-foreground" : "text-white"}`} />
+              <Button
+                variant="ghost"
+                size="sm"
+                className={
+                  isInternalPage
+                    ? "hover:bg-muted/50"
+                    : "text-white hover:bg-white/10"
+                }
+              >
+                <MenuIcon
+                  className={`h-6 w-6 ${isInternalPage ? "text-foreground" : "text-white"}`}
+                />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className={isInternalPage ? "" : "bg-black/95 backdrop-blur-lg border-white/20"}>
+            <SheetContent
+              side="right"
+              className={
+                isInternalPage
+                  ? ""
+                  : "bg-black/95 backdrop-blur-lg border-white/20"
+              }
+            >
               <SheetHeader>
-                <SheetTitle className={`flex items-center space-x-2 ${isInternalPage ? "text-foreground" : "text-white"}`}>
+                <SheetTitle
+                  className={`flex items-center space-x-2 ${isInternalPage ? "text-foreground" : "text-white"}`}
+                >
                   <img
-                    src={isInternalPage
-                      ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
-                      : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
+                    src={
+                      isInternalPage
+                        ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+                        : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
                     }
                     alt="Logo"
                     className="h-8 w-auto"
                   />
-                  {isInternalPage && <span className="font-poppins">Sentrysol</span>}
+                  {isInternalPage && (
+                    <span className="font-poppins">Sentrysol</span>
+                  )}
                 </SheetTitle>
-                <SheetDescription className={isInternalPage ? "text-muted-foreground" : "text-white/70"}>
-                  {isInternalPage ? "AI-Powered AML/Compliance Platform" : "Navigation Menu"}
+                <SheetDescription
+                  className={
+                    isInternalPage ? "text-muted-foreground" : "text-white/70"
+                  }
+                >
+                  {isInternalPage
+                    ? "AI-Powered AML/Compliance Platform"
+                    : "Navigation Menu"}
                 </SheetDescription>
               </SheetHeader>
 
@@ -229,7 +283,7 @@ export default function Navigation() {
 
                 {/* Mobile Navigation Items */}
                 {navigationItems.map((item) => {
-                  const Icon = 'icon' in item ? item.icon : null;
+                  const Icon = "icon" in item ? item.icon : null;
                   return (
                     <Link
                       key={item.name}
@@ -240,8 +294,12 @@ export default function Navigation() {
                         variant={isActive(item.href) ? "secondary" : "ghost"}
                         className={`w-full justify-start ${
                           isActive(item.href)
-                            ? isInternalPage ? "bg-brand-light/10 text-brand-light" : "bg-white/20 text-white"
-                            : isInternalPage ? "text-muted-foreground" : "text-white"
+                            ? isInternalPage
+                              ? "bg-brand-light/10 text-brand-light"
+                              : "bg-white/20 text-white"
+                            : isInternalPage
+                              ? "text-muted-foreground"
+                              : "text-white"
                         }`}
                       >
                         {Icon && <Icon className="mr-2 h-4 w-4" />}
@@ -268,9 +326,11 @@ export default function Navigation() {
           </Sheet>
         </div>
         {/* Close the internal page flex container */}
-        {isInternalPage && <div className="flex items-center space-x-3">
-          {/* Placeholder for right-side content like notifications, user menu etc. */}
-        </div>}
+        {isInternalPage && (
+          <div className="flex items-center space-x-3">
+            {/* Placeholder for right-side content like notifications, user menu etc. */}
+          </div>
+        )}
       </div>
     </motion.nav>
   );

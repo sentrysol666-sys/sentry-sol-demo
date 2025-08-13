@@ -3,7 +3,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Email,
   Phone,
@@ -31,10 +37,12 @@ export default function Contact() {
     console.log("Form submitted:", formData);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -50,15 +58,18 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="outline" className="mb-6 border-sentry-mint/30 text-sentry-mint bg-sentry-mint/10">
+            <Badge
+              variant="outline"
+              className="mb-6 border-sentry-mint/30 text-sentry-mint bg-sentry-mint/10"
+            >
               Get in Touch
             </Badge>
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-sentry-mint to-sentry-ice bg-clip-text text-transparent font-poppins leading-tight">
               Contact Our Team
             </h1>
             <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto font-poppins">
-              Have questions about our platform? Need technical support? Want to discuss enterprise solutions? 
-              We're here to help you succeed.
+              Have questions about our platform? Need technical support? Want to
+              discuss enterprise solutions? We're here to help you succeed.
             </p>
           </motion.div>
         </div>
@@ -82,14 +93,18 @@ export default function Contact() {
                     <span>Send us a Message</span>
                   </CardTitle>
                   <CardDescription>
-                    Fill out the form below and we'll get back to you within 24 hours.
+                    Fill out the form below and we'll get back to you within 24
+                    hours.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Full Name *
                         </label>
                         <Input
@@ -103,7 +118,10 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Email Address *
                         </label>
                         <Input
@@ -117,10 +135,13 @@ export default function Contact() {
                         />
                       </div>
                     </div>
-                    
+
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="company" className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="company"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Company
                         </label>
                         <Input
@@ -133,7 +154,10 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="subject"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Subject *
                         </label>
                         <Input
@@ -147,9 +171,12 @@ export default function Contact() {
                         />
                       </div>
                     </div>
-                    
+
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium mb-2">
+                      <label
+                        htmlFor="message"
+                        className="block text-sm font-medium mb-2"
+                      >
                         Message *
                       </label>
                       <Textarea
@@ -163,9 +190,9 @@ export default function Contact() {
                         className="resize-none"
                       />
                     </div>
-                    
-                    <Button 
-                      type="submit" 
+
+                    <Button
+                      type="submit"
                       className="w-full bg-gradient-to-r from-brand-light to-brand-accent"
                       size="lg"
                     >
@@ -200,11 +227,15 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-medium">Email</h4>
-                      <p className="text-muted-foreground">contact@sentrysol.com</p>
-                      <p className="text-sm text-muted-foreground">support@sentrysol.com</p>
+                      <p className="text-muted-foreground">
+                        contact@sentrysol.com
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        support@sentrysol.com
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
                     <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-accent/10">
                       <Phone className="h-5 w-5 text-brand-accent" />
@@ -212,10 +243,12 @@ export default function Contact() {
                     <div>
                       <h4 className="font-medium">Phone</h4>
                       <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                      <p className="text-sm text-muted-foreground">Mon-Fri, 9 AM - 6 PM PST</p>
+                      <p className="text-sm text-muted-foreground">
+                        Mon-Fri, 9 AM - 6 PM PST
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
                     <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-success-green/10">
                       <MapPin className="h-5 w-5 text-success-green" />
@@ -223,8 +256,10 @@ export default function Contact() {
                     <div>
                       <h4 className="font-medium">Headquarters</h4>
                       <p className="text-muted-foreground">
-                        123 Financial District<br />
-                        San Francisco, CA 94105<br />
+                        123 Financial District
+                        <br />
+                        San Francisco, CA 94105
+                        <br />
                         United States
                       </p>
                     </div>
@@ -244,11 +279,15 @@ export default function Contact() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span>Monday - Friday</span>
-                      <span className="text-muted-foreground">9:00 AM - 6:00 PM PST</span>
+                      <span className="text-muted-foreground">
+                        9:00 AM - 6:00 PM PST
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Saturday</span>
-                      <span className="text-muted-foreground">10:00 AM - 2:00 PM PST</span>
+                      <span className="text-muted-foreground">
+                        10:00 AM - 2:00 PM PST
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Sunday</span>
@@ -257,7 +296,9 @@ export default function Contact() {
                     <div className="pt-3 border-t border-border/40">
                       <div className="flex items-center space-x-2 text-sm">
                         <Shield className="h-4 w-4 text-success-green" />
-                        <span className="text-success-green">24/7 Critical Support Available</span>
+                        <span className="text-success-green">
+                          24/7 Critical Support Available
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -274,8 +315,9 @@ export default function Contact() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    Looking for custom enterprise solutions or have specific compliance requirements? 
-                    Our enterprise team is ready to help.
+                    Looking for custom enterprise solutions or have specific
+                    compliance requirements? Our enterprise team is ready to
+                    help.
                   </p>
                   <Button variant="outline" className="w-full">
                     Schedule Enterprise Consultation
@@ -293,27 +335,32 @@ export default function Contact() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Common Questions</h2>
             <p className="text-muted-foreground">
-              Looking for quick answers? Check out our frequently asked questions.
+              Looking for quick answers? Check out our frequently asked
+              questions.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
                 question: "How does your AI detection work?",
-                answer: "Our platform uses advanced machine learning algorithms trained on millions of transaction patterns to identify suspicious activities in real-time.",
+                answer:
+                  "Our platform uses advanced machine learning algorithms trained on millions of transaction patterns to identify suspicious activities in real-time.",
               },
               {
                 question: "What compliance standards do you support?",
-                answer: "We support all major AML/KYC regulations including BSA, EU AML Directives, FATF recommendations, and more.",
+                answer:
+                  "We support all major AML/KYC regulations including BSA, EU AML Directives, FATF recommendations, and more.",
               },
               {
                 question: "How quickly can we get started?",
-                answer: "Most clients are up and running within 2-4 weeks, including data integration, staff training, and compliance validation.",
+                answer:
+                  "Most clients are up and running within 2-4 weeks, including data integration, staff training, and compliance validation.",
               },
               {
                 question: "Do you offer API integration?",
-                answer: "Yes, we provide comprehensive REST APIs and webhooks for seamless integration with your existing systems.",
+                answer:
+                  "Yes, we provide comprehensive REST APIs and webhooks for seamless integration with your existing systems.",
               },
             ].map((faq, index) => (
               <motion.div
@@ -326,13 +373,15 @@ export default function Contact() {
                 <Card>
                   <CardContent className="pt-6">
                     <h3 className="font-semibold mb-3">{faq.question}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{faq.answer}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
-          
+
           <div className="text-center mt-8">
             <Button variant="outline" size="lg">
               View All FAQs

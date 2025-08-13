@@ -2,14 +2,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useWalletIntegration } from "@/hooks/useWalletIntegration";
 import { useEthereumWallet } from "@/contexts/EthereumWalletContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { logWalletError, getUserFriendlyErrorMessage, shouldShowErrorToUser } from "@/utils/errorUtils";
+import {
+  logWalletError,
+  getUserFriendlyErrorMessage,
+  shouldShowErrorToUser,
+} from "@/utils/errorUtils";
 import {
   CheckCircle,
   Error as ErrorIcon,
@@ -37,9 +47,10 @@ export default function WalletSelector() {
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const [connectionProgress, setConnectionProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  
+
   const { isConnected: isAnyConnected } = useWalletIntegration();
-  const { connect: connectEthereum, isConnected: isEthereumConnected } = useEthereumWallet();
+  const { connect: connectEthereum, isConnected: isEthereumConnected } =
+    useEthereumWallet();
   const { connected: isSolanaConnected, connecting, wallet } = useWallet();
   const { setVisible: setWalletModalVisible } = useWalletModal();
 
@@ -79,7 +90,11 @@ export default function WalletSelector() {
           type: "solana",
           installed: typeof window !== "undefined" && !!window.solflare,
           downloadUrl: "https://solflare.com",
-          features: ["Advanced features", "Hardware wallet support", "Web3 ready"],
+          features: [
+            "Advanced features",
+            "Hardware wallet support",
+            "Web3 ready",
+          ],
         },
         {
           id: "backpack",
@@ -97,7 +112,7 @@ export default function WalletSelector() {
     };
 
     detectWallets();
-    
+
     // Re-detect when window loads
     if (typeof window !== "undefined") {
       window.addEventListener("load", detectWallets);
@@ -105,7 +120,10 @@ export default function WalletSelector() {
     }
   }, []);
 
-  const handleWalletConnect = async (walletId: string, type: "solana" | "ethereum") => {
+  const handleWalletConnect = async (
+    walletId: string,
+    type: "solana" | "ethereum",
+  ) => {
     setIsConnecting(true);
     setSelectedWallet(walletId);
     setConnectionProgress(0);
@@ -114,7 +132,7 @@ export default function WalletSelector() {
     try {
       // Simulate connection progress
       const progressInterval = setInterval(() => {
-        setConnectionProgress(prev => Math.min(prev + 20, 80));
+        setConnectionProgress((prev) => Math.min(prev + 20, 80));
       }, 200);
 
       if (type === "ethereum") {
@@ -125,25 +143,30 @@ export default function WalletSelector() {
 
       setConnectionProgress(100);
       clearInterval(progressInterval);
-      
+
       // Small delay to show completion
       setTimeout(() => {
-        const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+        const hasCompletedOnboarding = localStorage.getItem(
+          "hasCompletedOnboarding",
+        );
         if (hasCompletedOnboarding) {
           navigate("/dashboard");
         } else {
           navigate("/onboarding");
         }
       }, 500);
-
     } catch (error: any) {
       setConnectionProgress(0);
 
-      const walletError = logWalletError("WalletSelector.handleWalletConnect", error, {
-        walletId,
-        type,
-        userAgent: navigator.userAgent
-      });
+      const walletError = logWalletError(
+        "WalletSelector.handleWalletConnect",
+        error,
+        {
+          walletId,
+          type,
+          userAgent: navigator.userAgent,
+        },
+      );
 
       // Only show errors that should be visible to users
       if (shouldShowErrorToUser(walletError)) {
@@ -178,7 +201,8 @@ export default function WalletSelector() {
         <div>
           <h3 className="text-lg font-semibold">Wallet Connected</h3>
           <p className="text-muted-foreground">
-            {isSolanaConnected ? "Solana" : "Ethereum"} wallet is connected and ready
+            {isSolanaConnected ? "Solana" : "Ethereum"} wallet is connected and
+            ready
           </p>
         </div>
         <Button onClick={() => navigate("/dashboard")} className="w-full">
@@ -247,15 +271,21 @@ export default function WalletSelector() {
             whileHover={{ scale: 1.01, y: -2 }}
             whileTap={{ scale: 0.99 }}
           >
-            <Card className={`cursor-pointer transition-all duration-200 ${
-              walletOption.installed 
-                ? "hover:border-primary/50 hover:shadow-md" 
-                : "opacity-75"
-            } ${selectedWallet === walletOption.id && isConnecting ? "border-primary bg-primary/5" : ""}`}>
+            <Card
+              className={`cursor-pointer transition-all duration-200 ${
+                walletOption.installed
+                  ? "hover:border-primary/50 hover:shadow-md"
+                  : "opacity-75"
+              } ${selectedWallet === walletOption.id && isConnecting ? "border-primary bg-primary/5" : ""}`}
+            >
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <img src={walletOption.icon} alt={`${walletOption.name} icon`} className="w-8 h-8" />
+                    <img
+                      src={walletOption.icon}
+                      alt={`${walletOption.name} icon`}
+                      className="w-8 h-8"
+                    />
                     <div>
                       <CardTitle className="flex items-center space-x-2">
                         <span>{walletOption.name}</span>
@@ -265,23 +295,34 @@ export default function WalletSelector() {
                           </Badge>
                         )}
                         {walletOption.type === "solana" && (
-                          <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700">
+                          <Badge
+                            variant="outline"
+                            className="text-xs bg-purple-50 text-purple-700"
+                          >
                             Solana
                           </Badge>
                         )}
                         {walletOption.type === "ethereum" && (
-                          <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700">
+                          <Badge
+                            variant="outline"
+                            className="text-xs bg-blue-50 text-blue-700"
+                          >
                             Ethereum
                           </Badge>
                         )}
                       </CardTitle>
-                      <CardDescription>{walletOption.description}</CardDescription>
+                      <CardDescription>
+                        {walletOption.description}
+                      </CardDescription>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2">
                     {walletOption.installed ? (
-                      <Badge variant="outline" className="text-green-700 bg-green-50">
+                      <Badge
+                        variant="outline"
+                        className="text-green-700 bg-green-50"
+                      >
                         Installed
                       </Badge>
                     ) : (
@@ -300,23 +341,33 @@ export default function WalletSelector() {
                   </div>
                 </div>
               </CardHeader>
-              
+
               <CardContent className="pt-0">
                 <div className="space-y-3">
                   <div className="flex flex-wrap gap-1">
                     {walletOption.features.map((feature, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="text-xs"
+                      >
                         {feature}
                       </Badge>
                     ))}
                   </div>
-                  
+
                   {walletOption.installed ? (
                     <Button
-                      onClick={() => handleWalletConnect(walletOption.id, walletOption.type)}
+                      onClick={() =>
+                        handleWalletConnect(walletOption.id, walletOption.type)
+                      }
                       disabled={isConnecting}
                       className="w-full"
-                      variant={selectedWallet === walletOption.id ? "default" : "outline"}
+                      variant={
+                        selectedWallet === walletOption.id
+                          ? "default"
+                          : "outline"
+                      }
                     >
                       {selectedWallet === walletOption.id && isConnecting ? (
                         <div className="flex items-center space-x-2">
@@ -349,7 +400,11 @@ export default function WalletSelector() {
       <div className="text-center space-y-2 pt-4 border-t">
         <p className="text-sm text-muted-foreground">
           New to crypto wallets?{" "}
-          <Button variant="link" className="p-0 h-auto text-sm" onClick={() => navigate("/help")}>
+          <Button
+            variant="link"
+            className="p-0 h-auto text-sm"
+            onClick={() => navigate("/help")}
+          >
             Learn how to get started
           </Button>
         </p>

@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Security as Shield,
   TrendingUp,
@@ -26,16 +32,19 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="outline" className="mb-6 border-sentry-mint/30 text-sentry-mint bg-sentry-mint/10">
+            <Badge
+              variant="outline"
+              className="mb-6 border-sentry-mint/30 text-sentry-mint bg-sentry-mint/10"
+            >
               About Sentrysol
             </Badge>
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-sentry-mint to-sentry-ice bg-clip-text text-transparent font-poppins leading-tight">
               Pioneering the Future of Financial Intelligence
             </h1>
             <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto font-poppins">
-              We're building the world's most advanced AI-powered AML compliance platform, 
-              empowering financial institutions to stay ahead of evolving threats while 
-              maintaining seamless operations.
+              We're building the world's most advanced AI-powered AML compliance
+              platform, empowering financial institutions to stay ahead of
+              evolving threats while maintaining seamless operations.
             </p>
           </motion.div>
         </div>
@@ -62,9 +71,11 @@ export default function About() {
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-base leading-relaxed">
-                    To democratize access to sophisticated financial crime detection tools, 
-                    making advanced AML compliance affordable and accessible to institutions 
-                    of all sizes while maintaining the highest standards of accuracy and efficiency.
+                    To democratize access to sophisticated financial crime
+                    detection tools, making advanced AML compliance affordable
+                    and accessible to institutions of all sizes while
+                    maintaining the highest standards of accuracy and
+                    efficiency.
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -87,9 +98,10 @@ export default function About() {
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-base leading-relaxed">
-                    A world where financial crime is effectively prevented through intelligent, 
-                    real-time detection systems that protect global economic stability while 
-                    preserving privacy and enabling innovation in financial services.
+                    A world where financial crime is effectively prevented
+                    through intelligent, real-time detection systems that
+                    protect global economic stability while preserving privacy
+                    and enabling innovation in financial services.
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -102,16 +114,28 @@ export default function About() {
       <section className="py-16 px-4 bg-muted/20">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Trusted by Institutions Worldwide</h2>
-            <p className="text-muted-foreground">Our platform processes billions in transactions daily</p>
+            <h2 className="text-3xl font-bold mb-4">
+              Trusted by Institutions Worldwide
+            </h2>
+            <p className="text-muted-foreground">
+              Our platform processes billions in transactions daily
+            </p>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: "99.7%", label: "Detection Accuracy", icon: Verified },
-              { value: "50ms", label: "Average Response Time", icon: TrendingUp },
+              {
+                value: "50ms",
+                label: "Average Response Time",
+                icon: TrendingUp,
+              },
               { value: "150+", label: "Global Institutions", icon: Building },
-              { value: "$2.5B", label: "Daily Transaction Volume", icon: Timeline },
+              {
+                value: "$2.5B",
+                label: "Daily Transaction Volume",
+                icon: Timeline,
+              },
             ].map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -128,8 +152,12 @@ export default function About() {
                       <Icon className="h-6 w-6 text-brand-light" />
                     </div>
                   </div>
-                  <div className="text-3xl font-bold text-foreground mb-1">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <div className="text-3xl font-bold text-foreground mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {stat.label}
+                  </div>
                 </motion.div>
               );
             })}
@@ -142,28 +170,34 @@ export default function About() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Led by Industry Experts</h2>
-            <p className="text-muted-foreground">Our team combines decades of experience in fintech, compliance, and AI</p>
+            <p className="text-muted-foreground">
+              Our team combines decades of experience in fintech, compliance,
+              and AI
+            </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 name: "Dr. Sarah Chen",
                 role: "CEO & Co-Founder",
-                background: "Former VP of Risk at Goldman Sachs, PhD in Machine Learning from MIT",
-                image: "/placeholder-avatar.png"
+                background:
+                  "Former VP of Risk at Goldman Sachs, PhD in Machine Learning from MIT",
+                image: "/placeholder-avatar.png",
               },
               {
                 name: "Michael Rodriguez",
-                role: "CTO & Co-Founder", 
-                background: "Ex-Netflix Senior Engineering Manager, Expert in large-scale systems",
-                image: "/placeholder-avatar.png"
+                role: "CTO & Co-Founder",
+                background:
+                  "Ex-Netflix Senior Engineering Manager, Expert in large-scale systems",
+                image: "/placeholder-avatar.png",
               },
               {
                 name: "Dr. James Wilson",
                 role: "Head of Compliance",
-                background: "20+ years in regulatory compliance, Former FINTRAC Director",
-                image: "/placeholder-avatar.png"
+                background:
+                  "20+ years in regulatory compliance, Former FINTRAC Director",
+                image: "/placeholder-avatar.png",
               },
             ].map((member, index) => (
               <motion.div
@@ -178,9 +212,15 @@ export default function About() {
                     <div className="w-20 h-20 bg-gradient-to-r from-brand-light/20 to-brand-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center">
                       <Team className="h-8 w-8 text-brand-light" />
                     </div>
-                    <h3 className="font-semibold text-lg mb-1">{member.name}</h3>
-                    <p className="text-brand-light text-sm mb-3">{member.role}</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{member.background}</p>
+                    <h3 className="font-semibold text-lg mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-brand-light text-sm mb-3">
+                      {member.role}
+                    </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {member.background}
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -194,39 +234,47 @@ export default function About() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Core Values</h2>
-            <p className="text-muted-foreground">The principles that guide everything we do</p>
+            <p className="text-muted-foreground">
+              The principles that guide everything we do
+            </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 title: "Security First",
-                description: "We prioritize the highest levels of security and data protection in everything we build.",
+                description:
+                  "We prioritize the highest levels of security and data protection in everything we build.",
                 icon: Shield,
               },
               {
                 title: "Innovation",
-                description: "Continuously pushing the boundaries of what's possible in financial crime detection.",
+                description:
+                  "Continuously pushing the boundaries of what's possible in financial crime detection.",
                 icon: TrendingUp,
               },
               {
                 title: "Transparency",
-                description: "Open communication and clear methodologies build trust with our clients and partners.",
+                description:
+                  "Open communication and clear methodologies build trust with our clients and partners.",
                 icon: Verified,
               },
               {
                 title: "Excellence",
-                description: "We strive for perfection in our technology, service, and client relationships.",
+                description:
+                  "We strive for perfection in our technology, service, and client relationships.",
                 icon: Award,
               },
               {
                 title: "Compliance",
-                description: "Maintaining the highest standards of regulatory compliance across all jurisdictions.",
+                description:
+                  "Maintaining the highest standards of regulatory compliance across all jurisdictions.",
                 icon: Building,
               },
               {
                 title: "Collaboration",
-                description: "Working together with clients and partners to achieve shared success.",
+                description:
+                  "Working together with clients and partners to achieve shared success.",
                 icon: Team,
               },
             ].map((value, index) => {
@@ -247,7 +295,9 @@ export default function About() {
                         </div>
                         <h3 className="font-semibold">{value.title}</h3>
                       </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {value.description}
+                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -266,13 +316,18 @@ export default function About() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-4">Ready to Join Our Mission?</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              Ready to Join Our Mission?
+            </h2>
             <p className="text-muted-foreground mb-8">
-              Whether you're interested in our platform, career opportunities, or partnerships, 
-              we'd love to hear from you.
+              Whether you're interested in our platform, career opportunities,
+              or partnerships, we'd love to hear from you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-to-r from-brand-light to-brand-accent">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-brand-light to-brand-accent"
+              >
                 Get Started Today
               </Button>
               <Button variant="outline" size="lg">

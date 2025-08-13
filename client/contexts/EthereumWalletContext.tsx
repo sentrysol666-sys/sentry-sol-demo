@@ -44,14 +44,14 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
         try {
           // Add timeout to prevent hanging requests
           const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Connection timeout")), 5000)
+            setTimeout(() => reject(new Error("Connection timeout")), 5000),
           );
 
           const provider = new BrowserProvider(window.ethereum);
-          const accounts = await Promise.race([
+          const accounts = (await Promise.race([
             provider.listAccounts(),
-            timeoutPromise
-          ]) as any;
+            timeoutPromise,
+          ])) as any;
           if (accounts.length > 0) {
             const signer = await provider.getSigner();
             const network = await provider.getNetwork();
@@ -65,13 +65,20 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
             setIsConnected(true);
           }
         } catch (error: any) {
-          const walletError = logWalletError("EthereumWallet.checkConnection", error, {
-            hasEthereum: typeof window.ethereum !== "undefined",
-            isMetaMask: window.ethereum?.isMetaMask
-          });
+          const walletError = logWalletError(
+            "EthereumWallet.checkConnection",
+            error,
+            {
+              hasEthereum: typeof window.ethereum !== "undefined",
+              isMetaMask: window.ethereum?.isMetaMask,
+            },
+          );
 
           // Silently handle network errors and user rejections to avoid console spam
-          if (walletError.type === 'network_error' || walletError.type === 'user_rejection') {
+          if (
+            walletError.type === "network_error" ||
+            walletError.type === "user_rejection"
+          ) {
             return;
           }
         }
@@ -115,20 +122,22 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
       try {
         // Add timeout to prevent hanging requests
         const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Balance fetch timeout")), 3000)
+          setTimeout(() => reject(new Error("Balance fetch timeout")), 3000),
         );
 
-        const balance = await Promise.race([
+        const balance = (await Promise.race([
           provider.getBalance(address),
-          timeoutPromise
-        ]) as any;
+          timeoutPromise,
+        ])) as any;
 
         setBalance(ethers.formatEther(balance));
       } catch (error) {
         // Silently handle network errors for balance updates
-        if (error instanceof Error &&
-            (error.message.includes("Failed to fetch") ||
-             error.message.includes("timeout"))) {
+        if (
+          error instanceof Error &&
+          (error.message.includes("Failed to fetch") ||
+            error.message.includes("timeout"))
+        ) {
           return; // Don't spam console with network errors
         }
         console.error("Error updating balance:", error);
@@ -157,17 +166,22 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
       } catch (error: any) {
         const walletError = logWalletError("EthereumWallet.connect", error, {
           wallet: "MetaMask",
-          method: "eth_requestAccounts"
+          method: "eth_requestAccounts",
         });
 
         // Don't throw for user rejections or network issues that should be silent
-        if (walletError.type === 'user_rejection') {
+        if (walletError.type === "user_rejection") {
           console.log("User rejected wallet connection");
           return;
         }
 
-        if (walletError.type === 'network_error' && walletError.message.includes("Failed to fetch")) {
-          console.warn("Network connectivity issue detected, will retry automatically");
+        if (
+          walletError.type === "network_error" &&
+          walletError.message.includes("Failed to fetch")
+        ) {
+          console.warn(
+            "Network connectivity issue detected, will retry automatically",
+          );
           return;
         }
 

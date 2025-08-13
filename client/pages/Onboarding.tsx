@@ -78,12 +78,12 @@ export default function Onboarding() {
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
-      setCompletedSteps(prev => new Set([...prev, currentStep]));
+      setCompletedSteps((prev) => new Set([...prev, currentStep]));
       setCurrentStep(currentStep + 1);
     } else {
       // Complete onboarding and redirect to dashboard
-      localStorage.setItem('hasCompletedOnboarding', 'true');
-      navigate('/dashboard');
+      localStorage.setItem("hasCompletedOnboarding", "true");
+      navigate("/dashboard");
     }
   };
 
@@ -94,8 +94,8 @@ export default function Onboarding() {
   };
 
   const handleSkip = () => {
-    localStorage.setItem('hasCompletedOnboarding', 'true');
-    navigate('/dashboard');
+    localStorage.setItem("hasCompletedOnboarding", "true");
+    navigate("/dashboard");
   };
 
   const features = [
@@ -136,26 +136,37 @@ export default function Onboarding() {
                 <CheckCircle className="w-5 h-5 text-white" />
               </div>
             </div>
-            
+
             <div>
               <h2 className="text-3xl font-bold text-white mb-4 font-poppins">
                 Welcome to SentrySol
               </h2>
               <p className="text-white/80 text-lg max-w-2xl mx-auto font-poppins">
-                You've successfully connected your {activeWallet === 'solana' ? 'Solana' : 'Ethereum'} wallet. 
-                Let's set up your security dashboard to protect your digital assets.
+                You've successfully connected your{" "}
+                {activeWallet === "solana" ? "Solana" : "Ethereum"} wallet.
+                Let's set up your security dashboard to protect your digital
+                assets.
               </p>
             </div>
-            
-            {connectedWallets[activeWallet as keyof typeof connectedWallets] && (
+
+            {connectedWallets[
+              activeWallet as keyof typeof connectedWallets
+            ] && (
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-md mx-auto">
                 <div className="flex items-center space-x-3">
                   <Wallet className="w-6 h-6 text-sentry-mint" />
                   <div className="text-left">
-                    <p className="text-sm text-white/60 font-poppins">Connected Wallet</p>
+                    <p className="text-sm text-white/60 font-poppins">
+                      Connected Wallet
+                    </p>
                     <p className="text-white font-mono text-sm">
-                      {connectedWallets[activeWallet as keyof typeof connectedWallets]?.address.slice(0, 6)}...
-                      {connectedWallets[activeWallet as keyof typeof connectedWallets]?.address.slice(-4)}
+                      {connectedWallets[
+                        activeWallet as keyof typeof connectedWallets
+                      ]?.address.slice(0, 6)}
+                      ...
+                      {connectedWallets[
+                        activeWallet as keyof typeof connectedWallets
+                      ]?.address.slice(-4)}
                     </p>
                   </div>
                 </div>
@@ -182,31 +193,42 @@ export default function Onboarding() {
                 Help us personalize your security experience
               </p>
             </div>
-            
+
             <div className="space-y-4">
               <Input
                 placeholder="Your Name"
                 value={userProfile.name}
-                onChange={(e) => setUserProfile(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e) =>
+                  setUserProfile((prev) => ({ ...prev, name: e.target.value }))
+                }
                 className="bg-white/5 border-white/20 text-white placeholder:text-white/50 font-poppins"
               />
               <Input
                 placeholder="Email Address"
                 type="email"
                 value={userProfile.email}
-                onChange={(e) => setUserProfile(prev => ({ ...prev, email: e.target.value }))}
+                onChange={(e) =>
+                  setUserProfile((prev) => ({ ...prev, email: e.target.value }))
+                }
                 className="bg-white/5 border-white/20 text-white placeholder:text-white/50 font-poppins"
               />
               <Input
                 placeholder="Organization (Optional)"
                 value={userProfile.organization}
-                onChange={(e) => setUserProfile(prev => ({ ...prev, organization: e.target.value }))}
+                onChange={(e) =>
+                  setUserProfile((prev) => ({
+                    ...prev,
+                    organization: e.target.value,
+                  }))
+                }
                 className="bg-white/5 border-white/20 text-white placeholder:text-white/50 font-poppins"
               />
               <Input
                 placeholder="Role (Optional)"
                 value={userProfile.role}
-                onChange={(e) => setUserProfile(prev => ({ ...prev, role: e.target.value }))}
+                onChange={(e) =>
+                  setUserProfile((prev) => ({ ...prev, role: e.target.value }))
+                }
                 className="bg-white/5 border-white/20 text-white placeholder:text-white/50 font-poppins"
               />
             </div>
@@ -231,15 +253,19 @@ export default function Onboarding() {
                 Configure how you want to be alerted about security events
               </p>
             </div>
-            
+
             <div className="space-y-4">
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <Bell className="w-5 h-5 text-sentry-mint" />
                     <div>
-                      <p className="text-white font-medium font-poppins">Real-time Alerts</p>
-                      <p className="text-white/60 text-sm font-poppins">Get notified of suspicious activity</p>
+                      <p className="text-white font-medium font-poppins">
+                        Real-time Alerts
+                      </p>
+                      <p className="text-white/60 text-sm font-poppins">
+                        Get notified of suspicious activity
+                      </p>
                     </div>
                   </div>
                   <div className="w-12 h-6 bg-sentry-mint rounded-full relative">
@@ -247,14 +273,18 @@ export default function Onboarding() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <Shield className="w-5 h-5 text-sentry-mint" />
                     <div>
-                      <p className="text-white font-medium font-poppins">Auto-screening</p>
-                      <p className="text-white/60 text-sm font-poppins">Automatically screen new transactions</p>
+                      <p className="text-white font-medium font-poppins">
+                        Auto-screening
+                      </p>
+                      <p className="text-white/60 text-sm font-poppins">
+                        Automatically screen new transactions
+                      </p>
                     </div>
                   </div>
                   <div className="w-12 h-6 bg-sentry-mint rounded-full relative">
@@ -262,14 +292,18 @@ export default function Onboarding() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <Gear className="w-5 h-5 text-white/60" />
                     <div>
-                      <p className="text-white font-medium font-poppins">Weekly Reports</p>
-                      <p className="text-white/60 text-sm font-poppins">Receive security summary reports</p>
+                      <p className="text-white font-medium font-poppins">
+                        Weekly Reports
+                      </p>
+                      <p className="text-white/60 text-sm font-poppins">
+                        Receive security summary reports
+                      </p>
                     </div>
                   </div>
                   <div className="w-12 h-6 bg-white/20 rounded-full relative">
@@ -299,7 +333,7 @@ export default function Onboarding() {
                 Discover how SentrySol protects your digital assets
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {features.map((feature, index) => (
                 <motion.div
@@ -309,7 +343,9 @@ export default function Onboarding() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center"
                 >
-                  <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mx-auto mb-4`}>
+                  <div
+                    className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mx-auto mb-4`}
+                  >
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-white font-semibold mb-2 font-poppins">
@@ -342,7 +378,7 @@ export default function Onboarding() {
             />
             <span className="text-xl font-bold font-poppins">SENTRYSOL</span>
           </div>
-          
+
           <Button
             variant="ghost"
             onClick={handleSkip}
@@ -397,9 +433,7 @@ export default function Onboarding() {
               <div
                 key={index}
                 className={`w-3 h-3 rounded-full transition-colors ${
-                  index <= currentStep
-                    ? "bg-sentry-mint"
-                    : "bg-white/20"
+                  index <= currentStep ? "bg-sentry-mint" : "bg-white/20"
                 }`}
               />
             ))}

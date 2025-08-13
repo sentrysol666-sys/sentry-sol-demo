@@ -17,7 +17,11 @@ import {
 export default function WalletDebugger() {
   const [debugInfo, setDebugInfo] = useState<any>(null);
   const { isConnected } = useWalletIntegration();
-  const { isConnected: isEthereumConnected, account: ethAccount, chainId } = useEthereumWallet();
+  const {
+    isConnected: isEthereumConnected,
+    account: ethAccount,
+    chainId,
+  } = useEthereumWallet();
   const { connected: isSolanaConnected, publicKey, wallet } = useWallet();
 
   const checkWalletStatus = () => {
@@ -49,11 +53,11 @@ export default function WalletDebugger() {
         walletName: wallet?.adapter?.name,
       },
       localStorage: {
-        hasCompletedOnboarding: localStorage.getItem('hasCompletedOnboarding'),
-        walletName: localStorage.getItem('walletName'),
-      }
+        hasCompletedOnboarding: localStorage.getItem("hasCompletedOnboarding"),
+        walletName: localStorage.getItem("walletName"),
+      },
     };
-    
+
     setDebugInfo(info);
     console.log("Wallet Debug Info:", info);
   };
@@ -62,14 +66,16 @@ export default function WalletDebugger() {
     try {
       // Clear MetaMask pending requests
       if (window.ethereum) {
-        await window.ethereum.request({
-          method: "wallet_requestPermissions",
-          params: [{ eth_accounts: {} }]
-        }).catch(() => {
-          // Ignore errors, this is just to clear pending state
-        });
+        await window.ethereum
+          .request({
+            method: "wallet_requestPermissions",
+            params: [{ eth_accounts: {} }],
+          })
+          .catch(() => {
+            // Ignore errors, this is just to clear pending state
+          });
       }
-      
+
       // Reload the page to clear any stuck states
       window.location.reload();
     } catch (error) {
@@ -124,7 +130,7 @@ export default function WalletDebugger() {
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <h4 className="font-medium">Connection Status</h4>
             <div className="space-y-1 text-sm">
@@ -160,9 +166,14 @@ export default function WalletDebugger() {
             Common Issues
           </h4>
           <ul className="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
-            <li>• If connection is pending, try clicking "Clear Pending" and refresh</li>
+            <li>
+              • If connection is pending, try clicking "Clear Pending" and
+              refresh
+            </li>
             <li>• Make sure your wallet is unlocked</li>
-            <li>• Check if you have multiple wallets installed causing conflicts</li>
+            <li>
+              • Check if you have multiple wallets installed causing conflicts
+            </li>
             <li>• Try connecting from the wallet extension directly</li>
             <li>• Disable other wallet extensions temporarily</li>
           </ul>

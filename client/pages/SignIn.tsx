@@ -75,7 +75,9 @@ export default function SignIn() {
 
   useEffect(() => {
     if (isConnected) {
-      const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+      const hasCompletedOnboarding = localStorage.getItem(
+        "hasCompletedOnboarding",
+      );
       if (hasCompletedOnboarding) {
         navigate("/dashboard");
       } else {
@@ -128,7 +130,7 @@ export default function SignIn() {
                 Sentrysol
               </h1>
             </motion.div>
-            
+
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
               Connect Your Wallet
             </h2>
@@ -138,7 +140,10 @@ export default function SignIn() {
           </motion.div>
 
           {/* Enhanced Wallet Selector */}
-          <motion.div variants={itemVariants} className="max-w-2xl mx-auto mb-8">
+          <motion.div
+            variants={itemVariants}
+            className="max-w-2xl mx-auto mb-8"
+          >
             <WalletSelector />
           </motion.div>
 
@@ -153,27 +158,33 @@ export default function SignIn() {
                     </div>
                     <div>
                       <h4 className="font-medium">Secure Authentication</h4>
-                      <p className="text-sm text-muted-foreground">Non-custodial wallet connection</p>
+                      <p className="text-sm text-muted-foreground">
+                        Non-custodial wallet connection
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                       <Zap className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-medium">Instant Access</h4>
-                      <p className="text-sm text-muted-foreground">Quick connection process</p>
+                      <p className="text-sm text-muted-foreground">
+                        Quick connection process
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-brand-light/10 rounded-lg flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-brand-light" />
                     </div>
                     <div>
                       <h4 className="font-medium">Multi-Chain Support</h4>
-                      <p className="text-sm text-muted-foreground">Solana & Ethereum networks</p>
+                      <p className="text-sm text-muted-foreground">
+                        Solana & Ethereum networks
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -189,12 +200,18 @@ export default function SignIn() {
                 Learn how to get started
               </Link>
             </p>
-            
+
             <div className="flex items-center justify-center space-x-6 text-xs text-muted-foreground">
-              <Link to="/privacy" className="hover:text-foreground transition-colors">
+              <Link
+                to="/privacy"
+                className="hover:text-foreground transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="hover:text-foreground transition-colors">
+              <Link
+                to="/terms"
+                className="hover:text-foreground transition-colors"
+              >
                 Terms of Service
               </Link>
               <Link to="/" className="hover:text-foreground transition-colors">

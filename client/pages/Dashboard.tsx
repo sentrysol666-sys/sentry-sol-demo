@@ -432,7 +432,6 @@ export default function Dashboard() {
                     Screen Address
                   </Button>
 
-
                   <div className="grid grid-cols-2 gap-2 mt-4">
                     <Button variant="outline" size="sm">
                       <FileText className="mr-1 h-3 w-3" />

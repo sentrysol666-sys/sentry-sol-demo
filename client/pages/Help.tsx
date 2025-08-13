@@ -88,19 +88,22 @@ export default function Help() {
       title: "Choose Your Wallet",
       description: "Select a wallet that supports your preferred blockchain",
       icon: Wallet,
-      details: "Consider factors like ease of use, supported chains, and security features.",
+      details:
+        "Consider factors like ease of use, supported chains, and security features.",
     },
     {
       title: "Download & Install",
       description: "Install the wallet extension or mobile app",
       icon: Download,
-      details: "Always download from official sources to avoid malicious software.",
+      details:
+        "Always download from official sources to avoid malicious software.",
     },
     {
       title: "Create Account",
       description: "Set up your new wallet with a secure password",
       icon: Shield,
-      details: "Choose a strong password and write down your seed phrase safely.",
+      details:
+        "Choose a strong password and write down your seed phrase safely.",
     },
     {
       title: "Connect to Sentrysol",
@@ -113,23 +116,28 @@ export default function Help() {
   const faqs = [
     {
       question: "What is a crypto wallet?",
-      answer: "A crypto wallet is a digital tool that allows you to store, send, and receive cryptocurrencies. It doesn't actually store the crypto itself, but rather the private keys that give you access to your funds on the blockchain.",
+      answer:
+        "A crypto wallet is a digital tool that allows you to store, send, and receive cryptocurrencies. It doesn't actually store the crypto itself, but rather the private keys that give you access to your funds on the blockchain.",
     },
     {
       question: "Is it safe to connect my wallet?",
-      answer: "Yes, connecting your wallet to Sentrysol is safe. We use non-custodial connections, meaning we never have access to your private keys or funds. You maintain full control of your assets.",
+      answer:
+        "Yes, connecting your wallet to Sentrysol is safe. We use non-custodial connections, meaning we never have access to your private keys or funds. You maintain full control of your assets.",
     },
     {
       question: "Which blockchain should I choose?",
-      answer: "For AML compliance, we support both Solana and Ethereum networks. Solana offers faster transactions and lower fees, while Ethereum has the largest DeFi ecosystem. Choose based on your needs.",
+      answer:
+        "For AML compliance, we support both Solana and Ethereum networks. Solana offers faster transactions and lower fees, while Ethereum has the largest DeFi ecosystem. Choose based on your needs.",
     },
     {
       question: "Do I need to pay to use a wallet?",
-      answer: "Most wallets are free to download and use. However, you'll need to pay network fees (gas fees) when making transactions on the blockchain.",
+      answer:
+        "Most wallets are free to download and use. However, you'll need to pay network fees (gas fees) when making transactions on the blockchain.",
     },
     {
       question: "What if I lose access to my wallet?",
-      answer: "That's why the seed phrase is crucial. As long as you have your seed phrase safely stored, you can recover your wallet on any device. Never share your seed phrase with anyone.",
+      answer:
+        "That's why the seed phrase is crucial. As long as you have your seed phrase safely stored, you can recover your wallet on any device. Never share your seed phrase with anyone.",
     },
   ];
 
@@ -150,8 +158,8 @@ export default function Help() {
               Set Up Your Crypto Wallet
             </h1>
             <p className="text-lg text-white/80 max-w-2xl mx-auto font-poppins">
-              New to crypto wallets? No problem! Follow our step-by-step guide to 
-              get started with secure wallet setup and connection.
+              New to crypto wallets? No problem! Follow our step-by-step guide
+              to get started with secure wallet setup and connection.
             </p>
           </motion.div>
 
@@ -208,10 +216,10 @@ export default function Help() {
                     <CardHeader>
                       <div className="flex items-center justify-between mb-4">
                         <div className="text-4xl">{wallet.icon}</div>
-                        <Badge 
-                          variant="outline" 
+                        <Badge
+                          variant="outline"
                           className={
-                            wallet.difficulty === "Beginner Friendly" 
+                            wallet.difficulty === "Beginner Friendly"
                               ? "border-green-500 text-green-500"
                               : "border-yellow-500 text-yellow-500"
                           }
@@ -238,21 +246,25 @@ export default function Help() {
                             ))}
                           </ul>
                         </div>
-                        
+
                         <div>
                           <h4 className="font-medium mb-2">Available on:</h4>
                           <div className="flex flex-wrap gap-1">
                             {wallet.platforms.map((platform, i) => (
-                              <Badge key={i} variant="secondary" className="text-xs">
+                              <Badge
+                                key={i}
+                                variant="secondary"
+                                className="text-xs"
+                              >
                                 {platform}
                               </Badge>
                             ))}
                           </div>
                         </div>
 
-                        <a 
-                          href={wallet.downloadUrl} 
-                          target="_blank" 
+                        <a
+                          href={wallet.downloadUrl}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="block"
                         >
@@ -310,7 +322,9 @@ export default function Help() {
                   </div>
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>Write down your seed phrase and store it safely offline</span>
+                    <span>
+                      Write down your seed phrase and store it safely offline
+                    </span>
                   </div>
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -318,7 +332,9 @@ export default function Help() {
                   </div>
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>Use strong passwords and enable 2FA when available</span>
+                    <span>
+                      Use strong passwords and enable 2FA when available
+                    </span>
                   </div>
                 </div>
               </CardContent>
@@ -333,7 +349,8 @@ export default function Help() {
                 Troubleshooting
               </h2>
               <p className="text-white/80 font-poppins">
-                Having issues connecting your wallet? Use our debug tool to identify problems.
+                Having issues connecting your wallet? Use our debug tool to
+                identify problems.
               </p>
             </div>
             <div className="flex justify-center">
@@ -345,10 +362,12 @@ export default function Help() {
           <motion.div variants={itemVariants} className="text-center">
             <Card className="max-w-2xl mx-auto">
               <CardContent className="p-8">
-                <h3 className="text-xl font-bold mb-4">Ready to Get Started?</h3>
+                <h3 className="text-xl font-bold mb-4">
+                  Ready to Get Started?
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Once you've set up your wallet, return to connect it and access
-                  our powerful AML compliance tools.
+                  Once you've set up your wallet, return to connect it and
+                  access our powerful AML compliance tools.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/signin">
@@ -356,7 +375,10 @@ export default function Help() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Button size="lg" className="bg-gradient-to-r from-primary to-brand-light">
+                      <Button
+                        size="lg"
+                        className="bg-gradient-to-r from-primary to-brand-light"
+                      >
                         <Wallet className="mr-2 h-4 w-4" />
                         Connect Wallet
                         <ArrowForward className="ml-2 h-4 w-4" />

@@ -10,7 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ContentCopy as Copy, OpenInNew as ExternalLink, ErrorOutline as AlertCircle } from "@mui/icons-material";
+import {
+  ContentCopy as Copy,
+  OpenInNew as ExternalLink,
+  ErrorOutline as AlertCircle,
+} from "@mui/icons-material";
 import { useToast } from "@/hooks/use-toast";
 import { CHAIN_CONFIGS } from "@/types/wallet";
 
@@ -43,7 +47,7 @@ export const EthereumWalletConnector: React.FC = () => {
     } catch (error: any) {
       let errorMessage = "Failed to connect wallet";
 
-      if (error && typeof error === 'object') {
+      if (error && typeof error === "object") {
         if (error.code === 4001) {
           errorMessage = "Connection cancelled by user";
         } else if (error.code === -32002) {
@@ -53,7 +57,7 @@ export const EthereumWalletConnector: React.FC = () => {
         } else if (error.reason) {
           errorMessage = error.reason;
         }
-      } else if (typeof error === 'string') {
+      } else if (typeof error === "string") {
         errorMessage = error;
       }
 
