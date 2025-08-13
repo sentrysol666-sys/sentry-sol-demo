@@ -45,6 +45,7 @@ export default function Navigation() {
 
   const navigationItems = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
+    { name: "AML Investigation", href: "/aml-dashboard", icon: Shield },
     { name: "Wallet Screening", href: "/wallet-screening", icon: Search },
     { name: "Case Management", href: "/cases", icon: FileText },
     { name: "Analytics", href: "/analytics", icon: BarChart3 },
