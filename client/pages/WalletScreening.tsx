@@ -432,6 +432,158 @@ export default function WalletScreening() {
                 </Card>
               </TabsContent>
 
+              <TabsContent value="tracing" className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Blockchain Tracing Results</CardTitle>
+                    <CardDescription>
+                      Detailed transaction flow analysis and pattern detection
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {tracingData ? (
+                      <div className="space-y-6">
+                        {/* Flow Patterns */}
+                        <div>
+                          <h4 className="font-medium mb-3">Flow Patterns Detected</h4>
+                          {tracingData.flowPatterns && tracingData.flowPatterns.length > 0 ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              {tracingData.flowPatterns.map((pattern: any, index: number) => (
+                                <div key={index} className="p-3 border rounded-lg">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <Badge variant="outline">{pattern.type}</Badge>
+                                    <span className="text-sm text-muted-foreground">
+                                      {Math.round(pattern.confidence * 100)}% confidence
+                                    </span>
+                                  </div>
+                                  <p className="text-sm">{pattern.description}</p>
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    Amount: ${pattern.amount?.toLocaleString()}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-muted-foreground">No suspicious patterns detected</p>
+                          )}
+                        </div>
+
+                        {/* Risk Indicators */}
+                        <div>
+                          <h4 className="font-medium mb-3">Risk Indicators</h4>
+                          {tracingData.riskIndicators && tracingData.riskIndicators.length > 0 ? (
+                            <div className="space-y-2">
+                              {tracingData.riskIndicators.map((indicator: any, index: number) => (
+                                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                                  <div className="flex items-center space-x-2">
+                                    {getSeverityIcon(indicator.severity)}
+                                    <span>{indicator.description}</span>
+                                  </div>
+                                  <Badge variant="outline">{indicator.type}</Badge>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-muted-foreground">No risk indicators found</p>
+                          )}
+                        </div>
+
+                        {/* Temporal Analysis */}
+                        {tracingData.temporalAnalysis && (
+                          <div>
+                            <h4 className="font-medium mb-3">Temporal Analysis</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div className="p-3 bg-muted rounded-lg text-center">
+                                <div className="text-lg font-bold text-brand-light">
+                                  {tracingData.temporalAnalysis.velocityMetrics?.avgTxPerDay?.toFixed(1) || 'N/A'}
+                                </div>
+                                <div className="text-sm text-muted-foreground">Avg Tx/Day</div>
+                              </div>
+                              <div className="p-3 bg-muted rounded-lg text-center">
+                                <div className="text-lg font-bold text-warning-amber">
+                                  {tracingData.temporalAnalysis.velocityMetrics?.maxTxPerDay || 'N/A'}
+                                </div>
+                                <div className="text-sm text-muted-foreground">Max Tx/Day</div>
+                              </div>
+                              <div className="p-3 bg-muted rounded-lg text-center">
+                                <div className="text-lg font-bold text-success-green">
+                                  {tracingData.temporalAnalysis.velocityMetrics?.velocityScore?.toFixed(0) || 'N/A'}
+                                </div>
+                                <div className="text-sm text-muted-foreground">Velocity Score</div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="text-center py-8">
+                        <Network className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                        <h3 className="text-lg font-medium">No Tracing Data</h3>
+                        <p className="text-muted-foreground mb-4">
+                          Run blockchain tracing to see detailed transaction analysis
+                        </p>
+                        <Button
+                          onClick={handleBlockchainTracing}
+                          disabled={!isValidAddress || isTracingLoading}
+                          className="bg-brand-light hover:bg-brand-light/90"
+                        >
+                          {isTracingLoading ? (
+                            <>
+                              <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                              Tracing...
+                            </>
+                          ) : (
+                            <>
+                              <Network className="mr-2 h-4 w-4" />
+                              Start Tracing
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="visualization" className="space-y-4">
+                {visualizationData ? (
+                  <FlowVisualization data={visualizationData} width={800} height={600} />
+                ) : (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Fund Flow Visualization</CardTitle>
+                      <CardDescription>Interactive network graph of transaction flows</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-center py-8">
+                        <BarChart3 className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                        <h3 className="text-lg font-medium">No Visualization Data</h3>
+                        <p className="text-muted-foreground mb-4">
+                          Generate flow visualization to see interactive network graph
+                        </p>
+                        <Button
+                          onClick={handleGenerateVisualization}
+                          disabled={!isValidAddress || isVisualizationLoading}
+                          className="bg-success-green hover:bg-success-green/90"
+                        >
+                          {isVisualizationLoading ? (
+                            <>
+                              <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                              Generating...
+                            </>
+                          ) : (
+                            <>
+                              <BarChart3 className="mr-2 h-4 w-4" />
+                              Generate Visualization
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </TabsContent>
+
               <TabsContent value="network">
                 <Card>
                   <CardHeader>
@@ -441,9 +593,9 @@ export default function WalletScreening() {
                   <CardContent>
                     <div className="text-center py-8">
                       <Network className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-medium">Network Visualization</h3>
+                      <h3 className="text-lg font-medium">Network Analysis</h3>
                       <p className="text-muted-foreground">
-                        Advanced network analysis and visualization will be displayed here
+                        Advanced network analysis and cluster detection
                       </p>
                     </div>
                   </CardContent>
