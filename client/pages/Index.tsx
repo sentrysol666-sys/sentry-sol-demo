@@ -40,42 +40,18 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.2,
+      delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
-
-const floatingVariants = {
-  animate: {
-    y: [-20, 20, -20],
-    rotate: [0, 10, -10, 0],
-    transition: {
-      duration: 8,
-      ease: "easeInOut",
-      repeat: Infinity,
-    },
-  },
-};
-
-const heroTextVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1,
+      duration: 0.6,
       ease: [0.4, 0, 0.2, 1],
     },
   },
@@ -83,10 +59,10 @@ const heroTextVariants = {
 
 const cardHoverVariants = {
   hover: {
-    scale: 1.03,
-    y: -8,
+    scale: 1.02,
+    y: -4,
     transition: {
-      duration: 0.3,
+      duration: 0.2,
       ease: [0.4, 0, 0.2, 1],
     },
   },
@@ -96,9 +72,7 @@ export default function Index() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 300], [0, -150]);
-  const y2 = useTransform(scrollY, [0, 300], [0, -100]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.3]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.8]);
   const { isConnected } = useWalletIntegration();
 
   useEffect(() => {
@@ -134,13 +108,6 @@ export default function Index() {
     },
   ];
 
-  const stats = [
-    { value: "500M+", label: "Transactions analyzed", icon: Timeline },
-    { value: "99.7%", label: "Detection accuracy", icon: TrendingUp },
-    { value: "<100ms", label: "Response time", icon: Speed },
-    { value: "24/7", label: "Monitoring", icon: CheckCircle },
-  ];
-
   return (
     <div className="min-h-screen overflow-hidden relative">
       {/* SentrySol Gradient Background */}
@@ -152,12 +119,11 @@ export default function Index() {
       />
       
       {/* Line Pattern Background */}
-      <div className="fixed inset-0 z-1 opacity-30">
+      <div className="fixed inset-0 z-1 opacity-20">
         <img 
           src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F4bb3a901209b402298887c7be38d6a6d"
           alt=""
-          className="w-full h-auto object-cover"
-          style={{ minHeight: "100vh" }}
+          className="w-full h-full object-cover"
         />
       </div>
 
@@ -179,24 +145,24 @@ export default function Index() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-[100px] px-5 py-7 shadow-xl">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-[100px] px-5 py-4 shadow-xl">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <img 
                 src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fa8a60ebfb99d4f8a95d229f18cfe5b5f"
                 alt="SentrySol Logo"
-                className="w-16 h-16"
+                className="w-12 h-12"
               />
-              <span className="text-white text-2xl font-bold font-poppins">SENTRYSOL</span>
+              <span className="text-white text-xl font-bold font-poppins">SENTRYSOL</span>
             </div>
 
             {/* Navigation Items */}
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#products" className="text-white/90 hover:text-white transition-colors text-lg font-medium">Products</a>
-              <a href="#about" className="text-white/90 hover:text-white transition-colors text-lg font-medium">About</a>
-              <a href="#docs" className="text-white/90 hover:text-white transition-colors text-lg font-medium">Docs</a>
-              <a href="#pricing" className="text-white/90 hover:text-white transition-colors text-lg font-medium">Pricing</a>
+            <div className="hidden md:flex items-center gap-6">
+              <a href="#products" className="text-white/90 hover:text-white transition-colors text-base font-medium">Products</a>
+              <a href="#about" className="text-white/90 hover:text-white transition-colors text-base font-medium">About</a>
+              <a href="#docs" className="text-white/90 hover:text-white transition-colors text-base font-medium">Docs</a>
+              <a href="#pricing" className="text-white/90 hover:text-white transition-colors text-base font-medium">Pricing</a>
             </div>
 
             {/* Search and Connect */}
@@ -205,11 +171,11 @@ export default function Index() {
                 <input 
                   type="text" 
                   placeholder="I'm looking for..."
-                  className="bg-transparent text-white/70 placeholder-white/50 text-sm outline-none w-40"
+                  className="bg-transparent text-white/70 placeholder-white/50 text-sm outline-none w-32"
                 />
                 <Search className="text-white/50 w-4 h-4 ml-2" />
               </div>
-              <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6 py-2 font-medium">
+              <Button className="bg-white text-black hover:bg-white/90 rounded-full px-5 py-2 font-medium text-sm">
                 Connect
               </Button>
             </div>
@@ -218,10 +184,10 @@ export default function Index() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative pt-48 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center z-10">
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center z-10">
         <motion.div 
           className="max-w-7xl mx-auto w-full"
-          style={{ y: y1, opacity }}
+          style={{ opacity }}
         >
           <motion.div
             variants={containerVariants}
@@ -229,10 +195,10 @@ export default function Index() {
             animate="visible"
             className="text-center"
           >
-            {/* Main Title - SentrySol Style */}
+            {/* Main Title - Responsive Size */}
             <motion.h1 
-              variants={heroTextVariants}
-              className="text-[275px] font-bold leading-none tracking-wider text-transparent bg-gradient-to-r from-transparent via-white/50 to-transparent bg-clip-text mb-8"
+              variants={itemVariants}
+              className="text-6xl sm:text-8xl lg:text-9xl xl:text-[200px] font-bold leading-none tracking-wider text-transparent bg-gradient-to-r from-transparent via-white/60 to-transparent bg-clip-text mb-12"
               style={{
                 fontFamily: "Poppins",
                 textTransform: "uppercase",
@@ -243,7 +209,7 @@ export default function Index() {
               SENTRYSOL
             </motion.h1>
 
-            {/* Logo Glow Effect */}
+            {/* Logo Glow Effect - Responsive */}
             <motion.div 
               className="relative flex justify-center mb-16"
               variants={itemVariants}
@@ -252,35 +218,38 @@ export default function Index() {
                 <img 
                   src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F23c2c31fc9304ab89820e5a3b12f9e8a"
                   alt="SentrySol Logo with Glow"
-                  className="w-[760px] h-[663px] object-contain"
+                  className="w-full max-w-2xl h-auto object-contain"
                 />
               </div>
             </motion.div>
 
-            {/* Tagline and Description */}
-            <div className="flex justify-between items-start max-w-7xl mx-auto mb-20">
+            {/* Tagline and Description - Responsive Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start max-w-7xl mx-auto mb-20">
               {/* Left Side - Tagline */}
               <motion.div 
                 variants={itemVariants}
-                className="text-left"
+                className="text-center lg:text-left"
               >
-                <h2 className="text-white text-4xl font-light leading-tight font-poppins mb-4">
+                <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-light leading-tight font-poppins">
                   Secure.<br />
                   Smart.<br />
                   Private.
                 </h2>
               </motion.div>
 
+              {/* Center - Spacer on larger screens */}
+              <div className="hidden lg:block"></div>
+
               {/* Right Side - Description and CTA */}
               <motion.div 
                 variants={itemVariants}
-                className="text-right max-w-md"
+                className="text-center lg:text-right"
               >
-                <p className="text-white text-lg leading-relaxed font-poppins mb-8">
+                <p className="text-white text-base sm:text-lg leading-relaxed font-poppins mb-8">
                   SentrySol is an AI-native, on-device behavioral security framework built specifically for Web3 mobile environments, initially focusing on Solana Mobile Seeker.
                 </p>
                 <Button 
-                  className="bg-[#CFE0E3] text-black hover:bg-[#CFE0E3]/90 rounded-lg px-8 py-4 text-lg font-bold font-poppins"
+                  className="bg-[#CFE0E3] text-black hover:bg-[#CFE0E3]/90 rounded-lg px-6 py-3 text-base font-bold font-poppins"
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
                 >
@@ -296,24 +265,22 @@ export default function Index() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 z-10 relative">
         <motion.div 
           className="max-w-7xl mx-auto"
-          style={{ y: y2 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
             className="text-center mb-20"
           >
             <motion.h2 
               variants={itemVariants}
-              className="text-8xl font-light text-center leading-tight mb-8"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-center leading-tight mb-8"
               style={{
                 background: "linear-gradient(90deg, #A5C9CA 0%, #E7F6F2 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 fontFamily: "Poppins",
-                letterSpacing: "6.4px"
+                letterSpacing: "2px"
               }}
             >
               Intelligent Protection<br />
@@ -321,7 +288,7 @@ export default function Index() {
             </motion.h2>
             <motion.p 
               variants={itemVariants}
-              className="text-white text-2xl font-light max-w-4xl mx-auto font-poppins leading-relaxed"
+              className="text-white text-lg sm:text-xl lg:text-2xl font-light max-w-4xl mx-auto font-poppins leading-relaxed"
             >
               We introduce an AI-native, on-device behavioral security framework specifically engineered to protect your Web3 mobile experience.
             </motion.p>
@@ -332,16 +299,12 @@ export default function Index() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: feature.delay }}
                 whileHover="hover"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               >
                 <motion.div variants={cardHoverVariants}>
-                  <Card className="h-[450px] border-white/30 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 overflow-hidden group rounded-3xl">
+                  <Card className="h-full min-h-[400px] border-white/30 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 overflow-hidden group rounded-3xl">
                     <CardHeader className="pb-4 relative text-center pt-12">
                       <motion.div 
                         className="w-20 h-20 bg-gradient-to-br from-[#CFE0E3] to-[#92BAC1] rounded-2xl flex items-center justify-center mb-8 mx-auto group-hover:scale-110 transition-transform duration-300"
@@ -350,13 +313,13 @@ export default function Index() {
                       >
                         <feature.icon className="h-10 w-10 text-black" />
                       </motion.div>
-                      <CardTitle className="text-3xl font-light text-white group-hover:text-[#CFE0E3] transition-colors duration-300 font-poppins mb-6">
+                      <CardTitle className="text-2xl lg:text-3xl font-light text-white group-hover:text-[#CFE0E3] transition-colors duration-300 font-poppins mb-6">
                         {feature.title}
                       </CardTitle>
                     </CardHeader>
                     
-                    <CardContent className="relative text-center px-8">
-                      <CardDescription className="text-white/70 text-xl leading-relaxed group-hover:text-white/90 transition-colors duration-300 font-poppins">
+                    <CardContent className="relative text-center px-6">
+                      <CardDescription className="text-white/70 text-base lg:text-lg leading-relaxed group-hover:text-white/90 transition-colors duration-300 font-poppins">
                         {feature.description}
                       </CardDescription>
                     </CardContent>
@@ -365,67 +328,47 @@ export default function Index() {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+      </section>
 
-          {/* Technology Illustration */}
+      {/* Technology Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 z-10 relative">
+        <motion.div 
+          className="max-w-7xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <motion.div 
             className="text-center mb-20"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            variants={itemVariants}
           >
             <motion.h2 
               variants={itemVariants}
-              className="text-6xl font-light text-white text-center leading-tight mb-8 font-poppins"
+              className="text-4xl sm:text-5xl lg:text-6xl font-light text-white text-center leading-tight mb-8 font-poppins"
             >
               Revolutionizing Web3<br />Mobile Security
             </motion.h2>
             <motion.p 
               variants={itemVariants}
-              className="text-white text-xl font-light max-w-2xl mx-auto font-poppins leading-relaxed mb-16"
+              className="text-white text-lg sm:text-xl font-light max-w-3xl mx-auto font-poppins leading-relaxed mb-16"
             >
               SentrySol is strategically focused on the Solana Mobile ecosystem, providing native, enhanced dApp security directly integrated with devices like the Solana Seeker.
             </motion.p>
-            
-            {/* Tech Features with Illustration */}
-            <motion.div 
-              variants={itemVariants}
-              className="relative"
-            >
+          </motion.div>
+          
+          {/* Tech Features with Illustration */}
+          <motion.div 
+            variants={itemVariants}
+            className="relative mb-20"
+          >
+            <div className="flex justify-center">
               <img 
                 src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F9a309f6fee534d2ebd72fc389778022f"
                 alt="Technology Illustration"
-                className="mx-auto max-w-4xl w-full h-auto"
+                className="max-w-full w-full max-w-4xl h-auto"
               />
-              
-              {/* Feature Labels */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
-                  {[
-                    { text: "Phishing Interceptor", position: "top-left" },
-                    { text: "Anomaly Detection Engine", position: "top-right" },
-                    { text: "Privacy-Preserving", position: "bottom-left" },
-                    { text: "On-Device Processing", position: "bottom-right" },
-                  ].map((item, index) => (
-                    <motion.div
-                      key={index}
-                      className={`bg-black/20 backdrop-blur-md rounded-2xl px-6 py-3 ${
-                        item.position.includes("top") ? "self-start" : "self-end"
-                      } ${
-                        item.position.includes("left") ? "justify-self-start" : "justify-self-end"
-                      }`}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.2 }}
-                    >
-                      <span className="text-white text-lg font-bold font-mono">
-                        {item.text}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </section>
@@ -436,22 +379,21 @@ export default function Index() {
           className="max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          animate="visible"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left side - Vision and Mission */}
             <div>
               <motion.div variants={itemVariants} className="mb-16">
-                <h2 className="text-8xl font-light text-white mb-8 font-poppins">Vision</h2>
-                <p className="text-white text-xl font-light leading-relaxed font-poppins">
+                <h2 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light text-white mb-8 font-poppins">Vision</h2>
+                <p className="text-white text-lg sm:text-xl font-light leading-relaxed font-poppins">
                   We envision a Web3 future where users interact with decentralized applications confidently and securely. SentrySol is building the essential, intelligent, and privacy-preserving security layer needed to unlock the full potential of Web3 on mobile devices.
                 </p>
               </motion.div>
               
               <motion.div variants={itemVariants}>
-                <h2 className="text-8xl font-light text-white mb-8 font-poppins">Mission</h2>
-                <p className="text-white text-xl font-light leading-relaxed font-poppins">
+                <h2 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light text-white mb-8 font-poppins">Mission</h2>
+                <p className="text-white text-lg sm:text-xl font-light leading-relaxed font-poppins">
                   Empowering Users, Fostering trust and confidence in every Web3 interaction.<br/><br/>
                   Securing the Ecosystem, Protecting against evolving threats like blind signing and wallet draining.<br/><br/>
                   Driving Adoption, Making Web3 accessible and safe for everyone.
@@ -467,7 +409,7 @@ export default function Index() {
               <img 
                 src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F2625c3df85902ee8a3128918e90c80b207a5a44b"
                 alt="Abstract data visualization"
-                className="rounded-[132px] border border-[#CFE0E3] max-w-lg w-full h-auto"
+                className="rounded-[132px] border border-[#CFE0E3] max-w-full w-full max-w-lg h-auto"
               />
             </motion.div>
           </div>
@@ -480,41 +422,40 @@ export default function Index() {
           className="max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          animate="visible"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left side - Device Image */}
             <motion.div 
               variants={itemVariants}
-              className="flex justify-center"
+              className="flex justify-center order-2 lg:order-1"
             >
               <img 
                 src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F61802e12c703b764d8e1cbb87fc01b7c1dc6b4bc"
                 alt="Solana Mobile Seeker"
-                className="max-w-2xl w-full h-auto"
+                className="max-w-full w-full max-w-2xl h-auto"
               />
             </motion.div>
 
             {/* Right side - Content */}
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="order-1 lg:order-2">
               <h2 
-                className="text-8xl font-light leading-tight mb-8"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-8"
                 style={{
                   background: "linear-gradient(90deg, #A5C9CA 0%, #E7F6F2 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   fontFamily: "Poppins",
-                  letterSpacing: "6.4px"
+                  letterSpacing: "2px"
                 }}
               >
                 Seamless Integration for Enhanced Security.
               </h2>
-              <p className="text-white text-xl font-light leading-relaxed font-poppins mb-12">
+              <p className="text-white text-lg sm:text-xl font-light leading-relaxed font-poppins mb-12">
                 SentrySol is strategically focused on the Solana Mobile ecosystem, providing native, enhanced dApp security directly integrated with devices like the Solana Seeker.
               </p>
               <Button 
-                className="bg-[#09B0B6]/20 text-white border border-white/20 hover:bg-[#09B0B6]/30 rounded-[33px] px-12 py-4 text-xl font-light font-poppins"
+                className="bg-[#09B0B6]/20 text-white border border-white/20 hover:bg-[#09B0B6]/30 rounded-[33px] px-8 py-4 text-lg font-light font-poppins"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               >
@@ -531,39 +472,11 @@ export default function Index() {
           className="max-w-7xl mx-auto text-center"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          animate="visible"
         >
-          {/* Animated Grid Background */}
-          <motion.div 
-            variants={itemVariants}
-            className="mb-16"
-          >
-            <div className="relative h-32 overflow-hidden mb-8">
-              <div className="absolute inset-0 opacity-30">
-                <div className="grid grid-cols-24 gap-0 h-full">
-                  {Array.from({ length: 240 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="bg-gradient-to-b from-[#CFE0E3]/20 to-transparent"
-                      initial={{ height: 0 }}
-                      animate={{ height: Math.random() * 100 + "%" }}
-                      transition={{ 
-                        duration: 2, 
-                        delay: (i % 24) * 0.1,
-                        repeat: Infinity,
-                        repeatType: "reverse"
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
           <motion.p 
             variants={itemVariants}
-            className="text-white text-4xl font-light leading-relaxed font-poppins mb-16 max-w-6xl mx-auto"
+            className="text-white text-2xl sm:text-3xl lg:text-4xl font-light leading-relaxed font-poppins mb-16 max-w-6xl mx-auto"
           >
             We're building the future of Web3 mobile security,<br />
             a future <span className="font-medium">where you're always protected.</span>
@@ -571,7 +484,7 @@ export default function Index() {
 
           <motion.div variants={itemVariants} className="mb-16">
             <Button 
-              className="bg-[#09B0B6]/20 text-white border border-white/20 hover:bg-[#09B0B6]/30 rounded-[33px] px-12 py-4 text-xl font-medium font-poppins"
+              className="bg-[#09B0B6]/20 text-white border border-white/20 hover:bg-[#09B0B6]/30 rounded-[33px] px-8 py-4 text-lg font-medium font-poppins"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
@@ -581,8 +494,8 @@ export default function Index() {
 
           <motion.h2 
             variants={itemVariants}
-            className="text-8xl font-light text-white mb-12 font-poppins"
-            style={{ letterSpacing: "6.4px" }}
+            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light text-white mb-12 font-poppins"
+            style={{ letterSpacing: "4px" }}
           >
             Soon On
           </motion.h2>
@@ -591,7 +504,7 @@ export default function Index() {
             <img 
               src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F11b8b410852647fca9bf0138d063768d"
               alt="Solana Mobile Seeker"
-              className="mx-auto max-w-4xl w-full h-auto"
+              className="mx-auto max-w-full w-full max-w-4xl h-auto"
             />
           </motion.div>
 
@@ -599,35 +512,8 @@ export default function Index() {
             <img 
               src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fdba94d29ba0d4b8ebb7d6af3fd6508f7"
               alt="Solana dApp Store Badge"
-              className="mx-auto w-96 h-auto"
+              className="mx-auto w-full max-w-96 h-auto"
             />
-          </motion.div>
-
-          {/* Bottom Grid Animation */}
-          <motion.div 
-            variants={itemVariants}
-            className="mt-16"
-          >
-            <div className="relative h-32 overflow-hidden">
-              <div className="absolute inset-0 opacity-30 rotate-180">
-                <div className="grid grid-cols-24 gap-0 h-full">
-                  {Array.from({ length: 240 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="bg-gradient-to-b from-[#CFE0E3]/20 to-transparent"
-                      initial={{ height: 0 }}
-                      animate={{ height: Math.random() * 100 + "%" }}
-                      transition={{ 
-                        duration: 2, 
-                        delay: (i % 24) * 0.1,
-                        repeat: Infinity,
-                        repeatType: "reverse"
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
           </motion.div>
         </motion.div>
       </section>
@@ -638,13 +524,12 @@ export default function Index() {
           className="max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          animate="visible"
         >
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {/* Newsletter Section */}
             <motion.div variants={itemVariants} className="col-span-1 md:col-span-2">
-              <div className="bg-[#202020] rounded-2xl p-8 mb-8">
+              <div className="bg-[#202020] rounded-2xl p-6 lg:p-8 mb-8">
                 <h3 className="text-white text-lg font-semibold mb-4 font-poppins">
                   Subscribe to our newsletter.
                 </h3>
@@ -652,33 +537,33 @@ export default function Index() {
                   You can unsubscribe at any time. Our <span className="underline">Privacy Policy is available here.</span>
                 </p>
                 
-                <div className="flex gap-4">
-                  <div className="flex-1 bg-[#363636] rounded-[32px] px-8 py-6">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex-1 bg-[#363636] rounded-[32px] px-6 py-4">
                     <input 
                       type="email"
                       placeholder="Mail"
-                      className="w-full bg-transparent text-white text-3xl font-light placeholder-[#4F4F4F] outline-none font-poppins"
+                      className="w-full bg-transparent text-white text-xl lg:text-2xl font-light placeholder-[#4F4F4F] outline-none font-poppins"
                     />
                   </div>
-                  <Button className="bg-[#0988F0] rounded-[32px] w-24 h-24 p-0 hover:bg-[#0988F0]/90">
-                    <ArrowRight className="text-black w-8 h-8" />
+                  <Button className="bg-[#0988F0] rounded-[32px] w-16 h-16 p-0 hover:bg-[#0988F0]/90 flex-shrink-0">
+                    <ArrowRight className="text-black w-6 h-6" />
                   </Button>
                 </div>
               </div>
               
               {/* Product Cards */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-[#FF573B] rounded-2xl h-64 flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">AppKit</span>
+                <div className="bg-[#FF573B] rounded-2xl h-48 flex items-center justify-center">
+                  <span className="text-white text-lg font-bold">AppKit</span>
                 </div>
-                <div className="bg-[#FFB800] rounded-2xl h-64 flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">WalletKit</span>
+                <div className="bg-[#FFB800] rounded-2xl h-48 flex items-center justify-center">
+                  <span className="text-white text-lg font-bold">WalletKit</span>
                 </div>
               </div>
             </motion.div>
 
             {/* Explore Section */}
-            <motion.div variants={itemVariants} className="bg-[#E9E9E9] rounded-2xl p-8">
+            <motion.div variants={itemVariants} className="bg-[#E9E9E9] rounded-2xl p-6">
               <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Explore</h3>
               <div className="space-y-4">
                 {["Press & Media", "Community", "Contact"].map((item) => (
@@ -690,7 +575,7 @@ export default function Index() {
             </motion.div>
 
             {/* Resources Section */}
-            <motion.div variants={itemVariants} className="bg-[#E9E9E9] rounded-2xl p-8">
+            <motion.div variants={itemVariants} className="bg-[#E9E9E9] rounded-2xl p-6">
               <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Resources</h3>
               <div className="space-y-4">
                 {["Whitepaper", "Documentation", "Integration", "Blog"].map((item) => (
@@ -702,9 +587,9 @@ export default function Index() {
             </motion.div>
           </div>
 
-          {/* Connect Section */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-            <div className="bg-[#E9E9E9] rounded-2xl p-8">
+          {/* Connect and Company Section */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="bg-[#E9E9E9] rounded-2xl p-6">
               <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Connect</h3>
               <div className="space-y-4">
                 {["X (Twitter)", "LinkedIn", "YouTube", "Discord", "Farcaster"].map((item) => (
@@ -715,7 +600,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="bg-[#E9E9E9] rounded-2xl p-8 md:col-span-2">
+            <div className="bg-[#E9E9E9] rounded-2xl p-6 md:col-span-2">
               <h3 className="text-black text-lg font-semibold mb-6 font-poppins">Company</h3>
               <div className="grid grid-cols-2 gap-4">
                 {["About Us", "Enterprise", "Blog", "Newsroom", "Careers", "Media Kit", "Contact"].map((item) => (
@@ -724,11 +609,11 @@ export default function Index() {
                   </a>
                 ))}
               </div>
-              <div className="mt-12 pt-12 border-t border-[#9A9A9A]/20">
+              <div className="mt-8 pt-8 border-t border-[#9A9A9A]/20">
                 <p className="text-black text-sm font-poppins">© 2025 SentrySol inc.</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Logo and Bottom */}
           <motion.div variants={itemVariants} className="text-center mb-8">
