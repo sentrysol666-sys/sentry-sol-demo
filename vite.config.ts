@@ -7,8 +7,8 @@ import { createServer } from "./server";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0", // Allow external connections
-    port: 8080,
-    strictPort: true, // Exit if port 8080 is not available
+    port: 5173,
+    strictPort: false, // Allow fallback to next available port
     open: true, // Open browser automatically
     cors: true, // Enable CORS for development
     fs: {
@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
     hmr: {
-      port: 8081, // Use different port for HMR to avoid conflicts
+      port: 5174, // Use different port for HMR to avoid conflicts
     },
   },
   build: {
