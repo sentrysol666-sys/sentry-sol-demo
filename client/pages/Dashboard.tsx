@@ -86,7 +86,7 @@ export default function Dashboard() {
       id: "coordinator",
       name: "AI Coordinator",
       status: "active",
-      icon: BrainIcon,
+      icon: Brain,
       color: "text-primary",
       bgColor: "bg-primary/10",
       description: "Orchestrating multi-agent insights and decisions",
