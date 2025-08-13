@@ -69,11 +69,25 @@ const cardHoverVariants = {
 };
 
 export default function Index() {
+  const navigate = useNavigate();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 300], [1, 0.8]);
   const { isConnected } = useWalletIntegration();
+
+  const handleGetStarted = () => {
+    if (isConnected) {
+      const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+      if (hasCompletedOnboarding) {
+        navigate("/dashboard");
+      } else {
+        navigate("/onboarding");
+      }
+    } else {
+      navigate("/signin");
+    }
+  };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
