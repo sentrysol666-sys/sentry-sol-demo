@@ -98,7 +98,7 @@ export default function Index() {
               <CardHeader>
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-warning-amber/10 rounded-lg">
-                    <SearchIcon className="h-6 w-6 text-warning-amber" />
+                    <Search className="h-6 w-6 text-warning-amber" />
                   </div>
                   <CardTitle className="text-xl">Adverse Media Analysis</CardTitle>
                 </div>
