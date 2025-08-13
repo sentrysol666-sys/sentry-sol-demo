@@ -39,10 +39,11 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-black via-sentry-teal/50 to-black text-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 px-4">
+      <section className="relative overflow-hidden py-32 px-4">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-sentry-teal/10 to-transparent" />
         <div className="container mx-auto max-w-4xl text-center relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
