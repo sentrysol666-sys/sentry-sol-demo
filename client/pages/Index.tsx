@@ -151,7 +151,6 @@ export default function Index() {
                     alt="SentrySol Logo"
                     className="w-12 h-12"
                   />
-                  <span className="text-white text-xl font-bold font-poppins">SENTRYSOL</span>
                 </div>
 
                 {/* Navigation Items */}
