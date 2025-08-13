@@ -37,7 +37,7 @@ export default function Index() {
                 </Button>
               </Link>
               <Link to="/wallet-screening">
-                <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-aml-blue text-aml-blue hover:bg-aml-blue/10">
+                <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10">
                   Screen Wallet
                 </Button>
               </Link>
