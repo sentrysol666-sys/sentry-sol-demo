@@ -57,12 +57,22 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        solana: {
-          green: "hsl(var(--solana-green))",
-          purple: "hsl(var(--solana-purple))",
+        aml: {
+          blue: "hsl(var(--aml-blue))",
+          navy: "hsl(var(--aml-navy))",
         },
-        warning: "hsl(var(--warning))",
-        success: "hsl(var(--success))",
+        compliance: {
+          green: "hsl(var(--compliance-green))",
+        },
+        risk: {
+          red: "hsl(var(--risk-red))",
+        },
+        warning: {
+          amber: "hsl(var(--warning-amber))",
+        },
+        neutral: {
+          gray: "hsl(var(--neutral-gray))",
+        },
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",
