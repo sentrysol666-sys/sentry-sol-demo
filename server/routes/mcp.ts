@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { mcpManager } from "../services/mcp-services.js";
-import { investigationService } from "../services/investigation-service.js";
+import { mcpManager } from "../services/mcp-services";
+import { investigationService } from "../services/investigation-service";
 
 // Initialize MCP services on server start
 mcpManager.initializeAllServers().catch(console.error);
