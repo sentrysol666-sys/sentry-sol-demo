@@ -15,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import WalletDebugger from "@/components/WalletDebugger";
 import {
   AccountBalanceWallet as Wallet,
   Security as Shield,
@@ -25,6 +26,7 @@ import {
   Download,
   Smartphone,
   Computer,
+  BugReport,
 } from "@mui/icons-material";
 
 const containerVariants = {
