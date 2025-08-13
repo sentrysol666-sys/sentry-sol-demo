@@ -54,14 +54,16 @@ export default function Navigation() {
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <div className="flex items-center space-x-4">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 bg-gradient-to-br from-aml-blue to-compliance-green rounded-lg flex items-center justify-center">
-              <Shield className="h-5 w-5 text-white" />
-            </div>
-            <span className="font-bold text-xl bg-gradient-to-r from-aml-blue to-compliance-green bg-clip-text text-transparent">
+          <Link to="/" className="flex items-center space-x-3">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+              alt="Sentrysol Logo"
+              className="h-8 w-auto"
+            />
+            <span className="font-bold text-xl font-poppins bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
               Sentrysol
             </span>
-            <Badge variant="secondary" className="text-xs bg-aml-blue/10 text-aml-blue">
+            <Badge variant="secondary" className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20">
               Beta
             </Badge>
           </Link>
