@@ -67,13 +67,8 @@ export default function Navigation() {
   const isActive = (href: string) => location.pathname === href;
 
   const handleConnectWallet = () => {
-    // Check if user has completed onboarding
-    const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
-    if (hasCompletedOnboarding) {
-      navigate("/dashboard");
-    } else {
-      navigate("/signin", { state: { redirectTo: "/onboarding" } });
-    }
+    // Always navigate to signin page to show wallet selector
+    navigate("/signin");
   };
 
   return (
