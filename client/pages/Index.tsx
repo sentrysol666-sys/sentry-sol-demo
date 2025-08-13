@@ -10,7 +10,7 @@ import {
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-aml-blue/5">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-brand-light/5">
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
