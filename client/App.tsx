@@ -33,7 +33,6 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isOnboardingPage = location.pathname === "/onboarding";
-  const isChatPage = location.pathname === "/chat-sentry";
 
   // Force dark mode
   useEffect(() => {
