@@ -133,26 +133,61 @@ export class SupervisorAgent {
 
   private async blockchainTracerNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
     console.log("🔍 Blockchain Tracer Agent activated");
-    
+
     const address = this.extractAddress(state);
-    
+    const chain = this.detectChain(address);
+
     try {
-      // Simulate blockchain tracing analysis
-      const tracingResult = {
-        address,
-        transactionCount: Math.floor(Math.random() * 1000) + 100,
-        riskPatterns: this.generateRiskPatterns(),
-        connectedAddresses: this.generateConnectedAddresses(),
-        timeframeAnalysis: this.generateTimeframeAnalysis(),
-        confidence: 0.85
-      };
+      let tracingResult: any = {};
+
+      if (chain === 'solana') {
+        // Use Helius for Solana data
+        const [transactionHistory, addressInfo, nfts] = await Promise.all([
+          heliusEnhancedService.getTransactionHistory(address, 100),
+          heliusEnhancedService.getAddressInfo(address),
+          heliusEnhancedService.getNFTsByOwner(address)
+        ]);
+
+        tracingResult = {
+          address,
+          chain,
+          transactionCount: transactionHistory.length,
+          transactionHistory: transactionHistory.slice(0, 20), // Keep recent 20 for analysis
+          addressInfo,
+          nftHoldings: nfts,
+          riskPatterns: this.analyzeTransactionPatterns(transactionHistory),
+          connectedAddresses: this.extractConnectedAddresses(transactionHistory),
+          timeframeAnalysis: this.analyzeTimeframes(transactionHistory),
+          confidence: 0.9
+        };
+      } else {
+        // Use Coinstats for Ethereum and other EVM chains
+        const [balance, transactions, chart] = await Promise.all([
+          coinstatsService.getWalletBalance(address, chain),
+          coinstatsService.getWalletTransactions(address, chain, 100),
+          coinstatsService.getWalletChart(address, chain, '30d')
+        ]);
+
+        tracingResult = {
+          address,
+          chain,
+          transactionCount: transactions.length,
+          balance,
+          transactionHistory: transactions.slice(0, 20),
+          priceChart: chart,
+          riskPatterns: this.analyzeTransactionPatterns(transactions),
+          connectedAddresses: this.extractConnectedAddresses(transactions),
+          timeframeAnalysis: this.analyzeTimeframes(transactions),
+          confidence: 0.85
+        };
+      }
 
       return {
         agent_outputs: {
           blockchain_tracer: {
             agent: "blockchain_tracer",
             result: tracingResult,
-            confidence: 85,
+            confidence: Math.round(tracingResult.confidence * 100),
             findings: this.generateTracingFindings(tracingResult),
             timestamp: Date.now()
           }
@@ -165,7 +200,7 @@ export class SupervisorAgent {
         agent_outputs: {
           blockchain_tracer: {
             agent: "blockchain_tracer",
-            result: { error: "Tracing analysis failed" },
+            result: { error: "Tracing analysis failed", address, details: error },
             confidence: 0,
             findings: [],
             timestamp: Date.now()
