@@ -18,7 +18,7 @@ export default function Index() {
             <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium bg-brand-light/10 text-brand-light border-brand-light/20">
               🧠 AI-Powered AML/Compliance Platform - Beta
             </Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-poppins tracking-tight text-foreground mb-6">
               Next-Gen{" "}
               <span className="bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
                 AML Intelligence
