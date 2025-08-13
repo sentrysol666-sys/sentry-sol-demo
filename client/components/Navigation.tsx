@@ -117,8 +117,8 @@ export default function Navigation() {
               </div>
             ) : (
               <div className="flex items-center space-x-1">
-                <XCircle className="h-4 w-4 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">No Wallet</span>
+                <XCircle className="h-4 w-4 text-warning-amber" />
+                <span className="text-xs text-warning-amber font-medium">Connect Wallet Required</span>
               </div>
             )}
           </div>
