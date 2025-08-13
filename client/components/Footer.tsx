@@ -191,12 +191,12 @@ export default function Footer() {
                     <span>San Francisco, CA & London, UK</span>
                   </div>
                   
-                  <div className="flex items-center space-x-3 text-sm text-muted-foreground">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50">
-                      <Email className="h-4 w-4" />
+                  <Link to="/contact" className="flex items-center space-x-3 text-sm text-muted-foreground hover:text-brand-light transition-colors group">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50 group-hover:bg-brand-light/10">
+                      <Email className="h-4 w-4 group-hover:text-brand-light transition-colors" />
                     </div>
                     <span>contact@sentrysol.com</span>
-                  </div>
+                  </Link>
                 </div>
               </div>
               
