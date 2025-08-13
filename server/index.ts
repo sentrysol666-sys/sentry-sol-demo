@@ -2,6 +2,13 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import {
+  getMCPStatus,
+  investigateAddress,
+  retryMCPConnection,
+  getMCPTools,
+  callMCPTool
+} from "./routes/mcp";
 
 export function createServer() {
   const app = express();
