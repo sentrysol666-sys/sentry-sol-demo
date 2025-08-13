@@ -139,49 +139,56 @@ export default function Index() {
       />
 
       {/* Navigation */}
-      <motion.nav 
-        className="fixed top-12 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-6xl px-4"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-[100px] px-5 py-4 shadow-xl">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center gap-3">
-              <img 
-                src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fa8a60ebfb99d4f8a95d229f18cfe5b5f"
-                alt="SentrySol Logo"
-                className="w-12 h-12"
-              />
-              <span className="text-white text-xl font-bold font-poppins">SENTRYSOL</span>
-            </div>
+      <div className="flex flex-col">
+        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+          <div className="flex flex-col leading-normal w-1/2 max-md:ml-0 max-md:w-full">
+            <div className="flex flex-row justify-start overflow-auto w-full self-stretch my-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-[100px] px-5 py-4 shadow-xl">
+              <div className="flex items-center justify-between">
+                {/* Logo */}
+                <div className="flex items-center gap-3">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fa8a60ebfb99d4f8a95d229f18cfe5b5f"
+                    alt="SentrySol Logo"
+                    className="w-12 h-12"
+                  />
+                  <span className="text-white text-xl font-bold font-poppins">SENTRYSOL</span>
+                </div>
 
-            {/* Navigation Items */}
-            <div className="hidden md:flex items-center gap-6">
-              <a href="#products" className="text-white/90 hover:text-white transition-colors text-base font-medium">Products</a>
-              <a href="#about" className="text-white/90 hover:text-white transition-colors text-base font-medium">About</a>
-              <a href="#docs" className="text-white/90 hover:text-white transition-colors text-base font-medium">Docs</a>
-              <a href="#pricing" className="text-white/90 hover:text-white transition-colors text-base font-medium">Pricing</a>
-            </div>
+                {/* Navigation Items */}
+                <div className="hidden md:flex items-center gap-6">
+                  <a href="#products" className="text-white/90 hover:text-white transition-colors text-base font-medium">Products</a>
+                  <a href="#about" className="text-white/90 hover:text-white transition-colors text-base font-medium">About</a>
+                  <a href="#docs" className="text-white/90 hover:text-white transition-colors text-base font-medium">Docs</a>
+                  <a href="#pricing" className="text-white/90 hover:text-white transition-colors text-base font-medium">Pricing</a>
+                </div>
 
-            {/* Search and Connect */}
-            <div className="flex items-center gap-4">
-              <div className="hidden lg:flex items-center bg-white/5 border border-white/20 rounded-full px-4 py-2">
-                <input 
-                  type="text" 
-                  placeholder="I'm looking for..."
-                  className="bg-transparent text-white/70 placeholder-white/50 text-sm outline-none w-32"
-                />
-                <Search className="text-white/50 w-4 h-4 ml-2" />
+                {/* Search and Connect */}
+                <div className="flex items-center gap-4">
+                  <div className="hidden lg:flex items-center bg-white/5 border border-white/20 rounded-full px-4 py-2">
+                    <input
+                      type="text"
+                      placeholder="I'm looking for..."
+                      className="bg-transparent text-white/70 placeholder-white/50 text-sm outline-none w-32"
+                    />
+                    <Search className="text-white/50 w-4 h-4 ml-2" />
+                  </div>
+                  <Button className="bg-white text-black hover:bg-white/90 rounded-full px-5 py-2 font-medium text-sm">
+                    Connect
+                  </Button>
+                </div>
               </div>
-              <Button className="bg-white text-black hover:bg-white/90 rounded-full px-5 py-2 font-medium text-sm">
-                Connect
-              </Button>
             </div>
           </div>
+          <div className="flex flex-col leading-normal w-1/2 ml-5 max-md:ml-0 max-md:w-full">
+            <motion.nav
+              className="fixed top-12 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-6xl px-4"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            />
+          </div>
         </div>
-      </motion.nav>
+      </div>
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center z-10">
