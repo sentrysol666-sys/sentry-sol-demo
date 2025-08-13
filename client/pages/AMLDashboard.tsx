@@ -11,7 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { mcpApiClient } from '@shared/api-client';
 import { useWalletIntegration } from '@/hooks/useWalletIntegration';
 import WalletConnector from '@/components/WalletConnector';
-import { 
+import WalletGuard from '@/components/WalletGuard';
+import {
   DashboardIcon, SearchIcon, SecurityIcon, AssessmentIcon, WalletIcon,
   CheckCircleIcon, CancelIcon, WarningIcon, InfoIcon, RefreshIcon,
   TrendingUpIcon, TrendingDownIcon, VerifiedIcon, BlockIcon
