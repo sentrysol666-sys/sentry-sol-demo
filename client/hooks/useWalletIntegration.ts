@@ -69,29 +69,51 @@ export const useWalletIntegration = (): WalletIntegrationState => {
         description: `Starting automated analysis for ${chain} wallet`,
       });
 
-      // Run full investigation using the existing API
-      const result = await mcpApiClient.investigateAddressWithAgents(address, 'full');
-      
+      // Check if wallet is connected for enhanced analysis
+      const connectedWallet = connectedWallets[chain];
+      let result;
+
+      if (connectedWallet && connectedWallet.address === address) {
+        // Use enhanced wallet analysis for connected wallets
+        result = await mcpApiClient.analyzeConnectedWallet(
+          address,
+          chain,
+          'connected',
+          { balance: connectedWallet.balance }
+        );
+      } else {
+        // Use standard wallet address analysis
+        result = await mcpApiClient.analyzeWalletAddress(address);
+      }
+
       // Transform the result into our WalletAnalysis format
       const analysis: WalletAnalysis = {
         address,
         chain,
-        riskScore: result.riskScore || 0,
-        flags: result.findings?.map((f: any) => f.type) || [],
+        riskScore: result.riskAssessment?.overallScore || result.riskScore || 0,
+        flags: result.riskAssessment?.factors?.map((f: any) => f.category) ||
+               result.findings?.map((f: any) => f.type) || [],
         transactions: {
-          total: result.metadata?.transactionCount || 0,
-          suspicious: result.findings?.filter((f: any) => f.severity === 'high' || f.severity === 'critical').length || 0,
-          volume: result.metadata?.totalValue || '0',
+          total: result.tracingResults?.transactionHistory?.length ||
+                 result.metadata?.transactionCount || 0,
+          suspicious: result.riskAssessment?.factors?.filter((f: any) => f.score > 70).length ||
+                     result.findings?.filter((f: any) => f.severity === 'high' || f.severity === 'critical').length || 0,
+          volume: result.realTimeData?.networkActivity?.last7d?.volume ||
+                  result.metadata?.totalValue || '0',
         },
         sanctions: {
-          isListed: result.compliance?.sanctionsStatus?.isMatch || false,
-          source: result.compliance?.sanctionsStatus?.source,
-          details: result.compliance?.sanctionsStatus?.details,
+          isListed: result.complianceStatus?.sanctionsCheck?.status === 'flagged' ||
+                   result.compliance?.sanctionsStatus?.isMatch || false,
+          source: result.complianceStatus?.sanctionsCheck?.source ||
+                  result.compliance?.sanctionsStatus?.source,
+          details: result.complianceStatus?.sanctionsCheck?.details ||
+                   result.compliance?.sanctionsStatus?.details,
         },
         adverseMedia: {
           mentions: result.compliance?.adverseMedia?.articles?.length || 0,
-          risk: result.compliance?.adverseMedia?.riskScore > 70 ? 'high' : 
-                result.compliance?.adverseMedia?.riskScore > 40 ? 'medium' : 'low',
+          risk: result.complianceStatus?.amlRating ||
+                (result.compliance?.adverseMedia?.riskScore > 70 ? 'high' :
+                 result.compliance?.adverseMedia?.riskScore > 40 ? 'medium' : 'low'),
           sources: result.compliance?.adverseMedia?.articles?.map((a: any) => a.source) || [],
         },
       };
@@ -113,7 +135,7 @@ export const useWalletIntegration = (): WalletIntegrationState => {
         variant: "destructive",
       });
     }
-  }, [toast]);
+  }, [toast, connectedWallets]);
 
   const getWalletAnalysis = useCallback((address: string): WalletAnalysis | null => {
     return walletAnalyses[address] || null;
