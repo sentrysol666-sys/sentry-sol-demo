@@ -41,6 +41,7 @@ import {
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { isConnected, connectedWallets, activeWallet } = useWalletIntegration();
 
   const navigationItems = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
