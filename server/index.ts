@@ -13,6 +13,7 @@ import {
   callMCPTool
 } from "./routes/mcp";
 import walletAnalysisRoutes from "./routes/wallet-analysis";
+import comprehensiveAMLRoutes from "./routes/comprehensive-aml";
 
 export function createServer() {
   const app = express();
