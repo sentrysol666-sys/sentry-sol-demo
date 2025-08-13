@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Copy, ExternalLink, AlertCircle } from "lucide-react";
+import { ContentCopy as Copy, OpenInNew as ExternalLink, ErrorOutline as AlertCircle } from "@mui/icons-material";
 import { useToast } from "@/hooks/use-toast";
 import { CHAIN_CONFIGS } from "@/types/wallet";
 
