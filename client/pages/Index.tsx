@@ -15,7 +15,7 @@ export default function Index() {
       <section className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium bg-aml-blue/10 text-aml-blue border-aml-blue/20">
+            <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium bg-brand-light/10 text-brand-light border-brand-light/20">
               🧠 AI-Powered AML/Compliance Platform - Beta
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
