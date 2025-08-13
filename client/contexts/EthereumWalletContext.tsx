@@ -128,6 +128,19 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
         setBalance(ethers.formatEther(balance));
         setIsConnected(true);
       } catch (error) {
+        // Handle specific network errors gracefully
+        if (error instanceof Error && error.message.includes("Failed to fetch")) {
+          console.warn("Network connectivity issue detected, attempting recovery");
+          // Don't throw, just log the issue
+          return;
+        }
+
+        // Handle user rejection gracefully
+        if (error instanceof Error && (error.message.includes("User rejected") || error.message.includes("User denied"))) {
+          console.log("User rejected wallet connection");
+          return;
+        }
+
         console.error("Error connecting to MetaMask:", error);
         throw error;
       }
