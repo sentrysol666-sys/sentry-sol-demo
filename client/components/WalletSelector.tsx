@@ -255,7 +255,7 @@ export default function WalletSelector() {
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="text-2xl">{walletOption.icon}</div>
+                    <img src={walletOption.icon} alt={`${walletOption.name} icon`} className="w-8 h-8" />
                     <div>
                       <CardTitle className="flex items-center space-x-2">
                         <span>{walletOption.name}</span>
