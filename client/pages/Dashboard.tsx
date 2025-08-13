@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import MCPServicesStatus from "@/components/MCPServicesStatus";
+import WalletConnectionBanner from "@/components/WalletConnectionBanner";
 import {
   AlertTriangle, Shield, Brain, Network, Search, BarChart3,
   TrendingUp, TrendingDown, Activity, Clock, CheckCircle,
