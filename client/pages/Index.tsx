@@ -180,7 +180,10 @@ export default function Index() {
                     />
                     <Search className="text-white/50 w-4 h-4 ml-2" />
                   </div>
-                  <Button className="bg-white text-black hover:bg-white/90 rounded-full px-5 py-2 font-medium text-sm">
+                  <Button
+                    onClick={() => navigate("/signin")}
+                    className="bg-white text-black hover:bg-white/90 rounded-full px-5 py-2 font-medium text-sm"
+                  >
                     Connect
                   </Button>
                 </div>
