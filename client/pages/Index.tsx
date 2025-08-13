@@ -165,7 +165,7 @@ export default function Index() {
                 {/* Navigation Items */}
                 <div className="hidden md:flex items-center gap-6">
                   <a href="#products" className="text-white/90 hover:text-white transition-colors text-base font-medium">Products</a>
-                  <a href="#about" className="text-white/90 hover:text-white transition-colors text-base font-medium">About</a>
+                  <Link to="/about" className="text-white/90 hover:text-white transition-colors text-base font-medium">About</Link>
                   <a href="#docs" className="text-white/90 hover:text-white transition-colors text-base font-medium">Docs</a>
                   <a href="#pricing" className="text-white/90 hover:text-white transition-colors text-base font-medium">Pricing</a>
                 </div>
