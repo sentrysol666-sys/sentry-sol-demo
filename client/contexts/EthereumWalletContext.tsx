@@ -109,9 +109,24 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
   const updateBalance = async (address: string) => {
     if (provider) {
       try {
-        const balance = await provider.getBalance(address);
+        // Add timeout to prevent hanging requests
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Balance fetch timeout")), 3000)
+        );
+
+        const balance = await Promise.race([
+          provider.getBalance(address),
+          timeoutPromise
+        ]) as any;
+
         setBalance(ethers.formatEther(balance));
       } catch (error) {
+        // Silently handle network errors for balance updates
+        if (error instanceof Error &&
+            (error.message.includes("Failed to fetch") ||
+             error.message.includes("timeout"))) {
+          return; // Don't spam console with network errors
+        }
         console.error("Error updating balance:", error);
       }
     }
