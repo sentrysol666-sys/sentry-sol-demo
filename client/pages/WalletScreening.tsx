@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useMCPInvestigation } from '@/hooks/useMCPServices';
 import { mcpApiClient } from '@shared/api-client';
 import FlowVisualization from '@/components/FlowVisualization';
+import WalletConnector from '@/components/WalletConnector';
 import {
   Search, Shield, AlertTriangle, CheckCircle, XCircle,
   Eye, Clock, TrendingUp, Activity, Network, FileText,
