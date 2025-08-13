@@ -30,6 +30,7 @@ export default function Navigation() {
     { name: "About", href: "/about" },
     { name: "Docs", href: "/docs" },
     { name: "Pricing", href: "/pricing" },
+    { name: "Chat Sentry", href: "/chat-sentry" },
   ];
 
   const isActive = (href: string) => location.pathname === href;
