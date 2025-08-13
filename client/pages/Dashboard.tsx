@@ -200,6 +200,9 @@ export default function Dashboard() {
           ))}
         </div>
 
+        {/* MCP Services Status */}
+        <MCPServicesStatus />
+
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Agent Status */}
