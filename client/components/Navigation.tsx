@@ -83,7 +83,7 @@ export default function Navigation() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={isInternalPage
         ? "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-        : "fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-[min(90vw,1500px)]"
+        : "fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl"
       }
     >
       <div className={isInternalPage ? "container flex h-16 items-center justify-between px-4" : "relative"}>
