@@ -9,6 +9,7 @@ import { useWalletIntegration } from "@/hooks/useWalletIntegration";
 import { useEthereumWallet } from "@/contexts/EthereumWalletContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { logWalletError, getUserFriendlyErrorMessage, shouldShowErrorToUser } from "@/utils/errorUtils";
 import {
   CheckCircle,
   Error as ErrorIcon,
