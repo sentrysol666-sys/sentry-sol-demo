@@ -1,294 +1,80 @@
-// Material Design Icons wrapper for consistent usage
-import {
-  Dashboard as DashboardIcon,
-  Security as SecurityIcon,
-  Search as SearchIcon,
-  Assessment as AssessmentIcon,
-  Policy as PolicyIcon,
-  Settings as SettingsIcon,
-  AccountTree as NetworkIcon,
-  Psychology as BrainIcon,
-  Shield as ShieldIcon,
-  Warning as WarningIcon,
-  CheckCircle as CheckCircleIcon,
-  Error as ErrorIcon,
-  Info as InfoIcon,
-  Visibility as EyeIcon,
-  BarChart as BarChartIcon,
-  TrendingUp as TrendingUpIcon,
-  TrendingDown as TrendingDownIcon,
-  Activity as ActivityIcon,
-  Schedule as ClockIcon,
-  Refresh as RefreshIcon,
-  Download as DownloadIcon,
-  ZoomIn as ZoomInIcon,
-  ZoomOut as ZoomOutIcon,
-  RotateLeft as RotateLeftIcon,
-  Fullscreen as FullscreenIcon,
-  Share as ShareIcon,
-  Notifications as NotificationsIcon,
-  AccountCircle as AccountCircleIcon,
-  Menu as MenuIcon,
-  Close as CloseIcon,
-  ExpandMore as ChevronDownIcon,
-  KeyboardArrowRight as ArrowRightIcon,
-  KeyboardArrowLeft as ArrowLeftIcon,
-  Add as AddIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-  FileDownload as FileDownloadIcon,
-  Upload as UploadIcon,
-  Link as LinkIcon,
-  ContentCopy as CopyIcon,
-  FilterList as FilterIcon,
-  Sort as SortIcon,
-  MoreVert as MoreVertIcon,
-  Wallet as WalletIcon,
-  AccountBalance as ExchangeIcon,
-  SwapHoriz as SwapIcon,
-  Timeline as TimelineIcon,
-  Gavel as ComplianceIcon,
-  ReportProblem as ReportIcon,
-  Analytics as AnalyticsIcon,
-  MonetizationOn as MoneyIcon,
-  AttachMoney as DollarIcon,
-  TrendingFlat as TrendingFlatIcon,
-  DeviceHub as HubIcon,
-  Language as GlobalIcon,
-  Storage as DatabaseIcon,
-  Code as CodeIcon,
-  Bug as BugIcon,
-  Speed as SpeedIcon,
-  Extension as ExtensionIcon,
-  CloudSync as SyncIcon,
-  Lock as LockIcon,
-  LockOpen as UnlockIcon,
-  VpnKey as KeyIcon,
-  Fingerprint as FingerprintIcon,
-  PersonSearch as PersonSearchIcon,
-  Group as GroupIcon,
-  Person as PersonIcon,
-  Business as BusinessIcon,
-  LocationOn as LocationIcon,
-  DateRange as DateIcon,
-  AccessTime as TimeIcon,
-  History as HistoryIcon,
-  Update as UpdateIcon,
-  NewReleases as NewIcon,
-  Star as StarIcon,
-  Bookmark as BookmarkIcon,
-  Flag as FlagIcon,
-  Label as TagIcon,
-  Category as CategoryIcon,
-  LocalOffer as OfferIcon,
-  Receipt as ReceiptIcon,
-  Payment as PaymentIcon,
-  CreditCard as CardIcon,
-  RequestQuote as QuoteIcon,
-  MoneyOff as MoneyOffIcon,
-  PriceCheck as PriceCheckIcon,
-  Paid as PaidIcon,
-  CurrencyExchange as ExchangeRateIcon,
-  TrendingDownIcon,
-  Verified as VerifiedIcon,
-  GppBad as RiskIcon,
-  GppGood as SafeIcon,
-  GppMaybe as MaybeIcon,
-  HighlightOff as HighRiskIcon,
-  CheckCircleOutline as LowRiskIcon,
-  RadioButtonUnchecked as MediumRiskIcon,
-  Bolt as ElectricIcon,
-  FlashOn as FlashIcon,
-  Whatshot as HotIcon,
-  AcUnit as ColdIcon,
-  Opacity as LiquidIcon,
-  Grain as GrainIcon,
-  Scatter as ScatterIcon,
-  BubbleChart as BubbleIcon,
-  DonutLarge as DonutIcon,
-  PieChart as PieIcon,
-  ShowChart as LineChartIcon,
-  Equalizer as EqualizerIcon,
-  Leaderboard as LeaderboardIcon,
-  MultilineChart as MultilineChartIcon,
-  CandlestickChart as CandlestickIcon,
-  DataUsage as DataUsageIcon,
-  QueryStats as QueryStatsIcon,
-  Insights as InsightsIcon,
-  TroubleshootIcon,
-  Science as ScienceIcon,
-  Biotech as BiotechIcon,
-  Memory as MemoryIcon,
-  Computer as ComputerIcon,
-  PhoneAndroid as MobileIcon,
-  Tablet as TabletIcon,
-  Laptop as LaptopIcon,
-  DesktopWindows as DesktopIcon,
-  Watch as WatchIcon,
-  Tv as TvIcon,
-  Headset as HeadsetIcon,
-  Keyboard as KeyboardIcon,
-  Mouse as MouseIcon,
-  Print as PrintIcon,
-  Scanner as ScannerIcon,
-  Wifi as WifiIcon,
-  Bluetooth as BluetoothIcon,
-  Nfc as NfcIcon,
-  Usb as UsbIcon,
-  SdCard as SdCardIcon,
-  SimCard as SimCardIcon,
-  Router as RouterIcon,
-  Dns as DnsIcon,
-  Http as HttpIcon,
-  Https as HttpsIcon,
-  Api as ApiIcon,
-  Webhook as WebhookIcon,
-  OpenInNew as OpenInNewIcon,
-  Launch as LaunchIcon,
-  ExitToApp as ExitIcon,
-  Login as LoginIcon,
-  Logout as LogoutIcon,
-  PersonAdd as PersonAddIcon,
-  PersonRemove as PersonRemoveIcon,
-  SupervisorAccount as SupervisorIcon,
-  AdminPanelSettings as AdminIcon,
-  ManageAccounts as ManageAccountsIcon,
-  VerifiedUser as VerifiedUserIcon,
-  Block as BlockIcon,
-  Check as CheckIcon,
-  Clear as ClearIcon,
-  Done as DoneIcon,
-  Cancel as CancelIcon,
-  Save as SaveIcon,
-  Backup as BackupIcon,
-  Restore as RestoreIcon,
-  Sync as SyncIcon2,
-  SyncProblem as SyncProblemIcon,
-  SyncDisabled as SyncDisabledIcon,
-  Cloud as CloudIcon,
-  CloudDownload as CloudDownloadIcon,
-  CloudUpload as CloudUploadIcon,
-  CloudOff as CloudOffIcon,
-  CloudQueue as CloudQueueIcon,
-  Folder as FolderIcon,
-  FolderOpen as FolderOpenIcon,
-  CreateNewFolder as CreateFolderIcon,
-  DriveFileMove as MoveFileIcon,
-  FileCopy as FileCopyIcon,
-  InsertDriveFile as FileIcon,
-  Description as DocumentIcon,
-  PictureAsPdf as PdfIcon,
-  Image as ImageIcon,
-  VideoFile as VideoIcon,
-  AudioFile as AudioIcon,
-  Archive as ArchiveIcon,
-  DataObject as JsonIcon,
-  Html as HtmlIcon,
-  Css as CssIcon,
-  JavaScript as JsIcon,
-} from '@mui/icons-material';
+// Simplified Material Design Icons for Sentrysol
+import React from 'react';
 
-// Create a mapping object for easy icon replacement
-export const icons = {
-  // Dashboard & Navigation
-  dashboard: DashboardIcon,
-  security: SecurityIcon,
-  search: SearchIcon,
-  assessment: AssessmentIcon,
-  policy: PolicyIcon,
-  settings: SettingsIcon,
-  
-  // Core AML/Compliance
-  network: NetworkIcon,
-  brain: BrainIcon,
-  shield: ShieldIcon,
-  warning: WarningIcon,
-  
-  // Status indicators
-  checkCircle: CheckCircleIcon,
-  error: ErrorIcon,
-  info: InfoIcon,
-  
-  // Actions
-  eye: EyeIcon,
-  refresh: RefreshIcon,
-  download: DownloadIcon,
-  upload: UploadIcon,
-  
-  // Charts & Analytics
-  barChart: BarChartIcon,
-  trendingUp: TrendingUpIcon,
-  trendingDown: TrendingDownIcon,
-  trendingFlat: TrendingFlatIcon,
-  pieChart: PieIcon,
-  lineChart: LineChartIcon,
-  
-  // Time & Scheduling
-  clock: ClockIcon,
-  time: TimeIcon,
-  history: HistoryIcon,
-  schedule: ClockIcon,
-  
-  // UI Controls
-  menu: MenuIcon,
-  close: CloseIcon,
-  chevronDown: ChevronDownIcon,
-  arrowRight: ArrowRightIcon,
-  arrowLeft: ArrowLeftIcon,
-  
-  // Zoom & View controls
-  zoomIn: ZoomInIcon,
-  zoomOut: ZoomOutIcon,
-  rotateLeft: RotateLeftIcon,
-  fullscreen: FullscreenIcon,
-  
-  // Financial & Crypto
-  wallet: WalletIcon,
-  exchange: ExchangeIcon,
-  money: MoneyIcon,
-  dollar: DollarIcon,
-  payment: PaymentIcon,
-  
-  // Risk Levels
-  risk: RiskIcon,
-  safe: SafeIcon,
-  maybe: MaybeIcon,
-  highRisk: HighRiskIcon,
-  lowRisk: LowRiskIcon,
-  mediumRisk: MediumRiskIcon,
-  
-  // User & People
-  person: PersonIcon,
-  group: GroupIcon,
-  personSearch: PersonSearchIcon,
-  
-  // System & Tech
-  database: DatabaseIcon,
-  code: CodeIcon,
-  api: ApiIcon,
-  computer: ComputerIcon,
-  
-  // Files & Documents
-  file: FileIcon,
-  document: DocumentIcon,
-  folder: FolderIcon,
-  
-  // General
-  notifications: NotificationsIcon,
-  account: AccountCircleIcon,
-  verified: VerifiedIcon,
-  lock: LockIcon,
-  unlock: UnlockIcon,
-  
-  // Special
-  activity: ActivityIcon,
-  analytics: AnalyticsIcon,
-  insights: InsightsIcon,
-  compliance: ComplianceIcon,
-  report: ReportIcon,
-};
+// Import specific icons from Material UI
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import SecurityIcon from '@mui/icons-material/Security';
+import SearchIcon from '@mui/icons-material/Search';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import PolicyIcon from '@mui/icons-material/Policy';
+import SettingsIcon from '@mui/icons-material/Settings';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import ShieldIcon from '@mui/icons-material/Shield';
+import WarningIcon from '@mui/icons-material/Warning';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import InfoIcon from '@mui/icons-material/Info';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import DownloadIcon from '@mui/icons-material/Download';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import ZoomOutIcon from '@mui/icons-material/ZoomOut';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import ShareIcon from '@mui/icons-material/Share';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import StorageIcon from '@mui/icons-material/Storage';
+import CodeIcon from '@mui/icons-material/Code';
+import PersonIcon from '@mui/icons-material/Person';
+import GroupIcon from '@mui/icons-material/Group';
+import DescriptionIcon from '@mui/icons-material/Description';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import InsightsIcon from '@mui/icons-material/Insights';
+import GavelIcon from '@mui/icons-material/Gavel';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FlashOnIcon from '@mui/icons-material/FlashOn';
 
-// Export individual icons for direct use
+// Network specific icon (using AccountTree as NetworkIcon)
+export const NetworkIcon = AccountTreeIcon;
+export const BrainIcon = PsychologyIcon;
+export const EyeIcon = VisibilityIcon;
+export const ClockIcon = ScheduleIcon;
+export const ChevronDownIcon = ExpandMoreIcon;
+export const ArrowRightIcon = KeyboardArrowRightIcon;
+export const ArrowLeftIcon = KeyboardArrowLeftIcon;
+export const WalletIcon = AccountBalanceWalletIcon;
+export const ExchangeIcon = SwapHorizIcon;
+export const MoneyIcon = MonetizationOnIcon;
+export const DollarIcon = AttachMoneyIcon;
+export const DatabaseIcon = StorageIcon;
+export const DocumentIcon = DescriptionIcon;
+export const ComplianceIcon = GavelIcon;
+export const ReportIcon = ReportProblemIcon;
+export const ExitIcon = ExitToAppIcon;
+export const ActivityIcon = TimelineIcon;
+export const FlashIcon = FlashOnIcon;
+
+// Export all the icons
 export {
   DashboardIcon,
   SecurityIcon,
@@ -296,19 +82,14 @@ export {
   AssessmentIcon,
   PolicyIcon,
   SettingsIcon,
-  NetworkIcon,
-  BrainIcon,
   ShieldIcon,
   WarningIcon,
   CheckCircleIcon,
   ErrorIcon,
   InfoIcon,
-  EyeIcon,
   BarChartIcon,
   TrendingUpIcon,
   TrendingDownIcon,
-  ActivityIcon,
-  ClockIcon,
   RefreshIcon,
   DownloadIcon,
   ZoomInIcon,
@@ -320,38 +101,63 @@ export {
   AccountCircleIcon,
   MenuIcon,
   CloseIcon,
-  ChevronDownIcon,
-  ArrowRightIcon,
-  ArrowLeftIcon,
-  WalletIcon,
-  ExchangeIcon,
-  MoneyIcon,
-  DollarIcon,
-  PaymentIcon,
-  RiskIcon,
-  SafeIcon,
-  MaybeIcon,
-  HighRiskIcon,
-  LowRiskIcon,
-  MediumRiskIcon,
   PersonIcon,
   GroupIcon,
-  PersonSearchIcon,
-  DatabaseIcon,
-  CodeIcon,
-  ApiIcon,
-  ComputerIcon,
-  FileIcon,
-  DocumentIcon,
-  FolderIcon,
   VerifiedIcon,
   LockIcon,
-  UnlockIcon,
+  LockOpenIcon,
   AnalyticsIcon,
   InsightsIcon,
-  ComplianceIcon,
-  ReportIcon,
 };
 
-// Default export for convenience
+// Create a mapping object for easy icon replacement
+export const icons = {
+  dashboard: DashboardIcon,
+  security: SecurityIcon,
+  search: SearchIcon,
+  assessment: AssessmentIcon,
+  policy: PolicyIcon,
+  settings: SettingsIcon,
+  network: NetworkIcon,
+  brain: BrainIcon,
+  shield: ShieldIcon,
+  warning: WarningIcon,
+  checkCircle: CheckCircleIcon,
+  error: ErrorIcon,
+  info: InfoIcon,
+  eye: EyeIcon,
+  barChart: BarChartIcon,
+  trendingUp: TrendingUpIcon,
+  trendingDown: TrendingDownIcon,
+  clock: ClockIcon,
+  refresh: RefreshIcon,
+  download: DownloadIcon,
+  menu: MenuIcon,
+  close: CloseIcon,
+  chevronDown: ChevronDownIcon,
+  arrowRight: ArrowRightIcon,
+  arrowLeft: ArrowLeftIcon,
+  wallet: WalletIcon,
+  exchange: ExchangeIcon,
+  money: MoneyIcon,
+  dollar: DollarIcon,
+  database: DatabaseIcon,
+  code: CodeIcon,
+  person: PersonIcon,
+  group: GroupIcon,
+  document: DocumentIcon,
+  verified: VerifiedIcon,
+  lock: LockIcon,
+  unlock: LockOpenIcon,
+  analytics: AnalyticsIcon,
+  insights: InsightsIcon,
+  compliance: ComplianceIcon,
+  report: ReportIcon,
+  notifications: NotificationsIcon,
+  account: AccountCircleIcon,
+  activity: ActivityIcon,
+  exit: ExitIcon,
+  flash: FlashIcon,
+};
+
 export default icons;
