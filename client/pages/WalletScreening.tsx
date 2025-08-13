@@ -209,6 +209,21 @@ export default function WalletScreening() {
                     <p className="text-sm text-risk-red mt-1">Please enter a valid Solana or Ethereum address</p>
                   )}
                 </div>
+                {walletConnected && (
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const walletAddress = fillAddressFromConnectedWallet();
+                      if (walletAddress) {
+                        handleAddressChange(walletAddress);
+                      }
+                    }}
+                    className="whitespace-nowrap"
+                  >
+                    <Wallet className="mr-2 h-4 w-4" />
+                    Use Connected
+                  </Button>
+                )}
               </div>
 
               {/* Multi-Agent Controls */}
