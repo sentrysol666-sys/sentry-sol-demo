@@ -2,6 +2,11 @@ import { ChatMistralAI } from "@langchain/mistralai";
 import { BaseMessage, HumanMessage, AIMessage } from "@langchain/core/messages";
 import { StateGraph, Annotation, START, END } from "@langchain/langgraph";
 import { Client } from "langsmith";
+import { metaSleuthService } from "../services/metasleuth-service";
+import { chainabuseService } from "../services/chainabuse-service";
+import { coinstatsService } from "../services/coinstats-service";
+import { pepCheckerService } from "../services/pep-checker-service";
+import { heliusEnhancedService } from "../services/helius-enhanced-service";
 
 // Initialize LangSmith for tracing
 const langsmithClient = new Client({
