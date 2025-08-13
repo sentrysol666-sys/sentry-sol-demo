@@ -141,7 +141,12 @@ export default function SignIn() {
 
   useEffect(() => {
     if (isConnected) {
-      navigate("/dashboard");
+      const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+      if (hasCompletedOnboarding) {
+        navigate("/dashboard");
+      } else {
+        navigate("/onboarding");
+      }
     }
   }, [isConnected, navigate]);
 
