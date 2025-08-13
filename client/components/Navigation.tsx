@@ -33,14 +33,37 @@ export default function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const { isConnected } = useWalletIntegration();
 
-  const navigationItems = [
+  // Check if user is on an internal/authenticated page
+  const isInternalPage = isConnected && (
+    location.pathname.startsWith('/dashboard') ||
+    location.pathname.startsWith('/aml-dashboard') ||
+    location.pathname.startsWith('/wallet-screening') ||
+    location.pathname.startsWith('/cases') ||
+    location.pathname.startsWith('/analytics') ||
+    location.pathname.startsWith('/compliance') ||
+    location.pathname.startsWith('/settings') ||
+    location.pathname.startsWith('/chat-sentry')
+  );
+
+  const externalNavigationItems = [
     { name: "Products", href: "/products" },
     { name: "About", href: "/about" },
     { name: "Docs", href: "/docs" },
     { name: "Pricing", href: "/pricing" },
-    { name: "Chat Sentry", href: "/chat-sentry" },
   ];
+
+  const internalNavigationItems = [
+    { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
+    { name: "AML Investigation", href: "/aml-dashboard", icon: Shield },
+    { name: "Wallet Screening", href: "/wallet-screening", icon: Search },
+    { name: "Case Management", href: "/cases", icon: FileText },
+    { name: "Analytics", href: "/analytics", icon: Analytics },
+    { name: "Chat Sentry", href: "/chat-sentry", icon: Chat },
+  ];
+
+  const navigationItems = isInternalPage ? internalNavigationItems : externalNavigationItems;
 
   const isActive = (href: string) => location.pathname === href;
 
