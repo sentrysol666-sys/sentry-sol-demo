@@ -1,102 +1,124 @@
-import React from "react";
+import { useEffect } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useWalletIntegration } from "@/hooks/useWalletIntegration";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  WalletIcon,
-  SecurityIcon,
-  LockIcon,
-} from "@/components/ui/material-icons";
 import { Link } from "react-router-dom";
+import {
+  Security as Shield,
+  AccountBalanceWallet as Wallet,
+  Info,
+  ArrowForward,
+} from "@mui/icons-material";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   requireWallet?: boolean;
-  fallbackPath?: string;
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-  children,
-  requireWallet = true,
-  fallbackPath = "/wallet-screening",
-}) => {
-  const { isConnected } = useWalletIntegration();
+export default function ProtectedRoute({ 
+  children, 
+  requireWallet = true 
+}: ProtectedRouteProps) {
+  const { isConnected, isLoading } = useWalletIntegration();
+  const location = useLocation();
 
-  if (!requireWallet || isConnected) {
-    return <>{children}</>;
+  // Show loading state while checking wallet connection
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-accent/10 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"
+          />
+          <p className="text-muted-foreground">Checking wallet connection...</p>
+        </motion.div>
+      </div>
+    );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-brand-light/5 p-6 flex items-center justify-center">
-      <div className="max-w-md w-full">
-        <Card className="border-2 border-dashed border-warning-amber/50">
-          <CardHeader className="text-center">
-            <div className="mx-auto w-16 h-16 bg-warning-amber/10 rounded-full flex items-center justify-center mb-4">
-              <LockIcon className="h-8 w-8 text-warning-amber" />
-            </div>
-            <CardTitle className="text-xl">
-              Wallet Connection Required
-            </CardTitle>
-            <CardDescription>
-              This feature requires a connected wallet to access advanced AML
-              capabilities
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="bg-muted/50 rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <SecurityIcon className="h-4 w-4 text-brand-light" />
-                <span className="text-sm font-medium">Security Features</span>
+  // If wallet is required but not connected, show connection prompt
+  if (requireWallet && !isConnected) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-accent/10 flex items-center justify-center p-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full max-w-md"
+        >
+          <Card className="shadow-xl border-primary/20">
+            <CardHeader className="text-center">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
+                className="w-16 h-16 bg-gradient-to-r from-primary to-brand-light rounded-2xl flex items-center justify-center mx-auto mb-4"
+              >
+                <Shield className="h-8 w-8 text-white" />
+              </motion.div>
+              
+              <CardTitle className="text-xl font-bold">
+                Wallet Connection Required
+              </CardTitle>
+            </CardHeader>
+            
+            <CardContent className="text-center space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
+                  <Info className="h-5 w-5 text-primary flex-shrink-0" />
+                  <p className="text-sm text-muted-foreground text-left">
+                    Connect your wallet to access compliance features and secure your account
+                  </p>
+                </div>
+                
+                <div className="flex items-center space-x-3 p-3 bg-success-green/10 rounded-lg">
+                  <Shield className="h-5 w-5 text-success-green flex-shrink-0" />
+                  <p className="text-sm text-success-green/80 text-left">
+                    Non-custodial connection - we never store your private keys
+                  </p>
+                </div>
               </div>
-              <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Real-time transaction monitoring</li>
-                <li>• Enhanced risk assessment</li>
-                <li>• Automated compliance checking</li>
-                <li>• Pattern detection alerts</li>
-              </ul>
-            </div>
-
-            <div className="flex items-center justify-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                Solana
-              </Badge>
-              <Badge variant="outline" className="text-xs">
-                Ethereum
-              </Badge>
-              <Badge variant="outline" className="text-xs">
-                Polygon
-              </Badge>
-              <Badge variant="outline" className="text-xs">
-                Arbitrum
-              </Badge>
-            </div>
-
-            <div className="space-y-2">
-              <Link to={fallbackPath} className="w-full">
-                <Button className="w-full bg-brand-light hover:bg-brand-light/90">
-                  <WalletIcon className="mr-2 h-4 w-4" />
-                  Connect Wallet
-                </Button>
-              </Link>
-
-              <Link to="/dashboard" className="w-full">
-                <Button variant="outline" className="w-full">
-                  Back to Dashboard
-                </Button>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+              
+              <div className="space-y-3">
+                <Link 
+                  to="/signin" 
+                  state={{ from: location }} 
+                  className="block"
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button className="w-full bg-gradient-to-r from-primary to-brand-light hover:from-primary/90 hover:to-brand-light/90">
+                      <Wallet className="mr-2 h-4 w-4" />
+                      Connect Wallet
+                      <ArrowForward className="ml-2 h-4 w-4" />
+                    </Button>
+                  </motion.div>
+                </Link>
+                
+                <Link to="/">
+                  <Button variant="outline" className="w-full">
+                    Back to Home
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
-    </div>
-  );
-};
+    );
+  }
 
-export default ProtectedRoute;
+  // If connected or wallet not required, render children
+  return <>{children}</>;
+}
