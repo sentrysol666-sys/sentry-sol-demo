@@ -166,11 +166,11 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center space-x-3">
             <Button variant="outline" size="sm">
-              <RefreshIcon className="mr-2 h-4 w-4" />
+              <RefreshCw className="mr-2 h-4 w-4" />
               Refresh
             </Button>
             <Button size="sm" className="bg-brand-light hover:bg-brand-light/90">
-              <SearchIcon className="mr-2 h-4 w-4" />
+              <Search className="mr-2 h-4 w-4" />
               Screen Address
             </Button>
           </div>
