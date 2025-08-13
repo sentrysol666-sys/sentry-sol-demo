@@ -76,6 +76,14 @@ export default {
         success: {
           green: "hsl(var(--success-green))",
         },
+        sentry: {
+          dark: "hsl(var(--sentry-dark))",
+          teal: "hsl(var(--sentry-teal))",
+          'light-teal': "hsl(var(--sentry-light-teal))",
+          mint: "hsl(var(--sentry-mint))",
+          ice: "hsl(var(--sentry-ice))",
+          steel: "hsl(var(--sentry-steel))",
+        },
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",
