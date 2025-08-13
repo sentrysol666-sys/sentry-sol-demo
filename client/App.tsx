@@ -24,7 +24,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   const isHomePage = location.pathname === "/";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background dark">
       {!isHomePage && <Navigation />}
       {children}
     </div>
