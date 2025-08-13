@@ -28,6 +28,108 @@ export const getMCPStatus: RequestHandler = async (req, res) => {
   }
 };
 
+export const investigateAddressWithAgents: RequestHandler = async (req, res) => {
+  try {
+    const { address, investigationType = 'full' } = req.body;
+
+    if (!address) {
+      return res.status(400).json({
+        success: false,
+        error: 'Address is required'
+      });
+    }
+
+    // Basic address validation
+    const isSolanaAddress = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
+    const isEthereumAddress = /^0x[a-fA-F0-9]{40}$/.test(address);
+
+    if (!isSolanaAddress && !isEthereumAddress) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid address format. Please provide a valid Solana or Ethereum address.'
+      });
+    }
+
+    console.log(`🧠 API: Starting multi-agent investigation for address: ${address}`);
+
+    const result = await investigationService.investigateAddressWithAgents(address, investigationType);
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('Error during multi-agent investigation:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Multi-agent investigation failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const performBlockchainTracing: RequestHandler = async (req, res) => {
+  try {
+    const { address } = req.body;
+
+    if (!address) {
+      return res.status(400).json({
+        success: false,
+        error: 'Address is required'
+      });
+    }
+
+    console.log(`🔍 API: Performing blockchain tracing for address: ${address}`);
+
+    const result = await investigationService.performBlockchainTracing(address);
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('Error during blockchain tracing:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Blockchain tracing failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const generateFlowVisualization: RequestHandler = async (req, res) => {
+  try {
+    const { address, transactionData = [], connectedEntities = [] } = req.body;
+
+    if (!address) {
+      return res.status(400).json({
+        success: false,
+        error: 'Address is required'
+      });
+    }
+
+    console.log(`📊 API: Generating flow visualization for address: ${address}`);
+
+    const result = await investigationService.generateFlowVisualization(
+      address,
+      transactionData,
+      connectedEntities
+    );
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('Error generating flow visualization:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Flow visualization generation failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
 export const investigateAddress: RequestHandler = async (req, res) => {
   try {
     const { address } = req.body;
