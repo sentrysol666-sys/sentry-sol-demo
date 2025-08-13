@@ -144,7 +144,7 @@ export default function Help() {
             <Badge className="mb-6 px-4 py-2 bg-sentry-mint/10 text-sentry-mint border-sentry-mint/30">
               Getting Started Guide
             </Badge>
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-poppins mb-6 bg-gradient-to-r from-white via-sentry-mint to-sentry-ice bg-clip-text text-transparent">
               Set Up Your Crypto Wallet
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
