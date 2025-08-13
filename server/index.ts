@@ -40,5 +40,8 @@ export function createServer() {
   app.get("/api/mcp/tools/:serverKey", getMCPTools);
   app.post("/api/mcp/call/:serverKey/:toolName", callMCPTool);
 
+  // Wallet Analysis API endpoints
+  app.use("/api/wallet", walletAnalysisRoutes);
+
   return app;
 }
