@@ -150,22 +150,61 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
         setChainId(Number(network.chainId));
         setBalance(ethers.formatEther(balance));
         setIsConnected(true);
-      } catch (error) {
-        // Handle specific network errors gracefully
-        if (error instanceof Error && error.message.includes("Failed to fetch")) {
-          console.warn("Network connectivity issue detected, attempting recovery");
-          // Don't throw, just log the issue
-          return;
+      } catch (error: any) {
+        // Create a proper error message
+        let errorMessage = "Unknown error occurred";
+        let errorCode = null;
+
+        if (error && typeof error === 'object') {
+          // Handle MetaMask specific errors
+          if (error.code) {
+            errorCode = error.code;
+            switch (error.code) {
+              case 4001:
+                errorMessage = "User rejected the connection request";
+                console.log("User rejected wallet connection");
+                return;
+              case -32002:
+                errorMessage = "Connection request already pending. Please check MetaMask.";
+                break;
+              case -32603:
+                errorMessage = "Internal JSON-RPC error";
+                break;
+              default:
+                errorMessage = error.message || `MetaMask error (code: ${error.code})`;
+            }
+          } else if (error.message) {
+            errorMessage = error.message;
+          } else if (error.reason) {
+            errorMessage = error.reason;
+          }
+        } else if (typeof error === 'string') {
+          errorMessage = error;
         }
 
-        // Handle user rejection gracefully
-        if (error instanceof Error && (error.message.includes("User rejected") || error.message.includes("User denied"))) {
+        // Handle specific error types
+        if (errorMessage.includes("Failed to fetch") || errorMessage.includes("NetworkError")) {
+          console.warn("Network connectivity issue detected:", errorMessage);
+          return; // Don't throw for network issues
+        }
+
+        if (errorMessage.includes("User rejected") || errorMessage.includes("User denied")) {
           console.log("User rejected wallet connection");
           return;
         }
 
-        console.error("Error connecting to MetaMask:", error);
-        throw error;
+        console.error("Error connecting to MetaMask:", {
+          message: errorMessage,
+          code: errorCode,
+          originalError: error
+        });
+
+        // Create a user-friendly error
+        const friendlyError = new Error(errorMessage);
+        if (errorCode) {
+          (friendlyError as any).code = errorCode;
+        }
+        throw friendlyError;
       }
     } else {
       throw new Error("MetaMask is not installed");
