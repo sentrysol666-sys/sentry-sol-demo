@@ -142,41 +142,94 @@ export default function WalletScreening() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex space-x-4">
-              <div className="flex-1">
-                <Input
-                  placeholder="Enter wallet address (e.g., 0x742d35Cc6aF1cD6c... or DRiP2Pn2K6...)"
-                  value={address}
-                  onChange={(e) => handleAddressChange(e.target.value)}
-                  className={`${
-                    address && !isValidAddress 
-                      ? 'border-risk-red focus:border-risk-red' 
-                      : address && isValidAddress 
-                        ? 'border-success-green focus:border-success-green'
-                        : ''
-                  }`}
-                />
-                {address && !isValidAddress && (
-                  <p className="text-sm text-risk-red mt-1">Please enter a valid Solana or Ethereum address</p>
-                )}
+            <div className="space-y-4">
+              <div className="flex space-x-4">
+                <div className="flex-1">
+                  <Input
+                    placeholder="Enter wallet address (e.g., 0x742d35Cc6aF1cD6c... or DRiP2Pn2K6...)"
+                    value={address}
+                    onChange={(e) => handleAddressChange(e.target.value)}
+                    className={`${
+                      address && !isValidAddress
+                        ? 'border-risk-red focus:border-risk-red'
+                        : address && isValidAddress
+                          ? 'border-success-green focus:border-success-green'
+                          : ''
+                    }`}
+                  />
+                  {address && !isValidAddress && (
+                    <p className="text-sm text-risk-red mt-1">Please enter a valid Solana or Ethereum address</p>
+                  )}
+                </div>
               </div>
-              <Button 
-                onClick={handleScreening}
-                disabled={!isValidAddress || investigation.isLoading || !isReady}
-                className="bg-brand-light hover:bg-brand-light/90"
-              >
-                {investigation.isLoading ? (
-                  <>
-                    <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                    Analyzing...
-                  </>
-                ) : (
-                  <>
-                    <Shield className="mr-2 h-4 w-4" />
-                    Screen Address
-                  </>
-                )}
-              </Button>
+
+              {/* Multi-Agent Controls */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <Button
+                  onClick={handleScreening}
+                  disabled={!isValidAddress || investigation.isLoading || !isReady}
+                  className="bg-brand-light hover:bg-brand-light/90"
+                >
+                  {investigation.isLoading ? (
+                    <>
+                      <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                      Analyzing...
+                    </>
+                  ) : (
+                    <>
+                      <Shield className="mr-2 h-4 w-4" />
+                      Full Investigation
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  onClick={handleBlockchainTracing}
+                  disabled={!isValidAddress || isTracingLoading}
+                  variant="outline"
+                  className="border-brand-light text-brand-light hover:bg-brand-light/10"
+                >
+                  {isTracingLoading ? (
+                    <>
+                      <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                      Tracing...
+                    </>
+                  ) : (
+                    <>
+                      <Network className="mr-2 h-4 w-4" />
+                      Blockchain Trace
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  onClick={handleGenerateVisualization}
+                  disabled={!isValidAddress || isVisualizationLoading}
+                  variant="outline"
+                  className="border-success-green text-success-green hover:bg-success-green/10"
+                >
+                  {isVisualizationLoading ? (
+                    <>
+                      <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <BarChart3 className="mr-2 h-4 w-4" />
+                      Visualize Flow
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  variant="outline"
+                  disabled={!isValidAddress}
+                  className="border-warning-amber text-warning-amber hover:bg-warning-amber/10"
+                >
+                  <Search className="mr-2 h-4 w-4" />
+                  Media Analysis
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
