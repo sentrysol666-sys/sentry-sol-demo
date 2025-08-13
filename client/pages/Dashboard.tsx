@@ -7,11 +7,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import MCPServicesStatus from "@/components/MCPServicesStatus";
 import {
-  AlertTriangle, Shield, Brain, Network, Search, BarChart3,
-  TrendingUp, TrendingDown, Activity, Clock, CheckCircle,
-  XCircle, Eye, Users, FileText, Settings, Zap,
-  AlertCircle, Info, RefreshCw
-} from "lucide-react";
+  WarningIcon, ShieldIcon, BrainIcon, NetworkIcon, SearchIcon, BarChartIcon,
+  TrendingUpIcon, TrendingDownIcon, ActivityIcon, ClockIcon, CheckCircleIcon,
+  ErrorIcon, EyeIcon, GroupIcon, DocumentIcon, SettingsIcon, FlashIcon,
+  InfoIcon, RefreshIcon
+} from "@/components/ui/icons";
 
 export default function Dashboard() {
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
