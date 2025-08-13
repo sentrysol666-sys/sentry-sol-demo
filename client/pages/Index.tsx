@@ -13,32 +13,41 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-brand-light/5">
       {/* Hero Section */}
-      <section className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+        {/* Spline 3D Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <Spline scene="https://prod.spline.design/b4kijYaH28dY5-BL/scene.splinecode" />
+        </div>
+
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="text-center">
-            <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium bg-brand-light/10 text-brand-light border-brand-light/20">
+            <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium bg-brand-light/20 text-brand-light border-brand-light/30 backdrop-blur-sm">
               🧠 AI-Powered AML/Compliance Platform - Beta
             </Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-poppins tracking-tight text-foreground mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-poppins tracking-tight text-foreground mb-6 drop-shadow-lg">
               Next-Gen{" "}
               <span className="bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
                 AML Intelligence
               </span>
               {" "}for Blockchain
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed">
-              Advanced Graph Neural Networks (GCN) and LLM analysis for comprehensive blockchain compliance. 
+            <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed drop-shadow-sm">
+              Advanced Graph Neural Networks (GCN) and LLM analysis for comprehensive blockchain compliance.
               Multi-agent architecture for sanctions screening, transaction monitoring, and risk assessment.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/dashboard">
-                <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90">
+                <Button size="lg" className="px-8 py-3 text-lg font-semibold bg-brand-light hover:bg-brand-light/90 shadow-lg">
                   Launch AML Dashboard
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/wallet-screening">
-                <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10">
+                <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-brand-light text-brand-light hover:bg-brand-light/10 backdrop-blur-sm shadow-lg">
                   Screen Wallet
                 </Button>
               </Link>
