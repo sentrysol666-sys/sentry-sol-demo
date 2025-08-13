@@ -15,23 +15,24 @@ import {
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-black via-sentry-teal/50 to-black text-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 px-4">
+      <section className="relative overflow-hidden py-32 px-4">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-sentry-teal/10 to-transparent" />
         <div className="container mx-auto max-w-4xl text-center relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="outline" className="mb-6 border-brand-light/30 text-brand-light">
+            <Badge variant="outline" className="mb-6 border-sentry-mint/30 text-sentry-mint bg-sentry-mint/10">
               About Sentrysol
             </Badge>
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-foreground via-brand-light to-brand-accent bg-clip-text text-transparent">
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-sentry-mint to-sentry-ice bg-clip-text text-transparent font-poppins leading-tight">
               Pioneering the Future of Financial Intelligence
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto font-poppins">
               We're building the world's most advanced AI-powered AML compliance platform, 
               empowering financial institutions to stay ahead of evolving threats while 
               maintaining seamless operations.
