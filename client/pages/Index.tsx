@@ -9,17 +9,17 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowRight,
-  Shield,
-  Brain,
-  Network,
+  ArrowForward as ArrowRight,
+  Security as Shield,
+  Psychology as Brain,
+  Hub as Network,
   Search,
-  BarChart3,
+  BarChart as BarChart3,
   CheckCircle,
-  Zap,
-  Globe,
-  Users,
-} from "lucide-react";
+  Bolt as Zap,
+  Public as Globe,
+  Groups as Users,
+} from "@mui/icons-material";
 
 export default function Index() {
   return (
