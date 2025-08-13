@@ -96,7 +96,7 @@ export default function Navigation() {
         <div className="flex items-center space-x-4">
           {/* Notifications */}
           <Button variant="ghost" size="sm" className="relative">
-            <NotificationsIcon className="h-4 w-4" />
+            <Bell className="h-4 w-4" />
             <span className="absolute -top-1 -right-1 h-2 w-2 bg-risk-red rounded-full"></span>
           </Button>
 
