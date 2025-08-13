@@ -71,6 +71,14 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/chat-sentry"
+                element={
+                  <ProtectedRoute>
+                    <ChatSentry />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/help" element={<Help />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
