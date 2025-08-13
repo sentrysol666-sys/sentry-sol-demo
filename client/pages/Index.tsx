@@ -64,7 +64,7 @@ export default function Index() {
               <CardHeader>
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-brand-light/10 rounded-lg">
-                    <Network className="h-6 w-6 text-brand-light" />
+                    <NetworkIcon className="h-6 w-6 text-brand-light" />
                   </div>
                   <CardTitle className="text-xl">Blockchain Tracing Agent</CardTitle>
                 </div>
