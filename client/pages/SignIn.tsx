@@ -204,81 +204,9 @@ export default function SignIn() {
             </p>
           </motion.div>
 
-          {/* Wallet Options */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {walletOptions.map((wallet) => (
-              <motion.div
-                key={wallet.id}
-                whileHover={{ scale: 1.02, y: -4 }}
-                whileTap={{ scale: 0.98 }}
-                className="relative"
-              >
-                <Card className="h-full cursor-pointer group overflow-hidden border-2 hover:border-primary/30 transition-all duration-300">
-                  <div className={`absolute inset-0 bg-gradient-to-r ${wallet.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-                  
-                  <CardHeader className="relative">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="text-3xl">{wallet.icon}</div>
-                      <motion.div
-                        animate={selectedWallet === wallet.id && isConnecting ? { rotate: 360 } : {}}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      >
-                        {selectedWallet === wallet.id && isConnecting ? (
-                          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                        ) : (
-                          <OpenInNew className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                        )}
-                      </motion.div>
-                    </div>
-                    
-                    <CardTitle className="flex items-center space-x-2">
-                      <span>{wallet.name}</span>
-                      {wallet.type === "solana" && (
-                        <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700">
-                          Solana
-                        </Badge>
-                      )}
-                      {wallet.type === "ethereum" && (
-                        <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
-                          Ethereum
-                        </Badge>
-                      )}
-                    </CardTitle>
-                  </CardHeader>
-                  
-                  <CardContent className="relative">
-                    <CardDescription className="mb-4">
-                      {wallet.description}
-                    </CardDescription>
-                    
-                    <Button
-                      onClick={() => handleWalletConnect(wallet.type, wallet.id)}
-                      disabled={isConnecting}
-                      className="w-full group-hover:shadow-lg transition-all duration-300"
-                      variant={selectedWallet === wallet.id ? "default" : "outline"}
-                    >
-                      {selectedWallet === wallet.id && isConnecting ? (
-                        <>
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="mr-2"
-                          >
-                            <Zap className="h-4 w-4" />
-                          </motion.div>
-                          Connecting...
-                        </>
-                      ) : (
-                        <>
-                          <Wallet className="mr-2 h-4 w-4" />
-                          Connect Wallet
-                        </>
-                      )}
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          {/* Enhanced Wallet Selector */}
+          <motion.div variants={itemVariants} className="max-w-2xl mx-auto mb-8">
+            <WalletSelector />
           </motion.div>
 
           {/* Features */}
