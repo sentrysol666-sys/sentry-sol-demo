@@ -39,11 +39,55 @@ export default function WalletScreening() {
 
   const handleScreening = async () => {
     if (!isValidAddress || !isReady) return;
-    
+
     try {
-      await runInvestigation(address);
+      if (investigationType === 'full') {
+        // Use multi-agent investigation
+        const result = await mcpApiClient.investigateAddressWithAgents(address, 'full');
+        console.log('Multi-agent investigation result:', result);
+      } else {
+        // Use specific investigation type
+        await runInvestigation(address);
+      }
     } catch (error) {
       console.error('Investigation failed:', error);
+    }
+  };
+
+  const handleBlockchainTracing = async () => {
+    if (!isValidAddress) return;
+
+    setIsTracingLoading(true);
+    try {
+      const result = await mcpApiClient.performBlockchainTracing(address);
+      setTracingData(result);
+      console.log('Blockchain tracing result:', result);
+    } catch (error) {
+      console.error('Blockchain tracing failed:', error);
+    } finally {
+      setIsTracingLoading(false);
+    }
+  };
+
+  const handleGenerateVisualization = async () => {
+    if (!isValidAddress) return;
+
+    setIsVisualizationLoading(true);
+    try {
+      const transactionData = tracingData?.transactionHistory || [];
+      const connectedEntities = tracingData?.connectedEntities || [];
+
+      const result = await mcpApiClient.generateFlowVisualization(
+        address,
+        transactionData,
+        connectedEntities
+      );
+      setVisualizationData(result);
+      console.log('Flow visualization result:', result);
+    } catch (error) {
+      console.error('Flow visualization failed:', error);
+    } finally {
+      setIsVisualizationLoading(false);
     }
   };
 
