@@ -10,7 +10,7 @@ import {
   Verified,
   Business as Building,
   Timeline,
-  Award,
+  Star as Award,
 } from "@mui/icons-material";
 
 export default function About() {
