@@ -120,11 +120,6 @@ export default function Index() {
       
       {/* Line Pattern Background */}
       <div className="fixed inset-0 z-1 opacity-20">
-        <img 
-          src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F4bb3a901209b402298887c7be38d6a6d"
-          alt=""
-          className="w-full h-full object-cover"
-        />
       </div>
 
       {/* Mouse Follower */}
