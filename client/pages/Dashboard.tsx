@@ -70,7 +70,7 @@ export default function Dashboard() {
       id: "graph_analysis",
       name: "Graph Analysis Agent",
       status: "active",
-      icon: BarChart3,
+      icon: BarChartIcon,
       color: "text-success-green",
       bgColor: "bg-success-green/10",
       description: "Using GCN for network pattern recognition",
