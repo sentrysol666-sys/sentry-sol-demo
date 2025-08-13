@@ -9,10 +9,10 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useMCPInvestigation } from '@/hooks/useMCPServices';
 import { mcpApiClient } from '@shared/api-client';
 import FlowVisualization from '@/components/FlowVisualization';
-import { 
-  Search, Shield, AlertTriangle, CheckCircle, XCircle, 
+import {
+  Search, Shield, AlertTriangle, CheckCircle, XCircle,
   Eye, Clock, TrendingUp, Activity, Network, FileText,
-  RefreshCw, Zap, Info
+  RefreshCw, Zap, Info, BarChart3
 } from 'lucide-react';
 
 export default function WalletScreening() {
