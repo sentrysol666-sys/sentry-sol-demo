@@ -12,6 +12,7 @@ import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import WalletScreening from "./pages/WalletScreening";
+import AMLDashboard from "./pages/AMLDashboard";
 import Cases from "./pages/Cases";
 import Analytics from "./pages/Analytics";
 import Compliance from "./pages/Compliance";
