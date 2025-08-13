@@ -32,6 +32,7 @@ const queryClient = new QueryClient();
 function AppLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const isOnboardingPage = location.pathname === "/onboarding";
 
   // Force dark mode
   useEffect(() => {
