@@ -189,6 +189,101 @@ class MCPApiClient {
     
     return result.data!.result;
   }
+
+  // Wallet Analysis Methods
+  async analyzeConnectedWallet(address: string, chain: 'solana' | 'ethereum', walletType: string, connectionData: any = {}): Promise<any> {
+    const response = await fetch(`${this.walletBaseUrl}/analyze-connected`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address, chain, walletType, connectionData }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Connected wallet analysis failed');
+    }
+
+    return result.data!;
+  }
+
+  async analyzeWalletAddress(address: string): Promise<any> {
+    const response = await fetch(`${this.walletBaseUrl}/analyze-address`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Wallet address analysis failed');
+    }
+
+    return result.data!;
+  }
+
+  async getWalletConnectionStatus(address: string): Promise<any> {
+    const response = await fetch(`${this.walletBaseUrl}/connection-status/${address}`);
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to get wallet connection status');
+    }
+
+    return result.data!;
+  }
+
+  async startLiveMonitoring(addresses: string[]): Promise<any> {
+    const response = await fetch(`${this.walletBaseUrl}/live-monitoring`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ addresses }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to start live monitoring');
+    }
+
+    return result.data!;
+  }
+
+  async performEnhancedInvestigation(address: string, investigationType: string = 'full'): Promise<any> {
+    const response = await fetch(`${this.walletBaseUrl}/enhanced-investigation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address, investigationType }),
+    });
+
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Enhanced investigation failed');
+    }
+
+    return result.data!;
+  }
+
+  async getWalletRiskFactors(address: string): Promise<any> {
+    const response = await fetch(`${this.walletBaseUrl}/risk-factors/${address}`);
+    const result: APIResponse<any> = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to get wallet risk factors');
+    }
+
+    return result.data!;
+  }
 }
 
 export const mcpApiClient = new MCPApiClient();
