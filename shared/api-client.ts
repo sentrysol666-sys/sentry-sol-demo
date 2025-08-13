@@ -65,6 +65,7 @@ export interface APIResponse<T> {
 class MCPApiClient {
   private baseUrl = '/api/mcp';
   private walletBaseUrl = '/api/wallet';
+  private amlBaseUrl = '/api/aml';
 
   async getMCPStatus(): Promise<MCPStatus> {
     const response = await fetch(`${this.baseUrl}/status`);
