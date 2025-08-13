@@ -122,6 +122,11 @@ export default function ProtectedRoute({
     );
   }
 
+  // If connected but haven't completed onboarding, redirect to onboarding (except if already on onboarding page)
+  if (isConnected && !hasCompletedOnboarding && location.pathname !== '/onboarding') {
+    return <Navigate to="/onboarding" replace />;
+  }
+
   // If connected or wallet not required, render children
   return <>{children}</>;
 }
