@@ -7,9 +7,6 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
-  BackpackWalletAdapter,
-  GlowWalletAdapter,
-  SolletWalletAdapter,
   LedgerWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
@@ -32,9 +29,6 @@ export const SolanaWalletContext: React.FC<SolanaWalletContextProps> = ({
     () => [
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
-      new BackpackWalletAdapter(),
-      new GlowWalletAdapter(),
-      new SolletWalletAdapter(),
       new LedgerWalletAdapter(),
     ],
     [],

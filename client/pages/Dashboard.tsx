@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,29 +15,30 @@ import { Input } from "@/components/ui/input";
 import MCPServicesStatus from "@/components/MCPServicesStatus";
 import WalletConnectionBanner from "@/components/WalletConnectionBanner";
 import {
-  AlertTriangle,
-  Shield,
-  Brain,
-  Network,
+  Warning as AlertTriangle,
+  Security as Shield,
+  Psychology as Brain,
+  Hub as Network,
   Search,
-  BarChart3,
+  BarChart as BarChart3,
   TrendingUp,
   TrendingDown,
-  Activity,
-  Clock,
+  Timeline as Activity,
+  Schedule as Clock,
   CheckCircle,
-  XCircle,
-  Eye,
-  Users,
-  FileText,
+  Cancel as XCircle,
+  Visibility as Eye,
+  Groups as Users,
+  Description as FileText,
   Settings,
-  Zap,
-  AlertCircle,
+  Bolt as Zap,
+  ErrorOutline as AlertCircle,
   Info,
-  RefreshCw,
-} from "lucide-react";
+  Refresh as RefreshCw,
+} from "@mui/icons-material";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
 
   // Mock data for demonstration
@@ -429,6 +431,7 @@ export default function Dashboard() {
                   >
                     Screen Address
                   </Button>
+
                   <div className="grid grid-cols-2 gap-2 mt-4">
                     <Button variant="outline" size="sm">
                       <FileText className="mr-1 h-3 w-3" />

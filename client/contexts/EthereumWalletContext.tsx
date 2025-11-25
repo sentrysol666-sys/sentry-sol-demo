@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { MetaMaskProvider } from "@metamask/sdk-react";
 import { ethers, BrowserProvider, JsonRpcSigner } from "ethers";
+import { logWalletError, shouldShowErrorToUser } from "@/utils/errorUtils";
 
 interface EthereumWalletState {
   isConnected: boolean;
@@ -41,8 +42,16 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
     const checkConnection = async () => {
       if (typeof window.ethereum !== "undefined") {
         try {
+          // Add timeout to prevent hanging requests
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Connection timeout")), 5000),
+          );
+
           const provider = new BrowserProvider(window.ethereum);
-          const accounts = await provider.listAccounts();
+          const accounts = (await Promise.race([
+            provider.listAccounts(),
+            timeoutPromise,
+          ])) as any;
           if (accounts.length > 0) {
             const signer = await provider.getSigner();
             const network = await provider.getNetwork();
@@ -55,8 +64,23 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
             setBalance(ethers.formatEther(balance));
             setIsConnected(true);
           }
-        } catch (error) {
-          console.error("Error checking wallet connection:", error);
+        } catch (error: any) {
+          const walletError = logWalletError(
+            "EthereumWallet.checkConnection",
+            error,
+            {
+              hasEthereum: typeof window.ethereum !== "undefined",
+              isMetaMask: window.ethereum?.isMetaMask,
+            },
+          );
+
+          // Silently handle network errors and user rejections to avoid console spam
+          if (
+            walletError.type === "network_error" ||
+            walletError.type === "user_rejection"
+          ) {
+            return;
+          }
         }
       }
     };
@@ -96,9 +120,26 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
   const updateBalance = async (address: string) => {
     if (provider) {
       try {
-        const balance = await provider.getBalance(address);
+        // Add timeout to prevent hanging requests
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Balance fetch timeout")), 3000),
+        );
+
+        const balance = (await Promise.race([
+          provider.getBalance(address),
+          timeoutPromise,
+        ])) as any;
+
         setBalance(ethers.formatEther(balance));
       } catch (error) {
+        // Silently handle network errors for balance updates
+        if (
+          error instanceof Error &&
+          (error.message.includes("Failed to fetch") ||
+            error.message.includes("timeout"))
+        ) {
+          return; // Don't spam console with network errors
+        }
         console.error("Error updating balance:", error);
       }
     }
@@ -122,9 +163,36 @@ export const EthereumWalletProvider: React.FC<EthereumWalletProviderProps> = ({
         setChainId(Number(network.chainId));
         setBalance(ethers.formatEther(balance));
         setIsConnected(true);
-      } catch (error) {
-        console.error("Error connecting to MetaMask:", error);
-        throw error;
+      } catch (error: any) {
+        const walletError = logWalletError("EthereumWallet.connect", error, {
+          wallet: "MetaMask",
+          method: "eth_requestAccounts",
+        });
+
+        // Don't throw for user rejections or network issues that should be silent
+        if (walletError.type === "user_rejection") {
+          console.log("User rejected wallet connection");
+          return;
+        }
+
+        if (
+          walletError.type === "network_error" &&
+          walletError.message.includes("Failed to fetch")
+        ) {
+          console.warn(
+            "Network connectivity issue detected, will retry automatically",
+          );
+          return;
+        }
+
+        // Only throw errors that should be shown to users
+        if (shouldShowErrorToUser(walletError)) {
+          const friendlyError = new Error(walletError.message);
+          if (walletError.code) {
+            (friendlyError as any).code = walletError.code;
+          }
+          throw friendlyError;
+        }
       }
     } else {
       throw new Error("MetaMask is not installed");
@@ -186,11 +254,25 @@ export const MetaMaskWalletProvider: React.FC<EthereumWalletProviderProps> = ({
       name: "Sentrysol AML Platform",
       url: window.location.host,
     },
-    infuraAPIKey: process.env.VITE_INFURA_API_KEY,
+    // Remove infuraAPIKey to avoid network errors when not configured
+    ...(import.meta.env.VITE_INFURA_API_KEY && {
+      infuraAPIKey: import.meta.env.VITE_INFURA_API_KEY,
+    }),
   };
 
   return (
-    <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
+    <MetaMaskProvider
+      debug={false}
+      sdkOptions={{
+        ...sdkOptions,
+        // Disable analytics to avoid FullStory network errors
+        enableAnalytics: false,
+        // Add network timeout and retry configuration
+        communicationServerUrl: undefined,
+        // Reduce network calls
+        checkInstallationImmediately: false,
+      }}
+    >
       <EthereumWalletProvider>{children}</EthereumWalletProvider>
     </MetaMaskProvider>
   );

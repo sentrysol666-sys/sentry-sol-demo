@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,49 +12,55 @@
    * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 20% 25%;
+    --background: 210 20% 98%;
+    --foreground: 224 12% 32%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 20% 25%;
+    --card-foreground: 224 12% 32%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 20% 25%;
+    --popover-foreground: 224 12% 32%;
 
-    --primary: 225 23% 34%;
+    --primary: 220 50% 50%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 224 20% 25%;
+    --secondary: 210 30% 96%;
+    --secondary-foreground: 224 12% 32%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 224 15% 56%;
+    --muted: 210 25% 94%;
+    --muted-foreground: 224 10% 52%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 224 20% 25%;
+    --accent: 210 25% 92%;
+    --accent-foreground: 224 12% 32%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 225 23% 34%;
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 220 50% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Custom Brand Colors */
-    --brand-dark: 224 20% 25%; /* #404258 */
-    --brand-medium: 224 19% 29%; /* #474E68 */
-    --brand-light: 225 23% 34%; /* #50577A */
-    --brand-accent: 224 15% 56%; /* #6B728E */
-    --risk-red: 0 84% 60%;
-    --warning-amber: 38 92% 50%;
-    --success-green: 142 71% 45%;
-    --chart-1: 225 23% 34%;
-    --chart-2: 224 19% 29%;
-    --chart-3: 38 92% 50%;
-    --chart-4: 0 84% 60%;
-    --chart-5: 142 71% 45%;
+    /* SentrySol Brand Colors */
+    --sentry-dark: 0 0% 0%; /* Pure black */
+    --sentry-teal: 190 30% 35%; /* #395B64 */
+    --sentry-light-teal: 180 25% 75%; /* #A5C9CA */
+    --sentry-mint: 152 25% 85%; /* #E7F6F2 */
+    --sentry-ice: 180 15% 90%; /* #CFE0E3 */
+    --sentry-steel: 180 20% 65%; /* #92BAC1 */
+    --brand-dark: 220 35% 35%; /* Softer dark blue */
+    --brand-medium: 220 30% 45%; /* Medium blue */
+    --brand-light: 220 40% 55%; /* Light blue */
+    --brand-accent: 220 25% 65%; /* Very light accent */
+    --risk-red: 0 60% 50%; /* Softer red */
+    --warning-amber: 35 70% 50%; /* Softer amber */
+    --success-green: 142 50% 45%; /* Softer green */
+    --chart-1: 220 40% 55%;
+    --chart-2: 220 30% 45%;
+    --chart-3: 35 70% 50%;
+    --chart-4: 0 60% 50%;
+    --chart-5: 142 50% 45%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -73,47 +80,53 @@
   }
 
   .dark {
-    --background: 224 20% 25%;
-    --foreground: 0 0% 98%;
+    --background: 224 15% 18%;
+    --foreground: 210 15% 88%;
 
-    --card: 224 19% 29%;
-    --card-foreground: 0 0% 98%;
+    --card: 224 12% 22%;
+    --card-foreground: 210 15% 88%;
 
-    --popover: 224 19% 29%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 224 12% 22%;
+    --popover-foreground: 210 15% 88%;
 
-    --primary: 224 15% 56%;
-    --primary-foreground: 224 20% 25%;
+    --primary: 220 40% 60%;
+    --primary-foreground: 224 15% 18%;
 
-    --secondary: 225 23% 34%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 224 10% 25%;
+    --secondary-foreground: 210 15% 88%;
 
-    --muted: 225 23% 34%;
-    --muted-foreground: 224 15% 65%;
+    --muted: 224 8% 28%;
+    --muted-foreground: 210 8% 65%;
 
-    --accent: 225 23% 34%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 224 8% 30%;
+    --accent-foreground: 210 15% 88%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 60% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 225 23% 34%;
-    --input: 225 23% 34%;
-    --ring: 224 15% 56%;
+    --border: 224 8% 32%;
+    --input: 224 8% 32%;
+    --ring: 220 40% 60%;
 
-    /* Custom Brand Colors - Dark Mode */
-    --brand-dark: 224 20% 25%;
-    --brand-medium: 224 19% 29%;
-    --brand-light: 225 23% 34%;
-    --brand-accent: 224 15% 56%;
-    --risk-red: 0 84% 60%;
-    --warning-amber: 38 92% 50%;
-    --success-green: 142 71% 45%;
-    --chart-1: 224 15% 56%;
-    --chart-2: 225 23% 34%;
-    --chart-3: 38 92% 50%;
-    --chart-4: 0 84% 60%;
-    --chart-5: 142 71% 45%;
+    /* SentrySol Brand Colors - Dark Mode */
+    --sentry-dark: 0 0% 0%; /* Pure black */
+    --sentry-teal: 190 30% 35%; /* #395B64 */
+    --sentry-light-teal: 180 25% 75%; /* #A5C9CA */
+    --sentry-mint: 152 25% 85%; /* #E7F6F2 */
+    --sentry-ice: 180 15% 90%; /* #CFE0E3 */
+    --sentry-steel: 180 20% 65%; /* #92BAC1 */
+    --brand-dark: 224 15% 18%;
+    --brand-medium: 224 12% 25%;
+    --brand-light: 220 35% 55%;
+    --brand-accent: 220 25% 70%;
+    --risk-red: 0 55% 60%;
+    --warning-amber: 35 65% 60%;
+    --success-green: 142 45% 55%;
+    --chart-1: 220 35% 55%;
+    --chart-2: 224 12% 25%;
+    --chart-3: 35 65% 60%;
+    --chart-4: 0 55% 60%;
+    --chart-5: 142 45% 55%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -141,5 +154,33 @@
   body {
     @apply bg-background text-foreground;
     font-family: "Poppins", sans-serif;
+  }
+
+  /* SentrySol specific utilities */
+  .font-poppins {
+    font-family: "Poppins", sans-serif;
+  }
+
+  .font-mono {
+    font-family: "Roboto Mono", monospace;
+  }
+
+  .text-sentry-ice {
+    color: hsl(var(--sentry-ice));
+  }
+
+  .bg-sentry-gradient {
+    background: linear-gradient(180deg, #000 0%, #395B64 50%, #395B64 75%, #000 100%);
+  }
+
+  .bg-sentry-teal {
+    background-color: #395B64;
+  }
+
+  .text-gradient-mint {
+    background: linear-gradient(90deg, #A5C9CA 0%, #E7F6F2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

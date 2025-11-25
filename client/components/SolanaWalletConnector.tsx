@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Copy, ExternalLink } from "lucide-react";
+import { ContentCopy as Copy, OpenInNew as ExternalLink } from "@mui/icons-material";
 import { useToast } from "@/hooks/use-toast";
 
 export const SolanaWalletConnector: React.FC = () => {

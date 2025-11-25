@@ -7,16 +7,16 @@ import { createServer } from "./server";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0", // Allow external connections
-    port: 8080,
-    strictPort: true, // Exit if port 8080 is not available
-    open: true, // Open browser automatically
+    port: 5173,
+    strictPort: false, // Allow fallback to next available port
+    open: false, // Don't open browser automatically in container
     cors: true, // Enable CORS for development
     fs: {
-      allow: ["./client", "./shared"],
+      allow: ["./client", "./shared", "./node_modules"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
     hmr: {
-      port: 8081, // Use different port for HMR to avoid conflicts
+      port: 5174, // Use different port for HMR to avoid conflicts
     },
   },
   build: {

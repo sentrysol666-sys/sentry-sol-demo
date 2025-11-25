@@ -20,22 +20,22 @@ import WalletGuard from "@/components/WalletGuard";
 import { useWalletIntegration } from "@/hooks/useWalletIntegration";
 import {
   Search,
-  Shield,
-  AlertTriangle,
+  Security as Shield,
+  Warning as AlertTriangle,
   CheckCircle,
-  XCircle,
-  Eye,
-  Clock,
+  Cancel as XCircle,
+  Visibility as Eye,
+  Schedule as Clock,
   TrendingUp,
-  Activity,
-  Network,
-  FileText,
-  RefreshCw,
-  Zap,
+  Timeline as Activity,
+  Hub as Network,
+  Description as FileText,
+  Refresh as RefreshCw,
+  Bolt as Zap,
   Info,
-  BarChart3,
-  Wallet,
-} from "lucide-react";
+  BarChart as BarChart3,
+  AccountBalanceWallet as Wallet,
+} from "@mui/icons-material";
 
 export default function WalletScreening() {
   const [address, setAddress] = useState("");

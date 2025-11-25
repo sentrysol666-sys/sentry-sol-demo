@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useWalletIntegration } from "@/hooks/useWalletIntegration";
 import {
@@ -12,190 +14,276 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Menu,
-  Shield,
-  BarChart3,
+  Menu as MenuIcon,
   Search,
-  FileText,
+  Close as XIcon,
+  Security as Shield,
+  BarChart as BarChart3,
+  Description as FileText,
   Settings,
-  Users,
-  Bell,
-  ChevronDown,
-  User,
-  LogOut,
-  HelpCircle,
-  Wallet,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
+  Analytics,
+  Verified,
+} from "@mui/icons-material";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
-  const { isConnected, connectedWallets, activeWallet } =
-    useWalletIntegration();
+  const navigate = useNavigate();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const { isConnected } = useWalletIntegration();
 
-  const navigationItems = [
+  // Check if user is on an internal/authenticated page
+  const isInternalPage =
+    isConnected &&
+    (location.pathname.startsWith("/dashboard") ||
+      location.pathname.startsWith("/aml-dashboard") ||
+      location.pathname.startsWith("/wallet-screening") ||
+      location.pathname.startsWith("/cases") ||
+      location.pathname.startsWith("/analytics") ||
+      location.pathname.startsWith("/compliance") ||
+      location.pathname.startsWith("/settings"));
+
+  const externalNavigationItems = [
+    { name: "Products", href: "/products" },
+    { name: "About", href: "/about" },
+    { name: "Docs", href: "/docs" },
+    { name: "Pricing", href: "/pricing" },
+  ];
+
+  const internalNavigationItems = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
     { name: "AML Investigation", href: "/aml-dashboard", icon: Shield },
     { name: "Wallet Screening", href: "/wallet-screening", icon: Search },
     { name: "Case Management", href: "/cases", icon: FileText },
-    { name: "Analytics", href: "/analytics", icon: BarChart3 },
-    { name: "Compliance", href: "/compliance", icon: Shield },
-    { name: "Settings", href: "/settings", icon: Settings },
+    { name: "Analytics", href: "/analytics", icon: Analytics },
   ];
+
+  const navigationItems = isInternalPage
+    ? internalNavigationItems
+    : externalNavigationItems;
 
   const isActive = (href: string) => location.pathname === href;
 
+  const handleConnectWallet = () => {
+    // Always navigate to signin page to show wallet selector
+    navigate("/signin");
+  };
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4">
-        {/* Logo */}
-        <div className="flex items-center space-x-4">
-          <Link to="/" className="flex items-center space-x-3">
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={
+        isInternalPage
+          ? "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+          : "fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl"
+      }
+    >
+      <div
+        className={
+          isInternalPage
+            ? "container flex h-16 items-center justify-between px-4"
+            : "relative"
+        }
+      >
+        {/* External page glassmorphism background */}
+        {!isInternalPage && (
+          <div className="absolute inset-0 bg-white/10 backdrop-blur-lg border border-white/20 rounded-[100px] shadow-2xl" />
+        )}
+
+        {/* Navigation content */}
+        <div
+          className={
+            isInternalPage
+              ? "flex items-center space-x-4"
+              : "relative flex items-center justify-between px-5 lg:px-8 py-7 h-[120px] w-full"
+          }
+        >
+          {/* Logo */}
+          <Link
+            to={isInternalPage ? "/dashboard" : "/"}
+            className="flex items-center space-x-3"
+          >
             <img
-              src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+              src={
+                isInternalPage
+                  ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+                  : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
+              }
               alt="Sentrysol Logo"
-              className="h-8 w-auto"
+              className={
+                isInternalPage ? "h-8 w-auto" : "h-[65px] w-auto object-contain"
+              }
             />
-            <span className="font-bold text-xl font-poppins bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
-              Sentrysol
-            </span>
-            <Badge
-              variant="secondary"
-              className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20"
-            >
-              Beta
-            </Badge>
-          </Link>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center space-x-1">
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link key={item.name} to={item.href}>
-                <Button
-                  variant={isActive(item.href) ? "secondary" : "ghost"}
-                  size="sm"
-                  className={`flex items-center space-x-2 ${
-                    isActive(item.href)
-                      ? "bg-brand-light/10 text-brand-light"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+            {isInternalPage && (
+              <>
+                <span className="font-bold text-xl font-poppins bg-gradient-to-r from-brand-light to-brand-accent bg-clip-text text-transparent">
+                  Sentrysol
+                </span>
+                <Badge
+                  variant="secondary"
+                  className="text-xs bg-brand-light/10 text-brand-light border-brand-light/20"
                 >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </Button>
-              </Link>
-            );
-          })}
-        </div>
+                  Beta
+                </Badge>
+              </>
+            )}
+          </Link>
 
-        {/* Right Side */}
-        <div className="flex items-center space-x-4">
-          {/* Wallet Status */}
-          <div className="hidden md:flex items-center space-x-2">
-            {isConnected ? (
-              <div className="flex items-center space-x-1">
-                <CheckCircle className="h-4 w-4 text-success-green" />
-                <span className="text-xs text-success-green">
-                  {activeWallet === "solana" ? "Solana" : "Ethereum"} Connected
-                </span>
-                {connectedWallets.solana && (
-                  <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
-                )}
-                {connectedWallets.ethereum && (
-                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
-                )}
-              </div>
-            ) : (
-              <div className="flex items-center space-x-1">
-                <XCircle className="h-4 w-4 text-warning-amber" />
-                <span className="text-xs text-warning-amber font-medium">
-                  Connect Wallet Required
-                </span>
-              </div>
+          {/* Desktop Navigation */}
+          <div
+            className={
+              isInternalPage
+                ? "hidden lg:flex items-center space-x-1"
+                : "hidden lg:flex items-center space-x-12"
+            }
+          >
+            {navigationItems.map((item) => {
+              const Icon = "icon" in item ? item.icon : null;
+              return (
+                <motion.div
+                  key={item.name}
+                  whileHover={{ scale: isInternalPage ? 1.02 : 1.05 }}
+                  whileTap={{ scale: isInternalPage ? 0.98 : 0.95 }}
+                >
+                  <Link to={item.href}>
+                    {isInternalPage ? (
+                      <Button
+                        variant={isActive(item.href) ? "secondary" : "ghost"}
+                        size="sm"
+                        className={`flex items-center space-x-2 transition-all duration-200 ${
+                          isActive(item.href)
+                            ? "bg-brand-light/10 text-brand-light shadow-sm border border-brand-light/20"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        }`}
+                      >
+                        {Icon && <Icon className="h-4 w-4" />}
+                        <span className="font-medium">{item.name}</span>
+                      </Button>
+                    ) : (
+                      <span
+                        className={`text-white font-poppins text-2xl font-medium transition-all duration-300 hover:text-white/80 ${
+                          isActive(item.href) ? "text-white" : "text-white/90"
+                        }`}
+                      >
+                        {item.name}
+                      </span>
+                    )}
+                  </Link>
+                </motion.div>
+              );
+            })}
+
+            {/* Connect Button (only for external pages) */}
+            {!isInternalPage && (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  onClick={handleConnectWallet}
+                  className="bg-white text-black font-poppins text-2xl font-medium px-8 py-3 rounded-[30px] hover:bg-white/90 transition-all duration-300 h-[44px] min-w-[124px]"
+                >
+                  Connect
+                </Button>
+              </motion.div>
             )}
           </div>
 
-          {/* Notifications */}
-          <Button variant="ghost" size="sm" className="relative">
-            <Bell className="h-4 w-4" />
-            <span className="absolute -top-1 -right-1 h-2 w-2 bg-risk-red rounded-full"></span>
-          </Button>
+          {/* Search Box (only for external pages) */}
+          {!isInternalPage && (
+            <div className="hidden lg:flex relative">
+              <div className="relative w-[256px] h-[43px]">
+                <div className="absolute inset-0 border border-white/47 rounded-[100px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]" />
+                <Input
+                  ref={searchInputRef}
+                  placeholder="I'am looking for..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onBlur={() => setIsSearchFocused(false)}
+                  className="absolute inset-0 bg-transparent border-0 text-white placeholder:text-white/57 font-poppins text-sm italic px-6 pr-12 rounded-[100px] focus:outline-none focus:ring-0"
+                />
+                <div className="absolute right-[9px] top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center">
+                  <Search className="w-[18px] h-[18px] text-white/35" />
+                </div>
+              </div>
+            </div>
+          )}
 
-          {/* User Menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2">
-                <Avatar className="h-7 w-7">
-                  <AvatarImage src="/placeholder-avatar.png" alt="User" />
-                  <AvatarFallback>AI</AvatarFallback>
-                </Avatar>
-                <span className="hidden md:block text-sm">
-                  AML Investigator
-                </span>
-                <ChevronDown className="h-3 w-3 opacity-50" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <HelpCircle className="mr-2 h-4 w-4" />
-                <span>Help & Support</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Mobile Menu */}
+          {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="sm">
-                <Menu className="h-4 w-4" />
+              <Button
+                variant="ghost"
+                size="sm"
+                className={
+                  isInternalPage
+                    ? "hover:bg-muted/50"
+                    : "text-white hover:bg-white/10"
+                }
+              >
+                <MenuIcon
+                  className={`h-6 w-6 ${isInternalPage ? "text-foreground" : "text-white"}`}
+                />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent
+              side="right"
+              className={
+                isInternalPage
+                  ? ""
+                  : "bg-black/95 backdrop-blur-lg border-white/20"
+              }
+            >
               <SheetHeader>
-                <SheetTitle className="flex items-center space-x-2">
+                <SheetTitle
+                  className={`flex items-center space-x-2 ${isInternalPage ? "text-foreground" : "text-white"}`}
+                >
                   <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
-                    alt="Sentrysol Logo"
-                    className="h-6 w-auto"
+                    src={
+                      isInternalPage
+                        ? "https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2F826ace91fdc34714bf7a23bdee716138?format=webp&width=800"
+                        : "https://api.builder.io/api/v1/image/assets/TEMP/47ee3c2af2845a8357220360ddf773d731c9ce1a?width=750"
+                    }
+                    alt="Logo"
+                    className="h-8 w-auto"
                   />
-                  <span className="font-poppins">Sentrysol</span>
+                  {isInternalPage && (
+                    <span className="font-poppins">Sentrysol</span>
+                  )}
                 </SheetTitle>
-                <SheetDescription>
-                  AI-Powered AML/Compliance Platform
+                <SheetDescription
+                  className={
+                    isInternalPage ? "text-muted-foreground" : "text-white/70"
+                  }
+                >
+                  {isInternalPage
+                    ? "AI-Powered AML/Compliance Platform"
+                    : "Navigation Menu"}
                 </SheetDescription>
               </SheetHeader>
+
               <div className="mt-6 space-y-2">
+                {/* Mobile Search (only for external) */}
+                {!isInternalPage && (
+                  <div className="relative mb-6">
+                    <Input
+                      placeholder="I'am looking for..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="bg-white/10 border-white/30 text-white placeholder:text-white/60 rounded-full pl-4 pr-10"
+                    />
+                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
+                  </div>
+                )}
+
+                {/* Mobile Navigation Items */}
                 {navigationItems.map((item) => {
-                  const Icon = item.icon;
+                  const Icon = "icon" in item ? item.icon : null;
                   return (
                     <Link
                       key={item.name}
@@ -206,21 +294,44 @@ export default function Navigation() {
                         variant={isActive(item.href) ? "secondary" : "ghost"}
                         className={`w-full justify-start ${
                           isActive(item.href)
-                            ? "bg-brand-light/10 text-brand-light"
-                            : "text-muted-foreground"
+                            ? isInternalPage
+                              ? "bg-brand-light/10 text-brand-light"
+                              : "bg-white/20 text-white"
+                            : isInternalPage
+                              ? "text-muted-foreground"
+                              : "text-white"
                         }`}
                       >
-                        <Icon className="mr-2 h-4 w-4" />
+                        {Icon && <Icon className="mr-2 h-4 w-4" />}
                         {item.name}
                       </Button>
                     </Link>
                   );
                 })}
+
+                {/* Mobile Connect Button (only for external) */}
+                {!isInternalPage && (
+                  <Button
+                    onClick={() => {
+                      handleConnectWallet();
+                      setIsOpen(false);
+                    }}
+                    className="w-full bg-white text-black font-poppins text-xl font-medium py-3 rounded-full hover:bg-white/90 transition-colors mt-6"
+                  >
+                    Connect
+                  </Button>
+                )}
               </div>
             </SheetContent>
           </Sheet>
         </div>
+        {/* Close the internal page flex container */}
+        {isInternalPage && (
+          <div className="flex items-center space-x-3">
+            {/* Placeholder for right-side content like notifications, user menu etc. */}
+          </div>
+        )}
       </div>
-    </nav>
+    </motion.nav>
   );
 }

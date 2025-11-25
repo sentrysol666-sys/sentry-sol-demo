@@ -10,7 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Copy, ExternalLink, AlertCircle } from "lucide-react";
+import {
+  ContentCopy as Copy,
+  OpenInNew as ExternalLink,
+  ErrorOutline as AlertCircle,
+} from "@mui/icons-material";
 import { useToast } from "@/hooks/use-toast";
 import { CHAIN_CONFIGS } from "@/types/wallet";
 
@@ -41,9 +45,27 @@ export const EthereumWalletConnector: React.FC = () => {
         description: "Successfully connected to MetaMask",
       });
     } catch (error: any) {
+      let errorMessage = "Failed to connect wallet";
+
+      if (error && typeof error === "object") {
+        if (error.code === 4001) {
+          errorMessage = "Connection cancelled by user";
+        } else if (error.code === -32002) {
+          errorMessage = "Connection request already pending";
+        } else if (error.message) {
+          errorMessage = error.message;
+        } else if (error.reason) {
+          errorMessage = error.reason;
+        }
+      } else if (typeof error === "string") {
+        errorMessage = error;
+      }
+
+      console.error("Wallet connection error:", error);
+
       toast({
         title: "Connection Failed",
-        description: error.message || "Failed to connect wallet",
+        description: errorMessage,
         variant: "destructive",
       });
     }
@@ -145,7 +167,7 @@ export const EthereumWalletConnector: React.FC = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <img
-              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iI0Y2ODUxQiIvPgo8cGF0aCBkPSJNMTYuMjYyIDIuOTM2OUwxNS44MzE4IDQuMjE2NjRWMjEuNjY4M0wxNi4yNjIgMjIuMDkxOEwyMy45MzA2IDE3LjM3MzVMMTYuMjYyIDIuOTM2OVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIuOTM2OUw4LjU5Mzc1IDE3LjM3MzVMMTYuMjYyNCAyMi4wOTE4VjEyLjcxNzdWMi45MzY5WiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC42Ii8+CjxwYXRoIGQ9Ik0xNi4yNjI0IDIzLjcyNThMMTYuMDQ1OCAyMy45ODI3VjI5LjA0MkwxNi4yNjI0IDI5LjYzMjZMMjMuOTM0NSAxOS4wMDVMMTYuMjYyNCAyMy43MjU4WiIgZmlsbD0id2hpdGUiLz4KPHA="
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa00bfe7e1f794ae8a236be99e51db530%2Fed7437292971473ea3d69203802c3382?format=webp&width=800"
               alt="MetaMask"
               className="w-6 h-6"
             />
